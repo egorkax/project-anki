@@ -1,0 +1,26 @@
+.label {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.checkbox {
+    appearance: none; /*это свойствро изменяет внешний вид элемента интерфейса, но сохраняет его функции*/
+    width: 30px;
+    height: 30px;
+
+    margin-right: 10px;
+    background: black;
+}
+.checkbox:checked{
+    appearance: none;
+    background-image: url("index.png");
+}
+.checkbox:focus{
+    outline: chartreuse solid 1px;
+}
+
+.spanClassName {
+
+}
