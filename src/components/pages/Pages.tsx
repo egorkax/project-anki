@@ -1,7 +1,7 @@
 import React from 'react'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "./pages-components/Login";
-import {Registration} from "./pages-components/Registration";
+import {SignUp} from "./pages-components/SignUp";
 import {RecoveryPass} from "./pages-components/RecoveryPass";
 import {NewPass} from "./pages-components/NewPass";
 import {Test} from "./pages-components/test/Test";
@@ -17,7 +17,7 @@ export const Pages = () => {
                 <Route path={'/'} element={<Navigate to={'/registration'}/>}/>
 
                 <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/registration'} element={<Registration/>}/>
+                <Route path={'/registration'} element={<SignUp/>}/>
                 <Route path={'/password-recovery'} element={<RecoveryPass/>}/>
                 <Route path={'/new-password'} element={<NewPass/>}/>
                 <Route path={'/test'} element={<Test/>}/>

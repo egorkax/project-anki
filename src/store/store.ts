@@ -5,9 +5,7 @@ import {generalReducer} from "./general-reducer";
 
 
 const rootReducer = combineReducers({
-
     data:generalReducer
-
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
