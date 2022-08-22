@@ -5,3 +5,8 @@
 ::after {
     font-family: 'Montserrat', sans-serif;
 }
+
+.App {
+    background: #F9F9FA;
+    min-height: 100vh;
+}

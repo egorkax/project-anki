@@ -12,6 +12,11 @@
     border-radius: 30px;
 }
 
+.button a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
 .authButton {
     width: 347px;
 }
