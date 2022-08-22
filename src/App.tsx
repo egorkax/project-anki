@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './authBlocks.css'
 import {Header} from "./components/header/Header";
 import {HashRouter} from "react-router-dom";
 import {Pages} from "./components/pages/Pages";
