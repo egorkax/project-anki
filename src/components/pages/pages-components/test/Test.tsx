@@ -61,6 +61,11 @@ export const Test = () => {
                 </SuperButton>
                 <br/>
 
+                <SuperButton superClassName='deleteButton'>
+                    Delete button
+                </SuperButton>
+                <br/>
+
 
                 <SuperButton disabled>
                     disabled

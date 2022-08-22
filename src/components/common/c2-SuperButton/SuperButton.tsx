@@ -4,7 +4,7 @@ import s from './SuperButton.module.css'
 // тип пропсов обычной кнопки, children в котором храниться название кнопки там уже описан
 type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
-type superClassNameType = 'whiteButton' | 'withIcon' | 'longButton' | 'authButton'
+type superClassNameType = 'whiteButton' | 'withIcon' | 'deleteButton' | 'authButton'
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
     superClassName?: superClassNameType
