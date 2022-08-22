@@ -1,8 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
+import SuperInputText from '../../../common/c1-SuperInputText/SuperInputText';
+import SuperButton from '../../../common/c2-SuperButton/SuperButton';
+import SuperCheckbox from '../../../common/c3-SuperCheckbox/SuperCheckbox';
 import s from './test.module.css'
-import SuperInputText from "./test-components/c1-SuperInputText/SuperInputText";
-import SuperButton from "./test-components/c2-SuperButton/SuperButton";
-import SuperCheckbox from "./test-components/c3-SuperCheckbox/SuperCheckbox";
+import icon from '../../../../assets/icons/logout.svg'
+
 
 export const Test = () => {
     const [text, setText] = useState<string>('')
@@ -34,21 +36,33 @@ export const Test = () => {
                     className={s.blue} // проверьте, рабоет ли смешивание классов
                 />
 
-
+                <br/>
                 <SuperButton>
-                    default
+                    Default
                 </SuperButton>
+                <br/>
 
-                <SuperButton
-                    red // пропсу с булевым значением не обязательно указывать true
-                    onClick={showAlert}
-                >
-                    delete {/*// название кнопки попадёт в children*/}
+                <SuperButton superClassName='whiteButton'>
+                    White
                 </SuperButton>
+                <br/>
+
+                <SuperButton superClassName='withIcon'>
+                    <img src={icon}/>
+                    <span>With icon</span>
+                </SuperButton>
+                <br/>
+
+                <SuperButton superClassName='authButton'>
+                    Long button
+                </SuperButton>
+                <br/>
+
 
                 <SuperButton disabled>
                     disabled
                 </SuperButton>
+                <br/>
 
                 {/*----------------------------------------------------*/}
 
