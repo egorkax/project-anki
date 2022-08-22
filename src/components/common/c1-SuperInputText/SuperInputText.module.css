@@ -69,28 +69,3 @@ input:focus {
     top: -5px;
     transform: translate(-50%, 0) rotate(45deg);
 }
-
-/*.input:focus {*/
-/*    outline: none;*/
-/*    border: 3px solid lime;*/
-
-/*}*/
-
-/*.superInput {*/
-/*    margin: 10px;*/
-/*    background-color: chartreuse;*/
-
-/*}*/
-
-/*.errorInput {*/
-/*    margin: 10px;*/
-/*    border: 3px solid lime;*/
-/*    background: red;*/
-/*    color: black;*/
-/*}*/
-
-/*.error {*/
-/*    color: red;*/
-/*    height: 23px;*/
-/*    margin-left: 10px;*/
-/*}*/
