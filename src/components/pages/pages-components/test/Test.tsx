@@ -7,16 +7,15 @@ import icon from '../../../../assets/icons/logout.svg'
 
 
 export const Test = () => {
-    const [text, setText] = useState<string>('')
-    const error = text ? '' : 'error'
-
-    const showAlert = () => {
-        if (error) {
-            alert('введите текст...')
-        } else {
-            alert(text) // если нет ошибки показать текст
-        }
-    }
+    // const error = text ? '' : 'error'
+    //
+    // const showAlert = () => {
+    //     if (error) {
+    //         alert('введите текст...')
+    //     } else {
+    //         alert(text) // если нет ошибки показать текст
+    //     }
+    // }
 
     const [checked, setChecked] = useState<boolean>(false)
     const testOnChange = (e: ChangeEvent<HTMLInputElement>) => setChecked(e.currentTarget.checked)
@@ -25,15 +24,19 @@ export const Test = () => {
         <div>
             <div className={s.column}>
                 <SuperInputText
-                    value={text}
-                    onChangeText={setText}
-                    onEnter={showAlert}
-                    error={error}
+                    label={'Email'}
+                    name={'email'}
+                    type={'email'}
                     // spanClassName={s.testSpanError}
                 />
 
+                <br/>
+
                 <SuperInputText
-                    className={s.blue} // проверьте, рабоет ли смешивание классов
+                    label={'Password'}
+                    name={'password'}
+                    type={'password'}
+                    // spanClassName={s.testSpanError}
                 />
 
                 <br/>
