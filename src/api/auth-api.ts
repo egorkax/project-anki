@@ -1,4 +1,4 @@
-import { signUpDataType } from "../store/auth-reducer";
+import { signUpDataType } from "../store/signup-reducer";
 import {instance} from "./instance";
 
 export const authAPI = {

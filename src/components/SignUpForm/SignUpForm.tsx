@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
-import {signUp} from "../../store/auth-reducer";
+import {signUp} from "../../store/signup-reducer";
 
 export const SignUpForm = () => {
 

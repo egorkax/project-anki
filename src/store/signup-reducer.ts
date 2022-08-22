@@ -13,7 +13,7 @@ const initialState: initialStateType = {
     error: '',
 }
 
-export const authReducer = (state = initialState, action: actionType): initialStateType => {
+export const signupReducer = (state = initialState, action: actionType): initialStateType => {
     switch (action.type) {
         case AUTH_TYPES.CHANGE_IS_AUTH:
             return {...state, isAuth: action.isAuth}
