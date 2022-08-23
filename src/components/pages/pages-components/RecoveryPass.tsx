@@ -7,9 +7,9 @@ import {ForgotPass} from "./ForgotPass";
 
 export const RecoveryPass = () => {
   const isSentData = useSelector<AppRootStateType, boolean>(state => state.recovery.isSentData)
-  if (isSentData) {
-    return <CheckEmail/>
-  } else {
+  if (!isSentData) {
     return <ForgotPass/>
+  } else {
+    return <CheckEmail/>
   }
 }
