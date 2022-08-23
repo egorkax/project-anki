@@ -1,7 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/auth-api";
 import axios, {AxiosError} from "axios";
-import {Simulate} from "react-dom/test-utils";
 
 enum AUTH_TYPES {
     CHANGE_IS_AUTH = 'project_anki/auth/CHANGE_IS_AUTH',
@@ -23,11 +22,11 @@ export const signupReducer = (state = initialState, action: actionType): initial
 }
 
 //actions
-const changeIsAuth = (isAuth: boolean) => ({type: AUTH_TYPES.CHANGE_IS_AUTH, isAuth} as const)
+export const changeIsAuth = (isAuth: boolean) => ({type: AUTH_TYPES.CHANGE_IS_AUTH, isAuth} as const)
 const setAuthError = (error: string) => ({type: AUTH_TYPES.SET_AUTH_ERROR, error} as const)
 
 //thunks
-export const signUp = (signUpData: signUpDataType) => async (dispatch: Dispatch) => {
+export const signUp = (signUpData: signUpDataType) => async (dispatch: Dispatch<actionType>) => {
     try {
         const response = await authAPI.signUp(signUpData)
         dispatch(changeIsAuth(true))
@@ -48,8 +47,10 @@ type initialStateType = {
     error: string
 }
 
-type actionType =
-    | ReturnType<typeof changeIsAuth>
+export type changeIsAuthType = ReturnType<typeof changeIsAuth>
+
+export type actionType =
+    | changeIsAuthType
     | ReturnType<typeof setAuthError>
 
 export type signUpDataType = {

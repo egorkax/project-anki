@@ -3,11 +3,13 @@ import thunkMiddleware from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {generalReducer} from "./general-reducer";
 import {signupReducer} from "./signup-reducer";
+import {appReducer} from "./app-reducer";
 
 
 const rootReducer = combineReducers({
     data:generalReducer,
     signUp: signupReducer,
+    app: appReducer,
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 

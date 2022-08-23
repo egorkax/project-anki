@@ -14,7 +14,7 @@ export const Pages = () => {
             <Routes>
 
                 {/*в начале мы попадаем на страницу '/' и переходим сразу на страницу Registration*/}
-                <Route path={'/'} element={<Navigate to={'/registration'}/>}/>
+                <Route path={'/'} element={<Navigate to={'/login'}/>}/>
 
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/registration'} element={<SignUp/>}/>
