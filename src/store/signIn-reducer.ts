@@ -1,11 +1,8 @@
 import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {SignInAPI} from "../api/signIn-api";
-import {RecoveryPassAPI} from "../api/recoveryPass-api";
-
 
 const SET_AUTH_USER = 'project_anki/signIn/SET_AUTH_USER'
-
 
 const initialState: initialStateType = {
   _id: '',
@@ -77,38 +74,6 @@ export const signOut = () => async function (dispatch: Dispatch) {
     }
   }
 }
-export const recoveryPass = (email: string) => async function () {
-  try {
-    const payload = {
-      email: email,
-      from: 'test-front-admin <angor78@gmail.com>',
-      message:
-        `<div style="background-color: whitesmoke;text-align: center ">
-        <h2>Password recovery</h2>
-        <div>
-          Please use the following link to reset your password: 
-            <a href='http://localhost:3000/#/set-new-password/$token$'>
-              Password recovery
-            </a>      
-          <br/>
-          If you didn’t make this request, then you can ignore this email 🙂
-          <br/>
-        </div>
-      </div>`
-    }
-    const response = await RecoveryPassAPI.recovery(payload)
-    console.log(response)
-  } catch (e) {
-    const err = e as Error | AxiosError
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-      console.log(error)
-    } else {
-      console.log(err.message)
-    }
-  }
-}
-
 
 //types
 type initialStateType = {
