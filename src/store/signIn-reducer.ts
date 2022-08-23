@@ -33,7 +33,7 @@ const setAuthUserData = (_id: string, email: string, name: string, isAuth: boole
 export const authMe = () => async function (dispatch: Dispatch) {
   try {
     const response = await SignInAPI.authMe()
-     dispatch(setAuthUserData(response.data._id,response.data.email,response.data.name, true))
+    dispatch(setAuthUserData(response.data._id, response.data.email, response.data.name, true))
   } catch (e) {
     const err = e as Error | AxiosError
     if (axios.isAxiosError(err)) {
@@ -63,7 +63,7 @@ export const signIn = (email: string,
     }
   }
 }
-export const signOut = ()=>async function(dispatch:Dispatch) {
+export const signOut = () => async function (dispatch: Dispatch) {
   try {
     await SignInAPI.signOut()
     dispatch(setAuthUserData('', '', '', false))
@@ -79,17 +79,24 @@ export const signOut = ()=>async function(dispatch:Dispatch) {
 }
 export const recoveryPass = (email: string) => async function () {
   try {
-    debugger
     const payload = {
       email: email,
       from: 'test-front-admin <angor78@gmail.com>',
-      message: `<div style="background-color: lime; padding: 15px">
-            password recovery link: 
-           <a href='http://localhost:3000/#/set-new-password/$token$'>
-           link</a>
-           </div>`
+      message:
+        `<div style="background-color: whitesmoke;text-align: center ">
+        <h2>Password recovery</h2>
+        <div>
+          Please use the following link to reset your password: 
+            <a href='http://localhost:3000/#/set-new-password/$token$'>
+              Password recovery
+            </a>      
+          <br/>
+          If you didn’t make this request, then you can ignore this email 🙂
+          <br/>
+        </div>
+      </div>`
     }
-    const response=await RecoveryPassAPI.recovery(payload)
+    const response = await RecoveryPassAPI.recovery(payload)
     console.log(response)
   } catch (e) {
     const err = e as Error | AxiosError
