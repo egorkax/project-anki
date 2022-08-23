@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
-import {recoveryPass} from "../../store/recoveryPass-reducer";
+import {recoveryPass, setRecoveryStatus} from "../../store/recoveryPass-reducer";
 
 
 
@@ -27,9 +27,8 @@ export const RecoveryPassForm = () => {
       return errors
     },
     onSubmit: values => {
-      // alert(JSON.stringify(values))
       dispatch(recoveryPass(values.email))
-
+      dispatch(setRecoveryStatus(false))
     },
   });
   return (

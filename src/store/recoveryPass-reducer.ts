@@ -4,7 +4,7 @@ import {RecoveryPassAPI} from "../api/recoveryPass-api";
 import {NewPassAPI} from "../api/newPass-api";
 
 
-const IS_SENT_MAIL = 'project_anki/password-recovery/IS-SENT-MAIL'
+const IS_SENT_DATA = 'project_anki/password-recovery/IS_SENT_DATA'
 
 
 const initialState: initialStateType = {
@@ -13,7 +13,8 @@ const initialState: initialStateType = {
 
 export const recoveryPassReducer = (state = initialState, action: actionType): initialStateType => {
   switch (action.type) {
-    case IS_SENT_MAIL:
+    case IS_SENT_DATA:
+      debugger
       return {...state, isSentData: action.isSentData}
     default:
       return state
@@ -23,7 +24,7 @@ export const recoveryPassReducer = (state = initialState, action: actionType): i
 
 //actions
 export const setRecoveryStatus = (isSentData: boolean) => ({
-  type: IS_SENT_MAIL,
+  type: IS_SENT_DATA,
   isSentData
 } as const)
 
@@ -52,7 +53,6 @@ export const recoveryPass = (email: string) => async function (dispatch: Dispatc
     if (response.data.info === 'sent —ฅ/ᐠ.̫ .ᐟ\\ฅ—') {
       dispatch(setRecoveryStatus(true))
     }
-    dispatch(setRecoveryStatus(false))
   } catch (e) {
     const err = e as Error | AxiosError
     if (axios.isAxiosError(err)) {
@@ -67,10 +67,11 @@ export const updatePass = (password: string, token: string | undefined) => async
   try {
     let payload = {password: password, resetPasswordToken: token}
     let response = await NewPassAPI.newPass(payload)
-    if (response.data.info === 'setNewPassword success —ฅ/ᐠ.̫ .ᐟ\\ฅ—') {
+    console.log(response)
+    if (response.data.info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
+      debugger
       dispatch(setRecoveryStatus(true))
     }
-    dispatch(setRecoveryStatus(false))
   } catch (e) {
     const err = e as Error | AxiosError
     if (axios.isAxiosError(err)) {

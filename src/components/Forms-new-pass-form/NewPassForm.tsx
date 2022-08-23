@@ -26,9 +26,8 @@ export const NewPassForm = () => {
       return errors
     },
     onSubmit: values => {
-      // alert(JSON.stringify(values.password))
       dispatch(updatePass(values.password, token))
-      dispatch(setRecoveryStatus(true))
+      dispatch(setRecoveryStatus(false))
     },
   });
   return (
