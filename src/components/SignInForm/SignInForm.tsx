@@ -5,6 +5,7 @@ import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
 import {useDispatch} from "react-redux";
 import {signIn} from "../../store/signIn-reducer";
+import {NavLink} from "react-router-dom";
 
 export const SignInForm = () => {
   const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
@@ -62,7 +63,7 @@ export const SignInForm = () => {
       <div>
         <button type='submit'>Sign in</button>
       </div>
-      <div>Forgot Password?</div>
+      <NavLink className='' to={'/password-recovery'}>Forgot Password?</NavLink>
     </form>
   );
 };
