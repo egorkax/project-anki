@@ -1,8 +1,15 @@
 import React from 'react';
 import {useFormik} from 'formik';
+import {useDispatch} from "react-redux";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootStateType} from "../../store/store";
+import {AnyAction} from "redux";
+import {recoveryPass} from "../../store/signIn-reducer";
 
 
 export const RecoveryPassForm = () => {
+  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+
 
   const formik = useFormik({
     initialValues: {
@@ -18,7 +25,8 @@ export const RecoveryPassForm = () => {
       return errors
     },
     onSubmit: values => {
-      alert(JSON.stringify(values))
+      // alert(JSON.stringify(values))
+      dispatch(recoveryPass(values.email))
     },
   });
   return (
