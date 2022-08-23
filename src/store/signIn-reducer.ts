@@ -62,6 +62,20 @@ export const signIn = (email: string,
     }
   }
 }
+export const signOut = ()=>async function(dispatch:Dispatch) {
+  try {
+    await SignInAPI.signOut()
+    dispatch(setAuthUserData('', '', '', false))
+  } catch (e) {
+    const err = e as Error | AxiosError
+    if (axios.isAxiosError(err)) {
+      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
+      console.log(error)
+    } else {
+      console.log(err.message)
+    }
+  }
+}
 
 
 //types

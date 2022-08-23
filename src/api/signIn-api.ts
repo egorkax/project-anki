@@ -33,4 +33,7 @@ export const SignInAPI = {
   signIn(payload: SignInParamsType) {
     return instance.post<ResponseSignInType>(`auth/login`, payload)
   },
+  signOut() {
+    return instance.delete<ResponseSignInType>(`auth/me`, {})
+  },
 }
