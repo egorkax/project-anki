@@ -9,17 +9,16 @@ import {Preloader} from "./components/Preloader/Preloader";
 const App = () => {
 
     return (
-        <Preloader/>
-        // <div className="App">
-        //     <HashRouter>
-        //
-        //         <Header/>
-        //
-        //         <Pages/>
-        //
-        //     </HashRouter>
-        //
-        // </div>
+        <div className="App">
+            <HashRouter>
+
+                <Header/>
+
+                <Pages/>
+
+            </HashRouter>
+
+        </div>
     );
 }
 
