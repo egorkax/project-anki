@@ -62,6 +62,7 @@ export const SignInForm = () => {
       <div>
         <button type='submit'>Sign in</button>
       </div>
+      <div>Forgot Password?</div>
     </form>
   );
 };
