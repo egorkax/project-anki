@@ -6,9 +6,9 @@ import {AppRootStateType} from "../../../store/store";
 
 export const Login = () => {
   const isAuth = useSelector<AppRootStateType, boolean>(state => state.signIn.isAuth)
-  if(isAuth){
-    return <Navigate to={'/profile'}/>
-  }
+  // if(isAuth){
+  //   return <Navigate to={'/profile'}/>
+  // }
   return (
     <div className="auth-container">
       <h1>Sign in</h1>
