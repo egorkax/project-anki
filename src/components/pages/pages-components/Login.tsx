@@ -1,5 +1,5 @@
 import React from 'react';
-import {SignInForm} from "../../SignInForm/SignInForm";
+import {SignInForm} from "../../Forms-signIn-form/SignInForm";
 import {Navigate, NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../store/store";
