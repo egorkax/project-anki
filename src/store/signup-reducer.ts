@@ -16,6 +16,8 @@ export const signupReducer = (state = initialState, action: actionType): initial
     switch (action.type) {
         case AUTH_TYPES.CHANGE_IS_AUTH:
             return {...state, isAuth: action.isAuth}
+        case AUTH_TYPES.SET_AUTH_ERROR:
+            return {...state, error: action.error}
         default:
             return state
     }
