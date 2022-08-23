@@ -18,10 +18,20 @@ export const SignUpForm = () => {
         },
         validate: values => {
             const errors: errorsType = {}
-            if(formik.touched.password && formik.touched.confirmPassword) {
-                if(values.password !== values.confirmPassword) {
-                    errors.confirmPassword = 'Passwords are not the same'
-                }
+            if (!values.email) {
+                errors.email = 'Required'
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address'
+            }
+            if (!values.password) {
+                errors.password = 'Required'
+            } else if (values.password.length < 7) {
+                errors.password = 'Password must be more than 7 characters long'
+            }
+            if (!values.confirmPassword) {
+                errors.confirmPassword = 'Required'
+            } else if(values.password !== values.confirmPassword) {
+                errors.confirmPassword = 'Passwords are not the same'
             }
             return errors
         },
@@ -38,17 +48,18 @@ export const SignUpForm = () => {
         <form onSubmit={formik.handleSubmit}>
             <div>
                 <label htmlFor='email' >Email</label>
-                <input id='email' type='email' {...formik.getFieldProps('email')}/>
-                <div>{formik.errors.email}</div>
+                <input id='email' type='email' {...formik.getFieldProps('email')} required/>
+                {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
             </div>
             <div>
                 <label htmlFor='password'>Password</label>
-                <input id='password' type='password' {...formik.getFieldProps('password')}/>
+                <input id='password' type='password' {...formik.getFieldProps('password')} required/>
+                {formik.touched.password && formik.errors.password ? <div>{formik.errors.password}</div> : null}
             </div>
             <div>
                 <label htmlFor='confirmPassword'>Confirm password</label>
                 <input id='confirmPassword' type='password' {...formik.getFieldProps('confirmPassword')}/>
-                {formik.errors.confirmPassword ? <div>{formik.errors.confirmPassword}</div> : null}
+                {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div>{formik.errors.confirmPassword}</div> : null}
             </div>
             <div>
                 <button type='submit'>Sign up</button>
