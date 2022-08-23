@@ -4,9 +4,13 @@ import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
 import {useDispatch} from "react-redux";
+import {useParams} from "react-router-dom";
+import {setRecoveryStatus, updatePass} from "../../store/recoveryPass-reducer";
 
 export const NewPassForm = () => {
   const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+  let { token } = useParams();
+
 
   const formik = useFormik({
     initialValues: {
@@ -22,7 +26,9 @@ export const NewPassForm = () => {
       return errors
     },
     onSubmit: values => {
-      alert(JSON.stringify(values.password))
+      // alert(JSON.stringify(values.password))
+      dispatch(updatePass(values.password, token))
+      dispatch(setRecoveryStatus(true))
     },
   });
   return (

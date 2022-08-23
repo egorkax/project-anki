@@ -1,33 +1,35 @@
 import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {RecoveryPassAPI} from "../api/recoveryPass-api";
+import {NewPassAPI} from "../api/newPass-api";
 
 
 const IS_SENT_MAIL = 'project_anki/password-recovery/IS-SENT-MAIL'
 
 
 const initialState: initialStateType = {
-  isSentMail: false
+  isSentData: false
 }
 
 export const recoveryPassReducer = (state = initialState, action: actionType): initialStateType => {
   switch (action.type) {
     case IS_SENT_MAIL:
-      return {...state, isSentMail: action.isSentMail}
+      return {...state, isSentData: action.isSentData}
     default:
       return state
   }
 }
 
+
 //actions
-export const setMailStatus = (isSentMail:boolean) => ({
+export const setRecoveryStatus = (isSentData: boolean) => ({
   type: IS_SENT_MAIL,
-  isSentMail
+  isSentData
 } as const)
 
 //thunks
 
-export const recoveryPass = (email: string) => async function (dispatch:Dispatch) {
+export const recoveryPass = (email: string) => async function (dispatch: Dispatch) {
   try {
     const payload = {
       email: email,
@@ -47,9 +49,28 @@ export const recoveryPass = (email: string) => async function (dispatch:Dispatch
       </div>`
     }
     const response = await RecoveryPassAPI.recovery(payload)
-    if(response.data.info==='sent —ฅ/ᐠ.̫ .ᐟ\\ฅ—'){
-        dispatch(setMailStatus(true))
+    if (response.data.info === 'sent —ฅ/ᐠ.̫ .ᐟ\\ฅ—') {
+      dispatch(setRecoveryStatus(true))
     }
+    dispatch(setRecoveryStatus(false))
+  } catch (e) {
+    const err = e as Error | AxiosError
+    if (axios.isAxiosError(err)) {
+      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
+      console.log(error)
+    } else {
+      console.log(err.message)
+    }
+  }
+}
+export const updatePass = (password: string, token: string | undefined) => async function (dispatch: Dispatch) {
+  try {
+    let payload = {password: password, resetPasswordToken: token}
+    let response = await NewPassAPI.newPass(payload)
+    if (response.data.info === 'setNewPassword success —ฅ/ᐠ.̫ .ᐟ\\ฅ—') {
+      dispatch(setRecoveryStatus(true))
+    }
+    dispatch(setRecoveryStatus(false))
   } catch (e) {
     const err = e as Error | AxiosError
     if (axios.isAxiosError(err)) {
@@ -64,10 +85,10 @@ export const recoveryPass = (email: string) => async function (dispatch:Dispatch
 
 //types
 type initialStateType = {
-  isSentMail: boolean
+  isSentData: boolean
 }
 
 type actionType =
-  | ReturnType<typeof setMailStatus>
+  | ReturnType<typeof setRecoveryStatus>
 
 

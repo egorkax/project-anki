@@ -1,13 +1,13 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setMailStatus} from "../../../store/recoveryPass-reducer";
+import {setRecoveryStatus} from "../../../store/recoveryPass-reducer";
 
 
 export const CheckEmail = () => {
   const dispatch = useDispatch()
   const onClickHandler = () => {
-    dispatch(setMailStatus(false))
+    dispatch(setRecoveryStatus(false))
   }
   return (
     <div className="auth-container">
