@@ -1,12 +1,12 @@
 import {applyMiddleware, combineReducers, createStore, legacy_createStore} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {generalReducer} from "./general-reducer";
+import {profileReducer} from "../features/Profile/profile-reducer";
 
 
 const rootReducer = combineReducers({
+    profile: profileReducer,
 
-    data:generalReducer
 
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
@@ -17,3 +17,4 @@ export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelecto
 
 // @ts-ignore
 window.store = store;
+

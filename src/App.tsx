@@ -7,6 +7,8 @@ import {Profile} from "./features/Profile/Profile";
 
 const App = () => {
 
+
+
     return (
         <div className="App">
             <HashRouter>

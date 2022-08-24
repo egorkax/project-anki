@@ -1,6 +1,11 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import s from "../profile.module.css";
 import {Button, FormControl, Input, InputAdornment, InputLabel} from "@mui/material";
+import {changeUserNameTC} from "../profile-reducer";
+import {useDispatch} from "react-redux";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootStateType} from "../../../store/store";
+import {AnyAction} from "redux";
 
 type EditableSpanPropsType = {
     name: string
@@ -12,20 +17,22 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
     const [editMode, setEditMode] = useState(false);
     const [newName, setNewName] = useState(props.name);
 
+    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+
     const activateEditMode = () => {
         setEditMode(true);
         setNewName(props.name);
     }
 
     const saveNewName = (): void => {
-
+        dispatch(changeUserNameTC(newName));
         setEditMode(false);
     };
 
     return (
         <div>
             {!editMode ? (
-                <span onDoubleClick={activateEditMode} className={s.name}> {props.name}    ✎</span>
+                <span onDoubleClick={activateEditMode} className={s.name}> {props.name} ✎</span>
             ) : (
                 <FormControl variant="standard">
                     <InputLabel>Nickname</InputLabel>
