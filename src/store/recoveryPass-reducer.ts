@@ -14,7 +14,6 @@ const initialState: initialStateType = {
 export const recoveryPassReducer = (state = initialState, action: actionType): initialStateType => {
   switch (action.type) {
     case IS_SENT_DATA:
-      debugger
       return {...state, isSentData: action.isSentData}
     default:
       return state
@@ -69,7 +68,6 @@ export const updatePass = (password: string, token: string | undefined) => async
     let response = await NewPassAPI.newPass(payload)
     console.log(response)
     if (response.data.info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
-      debugger
       dispatch(setRecoveryStatus(true))
     }
   } catch (e) {
