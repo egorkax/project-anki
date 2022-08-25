@@ -22,7 +22,7 @@ const App = () => {
         dispatch(initializeApp())
     }, [])
 
-    if (!isInitialized) return <Preloader/>
+    // if (!isInitialized) return <Preloader/>
 
 
     return (

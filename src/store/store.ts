@@ -4,18 +4,14 @@ import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {profileReducer} from "../features/Profile/profile-reducer";
 import {signupReducer} from "./signup-reducer";
 import {appReducer} from "./app-reducer";
-import {generalReducer} from "./general-reducer";
 import {signInReducer} from "./signIn-reducer";
 import {recoveryPassReducer} from "./recoveryPass-reducer";
 
 
 const rootReducer = combineReducers({
-    profile: profileReducer,
-
-
-    signUp: signupReducer,
-    app: appReducer,
-  data: generalReducer,
+  profile: profileReducer,
+  signUp: signupReducer,
+  app: appReducer,
   signIn: signInReducer,
   recovery: recoveryPassReducer
 })
