@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import s from './profile.module.css'
-import ava from './Icons/74979d4d2744ec6e27995b6e866f091d04c0b40cr1-515-414v2_uhq.jpg'
+import ava from '../../assets/avatar.png'
 import {LogOut} from "./Icons/LogOut";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Navigate} from "react-router-dom";

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import './authBlocks.css'
 import {Header} from "./components/header/Header";
-import {HashRouter, Navigate} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {Pages} from "./components/pages/Pages";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
@@ -10,7 +10,6 @@ import {Preloader} from "./components/Preloader/Preloader";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {initializeApp} from "./store/app-reducer";
-import {Profile} from "./features/Profile/Profile";
 
 const App = () => {
 
@@ -32,8 +31,6 @@ const App = () => {
                 <Header/>
 
                 <Pages/>
-
-                <Profile/>
 
             </HashRouter>
 

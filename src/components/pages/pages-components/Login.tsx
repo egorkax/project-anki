@@ -9,17 +9,12 @@ import {setRecoveryStatus} from "../../../store/recoveryPass-reducer";
 
 export const Login = () => {
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.signUp.isAuth)
+    const dispatch=useDispatch()
+    dispatch(setRecoveryStatus(false))
 
     if (isAuth) return <Navigate to='/profile'/>
 
-    return (
-        <div className="">
-            <h1>Login!!!</h1>
-        </div>
-    );
   // const isAuth = useSelector<AppRootStateType, boolean>(state => state.signIn.isAuth)
-  const dispatch=useDispatch()
-  dispatch(setRecoveryStatus(false))
   // if(isAuth){
   //   return <Navigate to={'/profile'}/>
   // }
