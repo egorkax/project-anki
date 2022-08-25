@@ -3,15 +3,16 @@ import {useFormik} from 'formik';
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {signIn} from '../../store/auth-reducer';
+import {setStatus, signIn} from '../../store/auth-reducer';
 import SuperInput from "../common/c1-SuperInput/SuperInput";
 import SuperCheckbox from "../common/c3-SuperCheckbox/SuperCheckbox";
 import SuperButton from "../common/c2-SuperButton/SuperButton";
 
 export const SignInForm = () => {
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+    const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
 
     const formik = useFormik({
         initialValues: {
@@ -40,6 +41,10 @@ export const SignInForm = () => {
 
     const emailError = formik.errors.email ? formik.errors.email : ''
     const passwordError = formik.errors.password ? formik.errors.password : ''
+
+    const isLoading = authStatus === 'loading'
+
+    let t: string;
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -71,7 +76,7 @@ export const SignInForm = () => {
                 <NavLink to={'/password-recovery'}>Forgot Password?</NavLink>
             </div>
             <div className='auth-button-wrapper'>
-                <SuperButton superClassName={'authButton'} type='submit'>Sign in</SuperButton>
+                <SuperButton disabled={isLoading} isLoading={isLoading} superClassName={'authButton'} type='submit'>Sign in</SuperButton>
             </div>
         </form>
     );

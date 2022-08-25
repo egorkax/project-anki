@@ -1,6 +1,7 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useState} from 'react'
 import s from './SuperInput.module.css'
 import icon from '../../../assets/icons/eye.svg'
+import SuperButton from "../c2-SuperButton/SuperButton";
 
 // тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -64,6 +65,10 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
         && onEnter() // то вызвать его
     }
 
+    const onButtonEnter = () => {
+        debugger
+    }
+
     const finalLabelClassName = `${s.label} ${topLabelClass}`
     const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`
     const finalInputClassName = `${s.input} ${error?s.errorInput:s.superInput} ${className}`
@@ -83,7 +88,7 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
                 {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
             <label className={finalLabelClassName} htmlFor={name}>{label}</label>
-            {type === 'password' ? <button onClick={changeShownMode} className={finalButtonClassName}><img src={icon} alt=''/></button> : null}
+            {type === 'password' ? <button type={'button'} onKeyPress={onButtonEnter} onClick={changeShownMode} className={finalButtonClassName}><img src={icon} alt=''/></button> : null}
             {error && <span className={finalSpanClassName}>{error}</span>}
         </div>
     )

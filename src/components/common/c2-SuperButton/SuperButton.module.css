@@ -38,6 +38,10 @@
     padding-left: 20px;
 }
 
+.withIcon img {
+    max-width: 16px;
+}
+
 .withIcon span {
     margin-left: 7px;
 }
@@ -47,6 +51,11 @@
 }
 
 .button:disabled {
-    opacity: 0.9;
+    opacity: 0.5;
     filter: grayscale(1);
+    cursor: default;
+}
+
+.loadingIcon {
+    max-width: 16px;
 }
