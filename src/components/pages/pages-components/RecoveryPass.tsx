@@ -1,10 +1,15 @@
 import React from 'react';
 
-export const RecoveryPass = () => {
-    return (
-        <div className="">
-            <h1>Recovery Password!!!</h1>
-        </div>
-    );
-}
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../../store/store";
+import {CheckEmail} from "./CheckEmail";
+import {ForgotPass} from "./ForgotPass";
 
+export const RecoveryPass = () => {
+  const isSentData = useSelector<AppRootStateType, boolean>(state => state.recovery.isSentData)
+  if (!isSentData) {
+    return <ForgotPass/>
+  } else {
+    return <CheckEmail/>
+  }
+}

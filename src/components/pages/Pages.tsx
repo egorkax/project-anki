@@ -1,5 +1,5 @@
 import React from 'react'
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes, useParams} from "react-router-dom";
 import {Login} from "./pages-components/Login";
 import {SignUp} from "./pages-components/SignUp";
 import {RecoveryPass} from "./pages-components/RecoveryPass";
@@ -9,6 +9,7 @@ import {Error404} from "./pages-components/Error404";
 
 
 export const Pages = () => {
+    let { token } = useParams();
     return (
         <div>
             <Routes>
@@ -19,7 +20,7 @@ export const Pages = () => {
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/registration'} element={<SignUp/>}/>
                 <Route path={'/password-recovery'} element={<RecoveryPass/>}/>
-                <Route path={'/new-password'} element={<NewPass/>}/>
+                <Route path={'/new-password/:token'} element={<NewPass/>}/>
                 <Route path={'/test'} element={<Test/>}/>
 
 
