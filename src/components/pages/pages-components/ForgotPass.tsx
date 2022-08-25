@@ -4,7 +4,6 @@ import {RecoveryPassForm} from "../../Forms-recovery-pass-form/RecoveryPassForm"
 
 
 export const ForgotPass = () => {
-
   return (
     <div className="auth-container">
       <h1>Forgot your password?</h1>

@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useState} from 'react';
-import SuperInputText from '../../../common/c1-SuperInputText/SuperInputText';
 import SuperButton from '../../../common/c2-SuperButton/SuperButton';
 import SuperCheckbox from '../../../common/c3-SuperCheckbox/SuperCheckbox';
 import s from './test.module.css'
 import icon from '../../../../assets/icons/logout.svg'
+import SuperInput from "../../../common/c1-SuperInput/SuperInput";
 
 
 export const Test = () => {
@@ -23,7 +23,7 @@ export const Test = () => {
     return (
         <div>
             <div className={s.column}>
-                <SuperInputText
+                <SuperInput
                     label={'Email'}
                     name={'email'}
                     type={'email'}
@@ -32,7 +32,7 @@ export const Test = () => {
 
                 <br/>
 
-                <SuperInputText
+                <SuperInput
                     label={'Password'}
                     name={'password'}
                     type={'password'}

@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
-import { changeIsAuth, changeIsAuthType } from "./auth-reducer";
+import {changeIsAuth, changeIsAuthType} from "./auth-reducer";
+import {setUserData, setUserDataType} from "../features/Profile/profile-reducer";
 
 enum APP_TYPES {
     INITIALIZE_APP = 'project_anki/app/INITIALIZE_APP',
@@ -29,7 +30,9 @@ const setAppError = (error: string) => ({type: APP_TYPES.SET_APP_ERROR, error} a
 export const initializeApp = () => async (dispatch: Dispatch<actionType>) => {
     try {
         const response = await authAPI.authMe()
+        dispatch(setIsInitialized())
         dispatch(changeIsAuth(true))
+        dispatch(setUserData(response.data))
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
@@ -50,6 +53,7 @@ type actionType =
     | ReturnType<typeof setIsInitialized>
     | ReturnType<typeof setAppError>
     | changeIsAuthType
+    | setUserDataType
 type initialStateType = {
     isInitialized: boolean
 }

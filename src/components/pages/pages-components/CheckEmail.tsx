@@ -1,7 +1,9 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setRecoveryStatus} from "../../../store/auth-reducer";
+import SuperButton from "../../common/c2-SuperButton/SuperButton";
+import {AppRootStateType} from "../../../store/store";
 
 
 export const CheckEmail = () => {
@@ -9,6 +11,9 @@ export const CheckEmail = () => {
   const onClickHandler = () => {
     dispatch(setRecoveryStatus(false))
   }
+
+  const recoveryEmail = useSelector<AppRootStateType, string>(state => state.auth.recoveryEmail)
+
   return (
     <div className="auth-container">
       <h1>Check Email</h1>
@@ -16,10 +21,12 @@ export const CheckEmail = () => {
         <div>
           <MailSvgIcon/>
         </div>
-        <p>We’ve sent an Email with instructions to example@mail.com</p>
-        <NavLink className='underlinedLink' to={'/login'}>
-          <button onClick={onClickHandler}>Back to login</button>
-        </NavLink>
+        <div className='auth-desc'>We’ve sent an Email with instructions to {recoveryEmail}</div>
+        <div className='auth-button-wrapper'>
+          <NavLink className='underlinedLink' to={'/login'}>
+            <SuperButton onClick={onClickHandler}>Back to login</SuperButton>
+          </NavLink>
+        </div>
       </div>
     </div>
   )

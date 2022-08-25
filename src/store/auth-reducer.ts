@@ -1,36 +1,33 @@
 import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
-import {SignInAPI} from "../api/signIn-api";
+import {deleteUserData, setUserData, setUserDataType} from "../features/Profile/profile-reducer";
 
 
 enum AUTH_TYPES {
     CHANGE_IS_AUTH = 'project_anki/auth/CHANGE_IS_AUTH',
     SET_AUTH_ERROR = 'project_anki/auth/SET_AUTH_ERROR',
-    IS_SENT_DATA = 'project_anki/password-recovery/IS_SENT_DATA',
-    SET_AUTH_USER = 'project_anki/signIn/SET_AUTH_USER',
+    IS_SENT_DATA = 'project_anki/auth/IS_SENT_DATA',
+    SET_RECOVERY_EMAIL = 'project_anki/auth/SET_RECOVERY_EMAIL',
 }
 
 const initialState: initialStateType = {
     isSentData: false,
-    _id: '',
-    email: '',
-    name: '',
-    avatar: '',
     isAuth: false,
     error: '',
+    recoveryEmail: '',
 }
 
 export const authReducer = (state = initialState, action: actionType): initialStateType => {
     switch (action.type) {
         case AUTH_TYPES.IS_SENT_DATA:
             return {...state, isSentData: action.isSentData}
-        case AUTH_TYPES.SET_AUTH_USER:
-            return {...state, _id: action._id, email: action.email, name: action.name, isAuth: action.isAuth}
         case AUTH_TYPES.CHANGE_IS_AUTH:
             return {...state, isAuth: action.isAuth}
         case AUTH_TYPES.SET_AUTH_ERROR:
             return {...state, error: action.error}
+        case AUTH_TYPES.SET_RECOVERY_EMAIL:
+            return {...state, recoveryEmail: action.email}
         default:
             return state
     }
@@ -44,12 +41,13 @@ export const changeIsAuth = (isAuth: boolean) =>
     ({type: AUTH_TYPES.CHANGE_IS_AUTH, isAuth} as const)
 const setAuthError = (error: string) =>
     ({type: AUTH_TYPES.SET_AUTH_ERROR, error} as const)
-const setAuthUserData = (_id: string, email: string, name: string, isAuth: boolean, avatar?: string) =>
-    ({type: AUTH_TYPES.SET_AUTH_USER, _id, email, name, isAuth, avatar} as const)
+export const setRecoveryEmail = (email: string) =>
+    ({type: AUTH_TYPES.SET_RECOVERY_EMAIL, email} as const)
 
 //thunks
 export const recoveryPass = (email: string) => async function (dispatch: Dispatch) {
     try {
+        dispatch(setRecoveryEmail(email))
         const payload = {
             email: email,
             from: 'test-front-admin <angor78@gmail.com>',
@@ -81,10 +79,13 @@ export const recoveryPass = (email: string) => async function (dispatch: Dispatc
         }
     }
 }
-export const signUp = (signUpData: signUpDataType) => async (dispatch: Dispatch<actionType>) => {
+export const updatePass = (password: string, token: string | undefined) => async function (dispatch: Dispatch) {
     try {
-        const response = await authAPI.signUp(signUpData)
-        dispatch(changeIsAuth(true))
+        let payload = {password: password, resetPasswordToken: token}
+        let response = await authAPI.newPass(payload)
+        if (response.data.info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
+            dispatch(setRecoveryStatus(true))
+        }
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
@@ -95,35 +96,18 @@ export const signUp = (signUpData: signUpDataType) => async (dispatch: Dispatch<
         }
     }
 }
-export const updatePass = (password: string, token: string | undefined) => async function (dispatch: Dispatch) {
+export const signUp = (signUpData: signUpDataType) => async (dispatch: Dispatch<actionType>) => {
     try {
-        let payload = {password: password, resetPasswordToken: token}
-        let response = await authAPI.newPass(payload)
-        console.log(response)
-        if (response.data.info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
-            dispatch(setRecoveryStatus(true))
-        }
+        const response = await authAPI.signUp(signUpData)
+        dispatch(changeIsAuth(true))
+        dispatch(setUserData(response.data))
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            console.log(error)
+            dispatch(setAuthError(error))
         } else {
-            console.log(err.message)
-        }
-    }
-}
-export const authMe = () => async function (dispatch: Dispatch) {
-    try {
-        const response = await SignInAPI.authMe()
-        dispatch(setAuthUserData(response.data._id, response.data.email, response.data.name, true))
-    } catch (e) {
-        const err = e as Error | AxiosError
-        if (axios.isAxiosError(err)) {
-            const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            console.log(error)
-        } else {
-            console.log(err.message)
+            dispatch(setAuthError(`Native error ${err.message}`))
         }
     }
 }
@@ -133,35 +117,31 @@ export const signIn = (email: string,
 
     try {
         const payload = {email, password, rememberMe}
-        const response = await SignInAPI.signIn(payload)
-
-        dispatch(setAuthUserData(response.data._id,
-            response.data.email,
-            response.data.name,
-            true,
-            response.data.avatar))
-        console.log(response)
+        const response = await authAPI.signIn(payload)
+        dispatch(changeIsAuth(true))
+        dispatch(setUserData(response.data))
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            console.log(error)
+            dispatch(setAuthError(error))
         } else {
-            console.log(err.message)
+            dispatch(setAuthError(`Native error ${err.message}`))
         }
     }
 }
 export const signOut = () => async function (dispatch: Dispatch) {
     try {
-        await SignInAPI.signOut()
-        dispatch(setAuthUserData('', '', '', false))
+        await authAPI.signOut()
+        dispatch(changeIsAuth(false))
+        dispatch(deleteUserData())
     } catch (e) {
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-            console.log(error)
+            dispatch(setAuthError(error))
         } else {
-            console.log(err.message)
+            dispatch(setAuthError(`Native error ${err.message}`))
         }
     }
 }
@@ -170,25 +150,24 @@ export const signOut = () => async function (dispatch: Dispatch) {
 //types
 type initialStateType = {
     isSentData: boolean
-    _id: string
-    email: string
-    name: string
-    avatar?: string
     isAuth: boolean
     error: string
+    recoveryEmail: string
 }
+
+export type changeIsAuthType = ReturnType<typeof changeIsAuth>
 
 type actionType =
     | ReturnType<typeof setRecoveryStatus>
-    | ReturnType<typeof setAuthUserData>
     | changeIsAuthType
+    | setUserDataType
     | ReturnType<typeof setAuthError>
+    | ReturnType<typeof setRecoveryEmail>
 
 export type signUpDataType = {
     email: string
     password: string
 }
-export type changeIsAuthType = ReturnType<typeof changeIsAuth>
 
 
 

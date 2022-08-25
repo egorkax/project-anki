@@ -2,42 +2,47 @@ import {Dispatch} from "redux";
 import {profileAPI} from "../../api/profile-api";
 import axios, {AxiosError} from "axios";
 
-const initialState = {
-    user: {
-        _id: '',
-        email: '',
-        rememberMe: false,
-        isAdmin: false,
-        name: '',
-        verified: false,
-        publicCardPacksCount: 0,
-        created: '',
-        updated: '',
-        __v: 0,
-        token: '',
-        tokenDeathTime: 0,
-        avatar: null as string | null,
-    },
+enum PROFILE_TYPES {
+    SET_USER_DATA = 'project_anki/profile/SET_USER_DATA',
+    SET_USER_NAME = 'project_anki/profile/SET_USER_NAME',
+    DELETE_USER_DATA = 'project_anki/profile/DELETE_USER_DATA',
+}
+
+const initialState: UserType = {
+    _id: '',
+    email: '',
+    rememberMe: false,
+    isAdmin: false,
+    name: '',
+    verified: false,
+    publicCardPacksCount: 0,
+    created: '',
+    updated: '',
+    __v: 0,
+    token: '',
+    tokenDeathTime: 0,
+    avatar: '',
 };
 
-export const profileReducer = (state: UserType = initialState.user, action: ActionsType) => {
+export const profileReducer = (state = initialState, action: ActionsType) => {
     switch (action.type) {
-        case "SET-USER-NAME":
+        case PROFILE_TYPES.SET_USER_DATA:
+            return {...state, ...action.userData}
+        case PROFILE_TYPES.SET_USER_NAME:
             return {
                 ...state, name: action.name
             }
+        case PROFILE_TYPES.DELETE_USER_DATA:
+            return {...initialState}
         default:
             return state
     }
 }
 
 // actions
-
-export const setNewUserNameAC = (name: string) => ({type: 'SET-USER-NAME', name
-} as const)
-
-
-export const LogOutProfileAC = (data:UserType) => ({type: 'LOG-OUT-PROFILE', data} as const)
+export const setNewUserNameAC = (name: string) => ({type: PROFILE_TYPES.SET_USER_NAME, name} as const)
+export const setUserData = (userData: UserType) => ({type: PROFILE_TYPES.SET_USER_DATA, userData} as const)
+export const deleteUserData = () => ({type: PROFILE_TYPES.DELETE_USER_DATA} as const)
 
 //thunks
 export const changeUserNameTC = (name: string) => {
@@ -60,9 +65,13 @@ export const changeUserNameTC = (name: string) => {
 }
 
 //types
-export type setNewUserNameACType = ReturnType<typeof setNewUserNameAC>
-export type LogOutProfileACACType = ReturnType<typeof LogOutProfileAC>
-export type ActionsType = setNewUserNameACType | LogOutProfileACACType
+export type setUserDataType = ReturnType<typeof setUserData>
+
+export type ActionsType =
+    | ReturnType<typeof setNewUserNameAC>
+    | ReturnType<typeof deleteUserData>
+    | setUserDataType
+
 export type UserType = {
     _id: string;
     email: string;
@@ -76,5 +85,5 @@ export type UserType = {
     __v: number;
     token: string;
     tokenDeathTime: number;
-    avatar: string | null;
-};
+    avatar?: string;
+}

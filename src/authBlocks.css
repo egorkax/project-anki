@@ -32,3 +32,44 @@
     cursor: pointer;
 }
 
+.forgotMe {
+    margin-top: 29px;
+    text-align: right;
+}
+
+.forgotMe a {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.auth-button-wrapper {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-desc {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    opacity: 0.5;
+    margin-top: 26px;
+}
+
+.empty-auth-error {
+    height: 50px;
+}
+
+.auth-error {
+    height: 50px;
+    background: #ff0000de;
+    color: #FFFFFF;
+    font-weight: 700;
+    padding: 10px;
+    margin-top: 20px;
+}
+
