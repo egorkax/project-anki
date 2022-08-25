@@ -10,6 +10,7 @@ import {Preloader} from "./components/Preloader/Preloader";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {initializeApp} from "./store/app-reducer";
+import {Profile} from "./features/Profile/Profile";
 
 const App = () => {
 
@@ -22,6 +23,8 @@ const App = () => {
     }, [])
 
     if (!isInitialized) return <Preloader/>
+
+
     return (
         <div className="App">
             <HashRouter>
@@ -29,6 +32,8 @@ const App = () => {
                 <Header/>
 
                 <Pages/>
+
+                <Profile/>
 
             </HashRouter>
 
