@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
-import {changeIsAuth, changeIsAuthType} from "./signup-reducer";
+import { changeIsAuth, changeIsAuthType } from "./auth-reducer";
 
 enum APP_TYPES {
     INITIALIZE_APP = 'project_anki/app/INITIALIZE_APP',

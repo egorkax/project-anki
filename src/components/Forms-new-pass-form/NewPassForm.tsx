@@ -5,7 +5,7 @@ import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
-import {setRecoveryStatus, updatePass} from "../../store/recoveryPass-reducer";
+import {setRecoveryStatus, updatePass} from "../../store/auth-reducer";
 
 export const NewPassForm = () => {
   const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()

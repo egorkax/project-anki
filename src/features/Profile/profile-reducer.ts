@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {cardsAPI} from "../../api/api";
+import {profileAPI} from "../../api/profile-api";
 import axios, {AxiosError} from "axios";
 
 const initialState = {
@@ -22,16 +22,10 @@ const initialState = {
 
 export const profileReducer = (state: UserType = initialState.user, action: ActionsType) => {
     switch (action.type) {
-
         case "SET-USER-NAME":
             return {
                 ...state, name: action.name
             }
-        case "LOG-OUT-PROFILE":
-            return {
-                ...action.data
-            }
-
         default:
             return state
     }
@@ -39,24 +33,16 @@ export const profileReducer = (state: UserType = initialState.user, action: Acti
 
 // actions
 
-export const setNewUserNameAC = (name: string) => ({
-    type: 'SET-USER-NAME',
-    name
+export const setNewUserNameAC = (name: string) => ({type: 'SET-USER-NAME', name
 } as const)
 
 
+export const LogOutProfileAC = (data:UserType) => ({type: 'LOG-OUT-PROFILE', data} as const)
 
-export const LogOutProfileAC = (data:UserType) => ({
-    type: 'LOG-OUT-PROFILE',
-    data
-} as const)
-
-
-
-
+//thunks
 export const changeUserNameTC = (name: string) => {
     return (dispatch: Dispatch) => {
-        cardsAPI.changeUserName({name, avatar: ''})
+        profileAPI.changeUserName({name, avatar: ''})
             .then((res) => {
                 dispatch(setNewUserNameAC(name))
             })
@@ -73,31 +59,7 @@ export const changeUserNameTC = (name: string) => {
     }
 }
 
-
-export const logOutTC = () => {
-    return (dispatch: Dispatch) => {
-        cardsAPI.logOut()
-            .then(() => {
-                dispatch(LogOutProfileAC(initialState.user))
-            })
-            .catch(e => {
-                const err = e as Error | AxiosError<{ error: string }>;
-                if (axios.isAxiosError(err)) {
-                    const error = err.response ? err.response.data.error : err.message;
-
-                    // dispatch(setAppError({error}));
-                } else {
-                    // dispatch(setAppError({error: `Native error ${err.message}`}));
-                }
-            })
-    }
-}
-
-
-
-
-
-
+//types
 export type setNewUserNameACType = ReturnType<typeof setNewUserNameAC>
 export type LogOutProfileACACType = ReturnType<typeof LogOutProfileAC>
 export type ActionsType = setNewUserNameACType | LogOutProfileACACType

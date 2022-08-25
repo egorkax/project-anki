@@ -13,15 +13,15 @@ import {initializeApp} from "./store/app-reducer";
 
 const App = () => {
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
-
-    useEffect(() => {
-        dispatch(initializeApp())
-    }, [])
-
-    if (!isInitialized) return <Preloader/>
+    // const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    //
+    // const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+    //
+    // useEffect(() => {
+    //     dispatch(initializeApp())
+    // }, [])
+    //
+    // if (!isInitialized) return <Preloader/>
 
 
     return (

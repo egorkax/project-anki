@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setRecoveryStatus} from "../../../store/recoveryPass-reducer";
+import {setRecoveryStatus} from "../../../store/auth-reducer";
 
 
 export const CheckEmail = () => {

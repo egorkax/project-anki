@@ -5,8 +5,8 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../store/store";
 
 export const SignUp = () => {
-    const isAuth = useSelector<AppRootStateType, boolean>(state => state.signUp.isAuth)
-    const authError = useSelector<AppRootStateType, string>(state => state.signUp.error)
+    const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
+    const authError = useSelector<AppRootStateType, string>(state => state.auth.error)
     if (isAuth) return <Navigate to='/profile'/>
     return (
         <div className="auth-container">

@@ -6,7 +6,7 @@ import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
-import {logOutTC, UserType} from "./profile-reducer";
+import {UserType} from "./profile-reducer";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 
@@ -25,7 +25,7 @@ export const Profile = () => {
 
     const logOutHandler = () => {
 
-        dispatch(logOutTC())
+        // dispatch(logOutTC())
     }
 
     return (

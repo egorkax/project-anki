@@ -6,7 +6,7 @@ import {Navigate} from "react-router-dom";
 
 
 export const NewPass = () => {
-  const isSentData = useSelector<AppRootStateType,boolean>(state => state.recovery.isSentData)
+  const isSentData = useSelector<AppRootStateType,boolean>(state => state.auth.isSentData)
   if(isSentData){
     return <Navigate to={'/login'}/>
   }else{

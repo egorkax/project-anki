@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
-import {recoveryPass, setRecoveryStatus} from "../../store/recoveryPass-reducer";
+import {recoveryPass, setRecoveryStatus} from "../../store/auth-reducer";
 
 
 
