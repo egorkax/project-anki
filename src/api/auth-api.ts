@@ -1,6 +1,5 @@
 import {instance, instanceForHeroku} from "./instance";
 import {signUpDataType} from "../store/auth-reducer";
-import axios from "axios";
 
 export const authAPI = {
     authMe: () => {
