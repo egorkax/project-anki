@@ -6,6 +6,8 @@ import {AnyAction} from "redux";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 import {setRecoveryStatus, updatePass} from "../../store/auth-reducer";
+import SuperInput from '../common/c1-SuperInput/SuperInput';
+import SuperButton from "../common/c2-SuperButton/SuperButton";
 
 export const NewPassForm = () => {
   const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
@@ -29,19 +31,22 @@ export const NewPassForm = () => {
       dispatch(updatePass(values.password, token))
     },
   });
+
+  const passwordError = formik.errors.password ? formik.errors.password : ''
+
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div>
-        <label htmlFor='password'>Password</label>
-        <input id='password'
-               type='password'
-               onChange={formik.handleChange}
-               value={formik.values.password}/>
-        <div>{formik.errors.password}</div>
-      </div>
-      <p>Create new password and we will send you further instructions to email</p>
-      <div>
-        <button type='submit'>Create new password</button>
+      <SuperInput
+          label='Password'
+          id='password'
+          type='password'
+          onChange={formik.handleChange}
+          value={formik.values.password}
+          error={passwordError}
+      />
+      <div className='auth-desc'>Create new password and we will send you further instructions to email</div>
+      <div className='auth-button-wrapper'>
+        <SuperButton superClassName='authButton' type='submit'>Create new password</SuperButton>
       </div>
     </form>
   );

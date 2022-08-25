@@ -10,30 +10,30 @@ import {Preloader} from "./components/Preloader/Preloader";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {initializeApp} from "./store/app-reducer";
-import {Profile} from "./features/Profile/Profile";
+import {NewPass} from "./components/pages/pages-components/NewPass";
+import {CheckEmail} from "./components/pages/pages-components/CheckEmail";
 
 const App = () => {
 
-    // const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-    //
-    // const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
-    //
-    // useEffect(() => {
-    //     dispatch(initializeApp())
-    // }, [])
-    //
-    // if (!isInitialized) return <Preloader/>
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+
+    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+
+    useEffect(() => {
+        dispatch(initializeApp())
+    }, [])
+
+    if (!isInitialized) return <Preloader/>
 
 
     return (
         <div className="App">
             <HashRouter>
 
+
                 <Header/>
 
                 <Pages/>
-
-                <Profile/>
 
             </HashRouter>
 

@@ -6,10 +6,10 @@ import {CheckEmail} from "./CheckEmail";
 import {ForgotPass} from "./ForgotPass";
 
 export const RecoveryPass = () => {
-  const isSentData = useSelector<AppRootStateType, boolean>(state => state.auth.isSentData)
-  if (!isSentData) {
-    return <ForgotPass/>
-  } else {
-    return <CheckEmail/>
-  }
+    const isSentData = useSelector<AppRootStateType, boolean>(state => state.auth.isSentData)
+    if (!isSentData) {
+        return <ForgotPass/>
+    } else {
+        return <CheckEmail/>
+    }
 }
