@@ -2,18 +2,14 @@ import {applyMiddleware, combineReducers, createStore, legacy_createStore} from 
 import thunkMiddleware from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {profileReducer} from "../features/Profile/profile-reducer";
-import {signupReducer} from "./signup-reducer";
 import {appReducer} from "./app-reducer";
-import {signInReducer} from "./signIn-reducer";
-import {recoveryPassReducer} from "./recoveryPass-reducer";
+import {authReducer} from "./auth-reducer";
 
 
 const rootReducer = combineReducers({
-  profile: profileReducer,
-  signUp: signupReducer,
-  app: appReducer,
-  signIn: signInReducer,
-  recovery: recoveryPassReducer
+    profile: profileReducer,
+    app: appReducer,
+    auth: authReducer
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 

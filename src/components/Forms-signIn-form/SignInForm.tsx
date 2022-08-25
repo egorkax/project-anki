@@ -4,8 +4,8 @@ import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
 import {useDispatch} from "react-redux";
-import {signIn} from "../../store/signIn-reducer";
 import {NavLink} from "react-router-dom";
+import { signIn } from '../../store/auth-reducer';
 
 export const SignInForm = () => {
   const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()

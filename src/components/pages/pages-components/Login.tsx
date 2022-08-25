@@ -5,21 +5,16 @@ import {Navigate} from "react-router-dom";
 import {SignInForm} from "../../Forms-signIn-form/SignInForm";
 import { NavLink} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setRecoveryStatus} from "../../../store/recoveryPass-reducer";
+import {setRecoveryStatus} from "../../../store/auth-reducer";
 
 export const Login = () => {
-    const isAuth = useSelector<AppRootStateType, boolean>(state => state.signUp.isAuth)
+    const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
+    const dispatch=useDispatch()
+    dispatch(setRecoveryStatus(false))
 
     if (isAuth) return <Navigate to='/profile'/>
 
-    // return (
-    //     <div className="">
-    //         <h1>Login!!!</h1>
-    //     </div>
-    // );
-  // // const isAuth = useSelector<AppRootStateType, boolean>(state => state.signIn.isAuth)
-  // const dispatch=useDispatch()
-  // dispatch(setRecoveryStatus(false))
+  // const isAuth = useSelector<AppRootStateType, boolean>(state => state.signIn.isAuth)
   // if(isAuth){
   //   return <Navigate to={'/profile'}/>
   // }

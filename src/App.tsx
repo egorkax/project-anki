@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import './authBlocks.css'
 import {Header} from "./components/header/Header";
-import {HashRouter, Navigate} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {Pages} from "./components/pages/Pages";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
@@ -14,14 +14,14 @@ import {Profile} from "./features/Profile/Profile";
 
 const App = () => {
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
-
-    useEffect(() => {
-        dispatch(initializeApp())
-    }, [])
-
+    // const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    //
+    // const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+    //
+    // useEffect(() => {
+    //     dispatch(initializeApp())
+    // }, [])
+    //
     // if (!isInitialized) return <Preloader/>
 
 
