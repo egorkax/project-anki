@@ -9,6 +9,7 @@ enum AUTH_TYPES {
     SET_AUTH_ERROR = 'project_anki/auth/SET_AUTH_ERROR',
     IS_SENT_DATA = 'project_anki/auth/IS_SENT_DATA',
     SET_RECOVERY_EMAIL = 'project_anki/auth/SET_RECOVERY_EMAIL',
+    SET_STATUS = 'project_anki/auth/SET_STATUS',
 }
 
 const initialState: initialStateType = {
@@ -16,6 +17,7 @@ const initialState: initialStateType = {
     isAuth: false,
     error: '',
     recoveryEmail: '',
+    status: 'idle',
 }
 
 export const authReducer = (state = initialState, action: actionType): initialStateType => {
@@ -28,6 +30,8 @@ export const authReducer = (state = initialState, action: actionType): initialSt
             return {...state, error: action.error}
         case AUTH_TYPES.SET_RECOVERY_EMAIL:
             return {...state, recoveryEmail: action.email}
+        case AUTH_TYPES.SET_STATUS:
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -43,6 +47,8 @@ const setAuthError = (error: string) =>
     ({type: AUTH_TYPES.SET_AUTH_ERROR, error} as const)
 export const setRecoveryEmail = (email: string) =>
     ({type: AUTH_TYPES.SET_RECOVERY_EMAIL, email} as const)
+export const setStatus = (status: requestTypes) =>
+    ({type: AUTH_TYPES.SET_STATUS, status} as const)
 
 //thunks
 export const recoveryPass = (email: string) => async function (dispatch: Dispatch) {
@@ -116,11 +122,14 @@ export const signIn = (email: string,
                        rememberMe: boolean) => async function (dispatch: any) {
 
     try {
+        dispatch(setStatus('loading'))
         const payload = {email, password, rememberMe}
         const response = await authAPI.signIn(payload)
         dispatch(changeIsAuth(true))
         dispatch(setUserData(response.data))
+        dispatch(setStatus('succeed'))
     } catch (e) {
+        dispatch(setStatus('failed'))
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
@@ -132,10 +141,13 @@ export const signIn = (email: string,
 }
 export const signOut = () => async function (dispatch: Dispatch) {
     try {
+        dispatch(setStatus('loading'))
         await authAPI.signOut()
         dispatch(changeIsAuth(false))
         dispatch(deleteUserData())
+        dispatch(setStatus('succeed'))
     } catch (e) {
+        dispatch(setStatus('failed'))
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
@@ -153,7 +165,10 @@ type initialStateType = {
     isAuth: boolean
     error: string
     recoveryEmail: string
+    status: requestTypes
 }
+
+type requestTypes = 'idle' | 'loading' | 'succeed' | 'failed'
 
 export type changeIsAuthType = ReturnType<typeof changeIsAuth>
 
@@ -163,6 +178,7 @@ type actionType =
     | setUserDataType
     | ReturnType<typeof setAuthError>
     | ReturnType<typeof setRecoveryEmail>
+    | ReturnType<typeof setStatus>
 
 export type signUpDataType = {
     email: string

@@ -12,7 +12,7 @@ import {Profile} from "../../features/Profile/Profile";
 export const Pages = () => {
     let { token } = useParams();
     return (
-        <div>
+        <>
             <Routes>
 
                 {/*в начале мы попадаем на страницу '/' и переходим сразу на страницу Registration*/}
@@ -30,7 +30,7 @@ export const Pages = () => {
                 <Route path={'/*'} element={<Error404/>}/>
 
             </Routes>
-        </div>
+        </>
     )
 }
 
