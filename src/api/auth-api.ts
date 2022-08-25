@@ -1,5 +1,6 @@
-import {instance} from "./instance";
+import {instance, instanceForHeroku} from "./instance";
 import {signUpDataType} from "../store/auth-reducer";
+import axios from "axios";
 
 export const authAPI = {
     authMe: () => {
@@ -18,7 +19,7 @@ export const authAPI = {
         return instance.post<ResponseNewPassType>(`auth/set-new-password`, payload)
     },
     recovery(payload:RecoveryParamsType) {
-        return instance.post<ResponseRecoveryType>(`auth/forgot`, payload)
+        return instanceForHeroku.post<ResponseRecoveryType>(`auth/forgot`, payload)
     },
 }
 
