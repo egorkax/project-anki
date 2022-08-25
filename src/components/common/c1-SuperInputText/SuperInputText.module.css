@@ -1,0 +1,71 @@
+.wrapper {
+    position: relative;
+    width: 347px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.label {
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    right: 15px;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: .3s;
+    opacity: 0.5;
+    line-height: inherit;
+}
+
+.input {
+    border: none;
+    border-bottom: 1px solid #00000033;
+    width: 100%;
+    line-height: inherit;
+
+}
+
+input:focus {
+    outline: none;
+}
+
+.input:focus + .label,
+.topLabel{
+    top: -20px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.error {
+    color: red;
+    display: block;
+}
+
+.icon {
+    background: none;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.shownIcon {
+    opacity: 0.5;
+}
+
+.shownIcon:before {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 130%;
+    background: black;
+    position: absolute;
+    left: 50%;
+    top: -5px;
+    transform: translate(-50%, 0) rotate(45deg);
+}
