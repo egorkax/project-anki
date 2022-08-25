@@ -133,6 +133,7 @@ export const signIn = (email: string,
 export const signOut = () => async function (dispatch: Dispatch) {
     try {
         await authAPI.signOut()
+        dispatch(setAuthError(''))
         dispatch(changeIsAuth(false))
         dispatch(deleteUserData())
     } catch (e) {
