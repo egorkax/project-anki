@@ -5,6 +5,7 @@ import logo from '../../assets/logo.svg'
 import SuperButton from "../common/c2-SuperButton/SuperButton";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
+import {HeaderProfile} from "./HeaderProfile";
 
 export const Header = () => {
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
@@ -15,7 +16,7 @@ export const Header = () => {
                <img src={logo} alt=''/>
                {!isAuth ?
                    <SuperButton><NavLink to={'/login'}>Sign in</NavLink></SuperButton>
-                   : null
+                   : <HeaderProfile/>
                }
            </div>
         </header>
