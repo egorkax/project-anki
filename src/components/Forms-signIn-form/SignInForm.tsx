@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useFormik} from 'formik';
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {setStatus, signIn} from '../../store/auth-reducer';
+import {setAuthError, signIn} from '../../store/auth-reducer';
 import SuperInput from "../common/c1-SuperInput/SuperInput";
 import SuperCheckbox from "../common/c3-SuperCheckbox/SuperCheckbox";
 import SuperButton from "../common/c2-SuperButton/SuperButton";
@@ -13,6 +13,10 @@ import SuperButton from "../common/c2-SuperButton/SuperButton";
 export const SignInForm = () => {
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
     const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+
+    useEffect(() => {
+        return () => {dispatch(setAuthError(''))}
+    }, [])
 
     const formik = useFormik({
         initialValues: {

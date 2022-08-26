@@ -1,16 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
-import {signUp} from "../../store/auth-reducer";
+import {setAuthError, signUp} from "../../store/auth-reducer";
 import SuperInput from "../common/c1-SuperInput/SuperInput";
 import SuperButton from "../common/c2-SuperButton/SuperButton";
 
 export const SignUpForm = () => {
 
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+
+    useEffect(() => {
+        return () => {dispatch(setAuthError(''))}
+    }, [])
 
     const formik = useFormik({
         initialValues: {
