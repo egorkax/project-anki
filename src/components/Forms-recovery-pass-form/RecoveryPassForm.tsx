@@ -1,6 +1,6 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../store/store";
 import {AnyAction} from "redux";
@@ -13,6 +13,9 @@ import SuperButton from "../common/c2-SuperButton/SuperButton";
 
 export const RecoveryPassForm = () => {
   const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+
+  const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+  const isLoading = authStatus === 'loading'
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +51,7 @@ export const RecoveryPassForm = () => {
       />
       <div className='auth-desc'>Enter your email address and we will send you further instructions</div>
       <div className='auth-button-wrapper'>
-        <SuperButton superClassName='authButton' type='submit'>Send Instructions</SuperButton>
+        <SuperButton disabled={isLoading} isLoading={isLoading} superClassName={'authButton'} type='submit'>Send Instructions</SuperButton>
       </div>
     </form>
   );

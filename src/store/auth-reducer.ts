@@ -53,6 +53,7 @@ export const setStatus = (status: requestTypes) =>
 //thunks
 export const recoveryPass = (email: string) => async function (dispatch: Dispatch) {
     try {
+        dispatch(setStatus('loading'))
         dispatch(setRecoveryEmail(email))
         const payload = {
             email: email,
@@ -75,7 +76,9 @@ export const recoveryPass = (email: string) => async function (dispatch: Dispatc
         if (response.data.info === 'sent —ฅ/ᐠ.̫ .ᐟ\\ฅ—') {
             dispatch(setRecoveryStatus(true))
         }
+        dispatch(setStatus('succeed'))
     } catch (e) {
+        dispatch(setStatus('failed'))
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
@@ -87,12 +90,15 @@ export const recoveryPass = (email: string) => async function (dispatch: Dispatc
 }
 export const updatePass = (password: string, token: string | undefined) => async function (dispatch: Dispatch) {
     try {
+        dispatch(setStatus('loading'))
         let payload = {password: password, resetPasswordToken: token}
         let response = await authAPI.newPass(payload)
         if (response.data.info === "setNewPassword success —ฅ/ᐠ.̫ .ᐟฅ—") {
             dispatch(setRecoveryStatus(true))
         }
+        dispatch(setStatus('succeed'))
     } catch (e) {
+        dispatch(setStatus('failed'))
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
@@ -104,10 +110,13 @@ export const updatePass = (password: string, token: string | undefined) => async
 }
 export const signUp = (signUpData: signUpDataType) => async (dispatch: Dispatch<actionType>) => {
     try {
+        dispatch(setStatus('loading'))
         const response = await authAPI.signUp(signUpData)
         dispatch(changeIsAuth(true))
         dispatch(setUserData(response.data))
+        dispatch(setStatus('succeed'))
     } catch (e) {
+        dispatch(setStatus('failed'))
         const err = e as Error | AxiosError
         if (axios.isAxiosError(err)) {
             const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
