@@ -39,8 +39,8 @@ export const SignInForm = () => {
         },
     });
 
-    const emailError = formik.errors.email ? formik.errors.email : ''
-    const passwordError = formik.errors.password ? formik.errors.password : ''
+    const emailError = formik.errors.email && formik.touched.email ? formik.errors.email : ''
+    const passwordError = formik.errors.password && formik.touched.password ? formik.errors.password : ''
 
     const isLoading = authStatus === 'loading'
 
@@ -54,6 +54,7 @@ export const SignInForm = () => {
                 onChange={formik.handleChange}
                 value={formik.values.email}
                 error={emailError}
+                onBlur={formik.handleBlur}
             />
             <SuperInput
                 label='Password'
@@ -62,6 +63,7 @@ export const SignInForm = () => {
                 onChange={formik.handleChange}
                 value={formik.values.password}
                 error={passwordError}
+                onBlur={formik.handleBlur}
             />
             <SuperCheckbox id='rememberMe'
                            type='checkbox'
