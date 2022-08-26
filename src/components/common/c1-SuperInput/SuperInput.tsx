@@ -1,4 +1,12 @@
-import React, {ChangeEvent, FocusEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useState} from 'react'
+import React, {
+    ChangeEvent,
+    FocusEvent,
+    DetailedHTMLProps,
+    InputHTMLAttributes,
+    KeyboardEvent,
+    useState,
+    useEffect
+} from 'react'
 import s from './SuperInput.module.css'
 import icon from '../../../assets/icons/eye.svg'
 import SuperButton from "../c2-SuperButton/SuperButton";
@@ -33,6 +41,10 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
 
     const [showMode, setShowMode] = useState(false)
     const [topLabelClass, setTopLabelClass] = useState('')
+
+    useEffect(() => {
+        restProps.value ? setTopLabelClass(s.topLabel) : setTopLabelClass('')
+    }, [])
 
 
     let finalType = type
