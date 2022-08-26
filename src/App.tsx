@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import './authBlocks.css'
-import {Header} from "./components/header/Header";
+import './components/Auth/AuthBlock.css'
+import {Header} from "./components/Header/Header";
 import {HashRouter} from "react-router-dom";
-import {Pages} from "./components/pages/Pages";
+import {AppPagesRoutes} from "./AppPagesRoutes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
-import {Preloader} from "./components/Preloader/Preloader";
+import {Preloader} from "./common/Preloader/Preloader";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
-import {initializeApp} from "./store/app-reducer";
-import {NewPass} from "./components/pages/pages-components/NewPass";
-import {CheckEmail} from "./components/pages/pages-components/CheckEmail";
+import {initializeApp} from "./reducers/app-reducer";
+
 
 const App = () => {
 
@@ -33,7 +32,7 @@ const App = () => {
 
                 <Header/>
 
-                <Pages/>
+                <AppPagesRoutes/>
 
             </HashRouter>
 
