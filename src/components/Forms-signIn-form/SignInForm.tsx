@@ -44,8 +44,6 @@ export const SignInForm = () => {
 
     const isLoading = authStatus === 'loading'
 
-    let t: string;
-
     return (
         <form onSubmit={formik.handleSubmit}>
             <SuperInput

@@ -56,23 +56,32 @@ export const SignUpForm = () => {
             <SuperInput
                 label='Email'
                 id='email'
-                type='email'
-                {...formik.getFieldProps('email')}
+                name="email"
+                type="email"
+                onChange={formik.handleChange}
+                value={formik.values.email}
                 error={emailError}
+                onBlur={formik.handleBlur}
             />
             <SuperInput
                 label='Password'
                 id='password'
                 type='password'
-                {...formik.getFieldProps('password')}
+                name='password'
+                onChange={formik.handleChange}
+                value={formik.values.password}
                 error={passwordError}
+                onBlur={formik.handleBlur}
             />
             <SuperInput
                 label='Confirm password'
                 id='confirmPassword'
                 type='password'
-                {...formik.getFieldProps('confirmPassword')}
+                onChange={formik.handleChange}
+                value={formik.values.confirmPassword}
+                name='confirmPassword'
                 error={confirmPasswordError}
+                onBlur={formik.handleBlur}
             />
             <div className='auth-button-wrapper'>
                 <SuperButton superClassName='authButton' type='submit'>Sign up</SuperButton>
