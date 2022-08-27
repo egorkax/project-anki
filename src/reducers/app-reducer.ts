@@ -3,6 +3,7 @@ import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {changeIsAuth, ChangeIsAuthType} from "./auth-reducer";
 import {setUserData, SetUserDataType} from "./profile-reducer";
+import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 
 const initialState = {
   isInitialized: false
@@ -22,7 +23,7 @@ const setIsInitialized = () => ({type: 'INITIALIZE_APP'})
 const setAppError = (error: string) => ({type: 'SET_APP_ERROR', error} as const)
 
 //thunks
-export const initializeApp = () => async (dispatch: Dispatch<AppActionsType>) => {
+export const initializeApp = ():AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
   try {
     const response = await authAPI.authMe()
     dispatch(setIsInitialized())
