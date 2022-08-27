@@ -1,10 +1,10 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {useAppDispatch} from "../store/store";
 import {useParams} from "react-router-dom";
 import {updatePassword} from "../reducers/auth-reducer";
 import SuperInput from '../common/SuperInput/SuperInput';
 import SuperButton from "../common/SuperButton/SuperButton";
+import {useAppDispatch} from "../store/store";
 
 export const NewPasswordForm = () => {
   const dispatch = useAppDispatch()
