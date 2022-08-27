@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {changeIsAuth, ChangeIsAuthType} from "./auth-reducer";
-import {setUserData, setUserDataType} from "./profile-reducer";
+import {setUserData, SetUserDataType} from "./profile-reducer";
 
 enum APP_TYPES {
     INITIALIZE_APP = 'project_anki/app/INITIALIZE_APP',
@@ -53,7 +53,7 @@ type actionType =
     | ReturnType<typeof setIsInitialized>
     | ReturnType<typeof setAppError>
     | ChangeIsAuthType
-    | setUserDataType
+    | SetUserDataType
 type initialStateType = {
     isInitialized: boolean
 }

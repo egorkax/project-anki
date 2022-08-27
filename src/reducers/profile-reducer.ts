@@ -2,12 +2,6 @@ import {Dispatch} from "redux";
 import {profileAPI} from "../api/profile-api";
 import axios, {AxiosError} from "axios";
 
-enum PROFILE_TYPES {
-    SET_USER_DATA = 'project_anki/profile/SET_USER_DATA',
-    SET_USER_NAME = 'project_anki/profile/SET_USER_NAME',
-    DELETE_USER_DATA = 'project_anki/profile/DELETE_USER_DATA',
-}
-
 const initialState: UserType = {
     _id: '',
     email: '',
@@ -24,15 +18,13 @@ const initialState: UserType = {
     avatar: '',
 };
 
-export const profileReducer = (state = initialState, action: ActionsType) => {
+export const profileReducer = (state = initialState, action: ProfileActionsType) => {
     switch (action.type) {
-        case PROFILE_TYPES.SET_USER_DATA:
+        case 'SET_USER_DATA':
             return {...state, ...action.userData}
-        case PROFILE_TYPES.SET_USER_NAME:
-            return {
-                ...state, name: action.name
-            }
-        case PROFILE_TYPES.DELETE_USER_DATA:
+        case 'SET_USER_NAME':
+            return {...state, name: action.name}
+        case 'DELETE_USER_DATA':
             return {...initialState}
         default:
             return state
@@ -40,9 +32,9 @@ export const profileReducer = (state = initialState, action: ActionsType) => {
 }
 
 // actions
-export const setNewUserNameAC = (name: string) => ({type: PROFILE_TYPES.SET_USER_NAME, name} as const)
-export const setUserData = (userData: UserType) => ({type: PROFILE_TYPES.SET_USER_DATA, userData} as const)
-export const deleteUserData = () => ({type: PROFILE_TYPES.DELETE_USER_DATA} as const)
+export const setNewUserNameAC = (name: string) => ({type: 'SET_USER_NAME', name} as const)
+export const setUserData = (userData: UserType) => ({type: 'SET_USER_DATA', userData} as const)
+export const deleteUserData = () => ({type: 'DELETE_USER_DATA'} as const)
 
 //thunks
 export const changeUserNameTC = (name: string) => {
@@ -65,12 +57,12 @@ export const changeUserNameTC = (name: string) => {
 }
 
 //types
-export type setUserDataType = ReturnType<typeof setUserData>
+export type SetUserDataType = ReturnType<typeof setUserData>
 
-export type ActionsType =
+export type ProfileActionsType =
     | ReturnType<typeof setNewUserNameAC>
     | ReturnType<typeof deleteUserData>
-    | setUserDataType
+    | SetUserDataType
 
 export type UserType = {
     _id: string;

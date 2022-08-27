@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
-import {deleteUserData, setUserData, setUserDataType} from "./profile-reducer";
+import {deleteUserData, setUserData, SetUserDataType} from "./profile-reducer";
 
 const initialState = {
   isSentData: false,
@@ -159,7 +159,7 @@ export type ChangeIsAuthType = ReturnType<typeof changeIsAuth>
 type AuthActionType =
   | ReturnType<typeof setRecoveryStatus>
   | ChangeIsAuthType
-  | setUserDataType
+  | SetUserDataType
   | ReturnType<typeof setAuthError>
   | ReturnType<typeof setRecoveryEmail>
   | ReturnType<typeof setStatus>
