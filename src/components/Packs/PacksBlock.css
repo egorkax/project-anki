@@ -1,6 +1,10 @@
-.packs-block {
+.packs-wrapper {
     width: 1000px;
-    margin: 36px auto 0;
+    margin: 0 auto;
+}
+
+.packs-block {
+    margin-top: 36px;
 }
 
 .packs-header {

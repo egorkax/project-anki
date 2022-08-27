@@ -22,7 +22,7 @@ export const PacksList = () => {
     if (!isAuth) return <Navigate to={'/login'}/>
 
     return (
-       <div className='packs-block'>
+       <div className='packs-block packs-wrapper'>
            <div className='packs-header'>
                <h1>Packs list</h1>
                <SuperButton>Add new pack</SuperButton>

@@ -8,7 +8,7 @@ export const cardsApi = {
 }
 
 //types
-type cardType = {
+export type cardType = {
     _id: string
     __v: number
     answer: string
