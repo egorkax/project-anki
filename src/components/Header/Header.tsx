@@ -5,7 +5,7 @@ import logo from '../../assets/images/logo.svg'
 import SuperButton from "../../common/SuperButton/SuperButton";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../store/store";
-import {HeaderProfile} from "./HeaderProfile";
+import { HeaderProfile } from './HeaderProfile';
 
 export const Header = () => {
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)

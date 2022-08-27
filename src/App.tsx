@@ -9,7 +9,7 @@ import {Preloader} from "./common/Preloader/Preloader";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {initializeApp} from "./reducers/app-reducer";
-import { Header } from './components/header/Header';
+import { Header } from './components/Header/Header';
 
 
 const App = () => {
