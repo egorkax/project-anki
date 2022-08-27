@@ -36,7 +36,7 @@ export const setRecoveryStatus = (isSentData: boolean) =>
 export const changeIsAuth = (isAuth: boolean) =>
   ({type: 'CHANGE_IS_AUTH', isAuth} as const)
 
-const setAuthError = (error: string) =>
+export const setAuthError = (error: string) =>
   ({type: 'SET_AUTH_ERROR', error} as const)
 
 export const setRecoveryEmail = (email: string) =>
