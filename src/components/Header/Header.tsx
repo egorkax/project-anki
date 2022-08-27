@@ -3,12 +3,12 @@ import {NavLink} from "react-router-dom";
 import s from './Header.module.css'
 import logo from '../../assets/images/logo.svg'
 import SuperButton from "../../common/SuperButton/SuperButton";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../store/store";
+import {useAppSelector} from "../../store/store";
 import {HeaderProfile} from "./HeaderProfile";
 
 export const Header = () => {
-    const isAuth = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth)
+
+  const isAuth = useAppSelector(state => state.auth.isAuth)
 
     return (
         <header className={s.header}>
