@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../store/store";
 import {AnyAction} from "redux";
-import {recoveryPass, setRecoveryStatus} from "../reducers/auth-reducer";
+import {recoveryPassword, setRecoveryStatus} from "../reducers/auth-reducer";
 import SuperInput from "../common/SuperInput/SuperInput";
 import SuperButton from "../common/SuperButton/SuperButton";
 
@@ -28,7 +28,7 @@ export const RecoveryPasswordForm = () => {
       return errors
     },
     onSubmit: values => {
-      dispatch(recoveryPass(values.email))
+      dispatch(recoveryPassword(values.email))
       dispatch(setRecoveryStatus(false))
     },
   });

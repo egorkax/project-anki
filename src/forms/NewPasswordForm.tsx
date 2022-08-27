@@ -5,7 +5,7 @@ import {AppRootStateType} from "../store/store";
 import {AnyAction} from "redux";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
-import {updatePass} from "../reducers/auth-reducer";
+import {updatePassword} from "../reducers/auth-reducer";
 import SuperInput from '../common/SuperInput/SuperInput';
 import SuperButton from "../common/SuperButton/SuperButton";
 
@@ -28,7 +28,7 @@ export const NewPasswordForm = () => {
       return errors
     },
     onSubmit: values => {
-      dispatch(updatePass(values.password, token))
+      dispatch(updatePassword(values.password, token))
     },
   });
 
