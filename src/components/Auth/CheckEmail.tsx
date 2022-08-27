@@ -1,18 +1,18 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {setRecoveryStatus} from "../../reducers/auth-reducer";
 import SuperButton from "../../common/SuperButton/SuperButton";
-import {AppRootStateType} from "../../store/store";
+import {useAppDispatch, useAppSelector} from "../../store/store";
 
 
 export const CheckEmail = () => {
-  const dispatch = useDispatch()
+
+  const dispatch = useAppDispatch()
   const onClickHandler = () => {
     dispatch(setRecoveryStatus(false))
   }
 
-  const recoveryEmail = useSelector<AppRootStateType, string>(state => state.auth.recoveryEmail)
+  const recoveryEmail = useAppSelector(state => state.auth.recoveryEmail)
 
   return (
     <div className="auth-container">
