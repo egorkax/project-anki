@@ -1,9 +1,7 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../store/store";
-import {AnyAction} from "redux";
-import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "../store/store";
+import {useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 import {signIn} from '../reducers/auth-reducer';
 import SuperInput from "../common/SuperInput/SuperInput";
@@ -11,7 +9,7 @@ import SuperCheckbox from "../common/SuperCheckbox/SuperCheckbox";
 import SuperButton from "../common/SuperButton/SuperButton";
 
 export const SignInForm = () => {
-  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+  const dispatch = useAppDispatch()
   const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
 
   const formik = useFormik({

@@ -1,9 +1,6 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {useDispatch} from "react-redux";
-import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType, useAppDispatch} from "../store/store";
-import {AnyAction} from "redux";
+import {useAppDispatch} from "../store/store";
 import {recoveryPassword, setRecoveryStatus} from "../reducers/auth-reducer";
 import SuperInput from "../common/SuperInput/SuperInput";
 import SuperButton from "../common/SuperButton/SuperButton";
