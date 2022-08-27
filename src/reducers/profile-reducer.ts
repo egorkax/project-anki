@@ -1,7 +1,8 @@
 import {profileAPI} from "../api/profile-api";
-import axios, {AxiosError} from "axios";
+import {AxiosError} from "axios";
 import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
-import {setAuthError, setStatus} from "./auth-reducer";
+import {setStatus} from "./auth-reducer";
+import {handleServerAppError} from "../utils/error-utils";
 
 const initialState: UserType = {
   _id: '',
@@ -45,12 +46,7 @@ export const changeUserNameTC = (name: string): AppThunk => async (dispatch: Dis
   } catch (e) {
     dispatch(setStatus('failed'))
     const err = e as Error | AxiosError
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-      dispatch(setAuthError(error))
-    } else {
-      dispatch(setAuthError(`Native error ${err.message}`))
-    }
+    handleServerAppError(err, dispatch)
   }
 }
 //types
