@@ -1,12 +1,13 @@
 import React from 'react';
 import {NewPasswordForm} from "../../forms/NewPasswordForm";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../store/store";
+import {useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 
 
 export const NewPassword = () => {
-  const isSentData = useSelector<AppRootStateType,boolean>(state => state.auth.isSentData)
+
+  const isSentData = useAppSelector(state => state.auth.isSentData)
+
   if(isSentData){
     return <Navigate to={'/login'}/>
   }else{
