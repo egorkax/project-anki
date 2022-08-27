@@ -27,7 +27,7 @@ const setIsInitialized = () => ({type: APP_TYPES.INITIALIZE_APP})
 const setAppError = (error: string) => ({type: APP_TYPES.SET_APP_ERROR, error} as const)
 
 //thunks
-export const initializeApp = () => async (dispatch: Dispatch<actionType>) => {
+export const  initializeApp = () => async (dispatch: Dispatch<actionType>) => {
     try {
         const response = await authAPI.authMe()
         dispatch(setIsInitialized())

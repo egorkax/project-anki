@@ -6,15 +6,17 @@ import {RecoveryPassword} from "./components/Auth/RecoveryPassword";
 import {NewPassword} from "./components/Auth/NewPassword";
 import {Error404} from "./common/Error404/Error404";
 import {Profile} from "./components/Profile/Profile";
+import { PacksList } from './components/Packs/PacksList/PacksList';
+import {CardsList} from "./components/Packs/CardsList/CardsList";
 
 
 export const AppPagesRoutes = () => {
-    let { token } = useParams();
+    let {token} = useParams();
     return (
         <>
             <Routes>
 
-                {/*в начале мы попадаем на страницу '/' и переходим сразу на страницу Registration*/}
+                {/*в начале мы попадаем на страницу '/' и переходим сразу на страницу Login*/}
                 <Route path={'/'} element={<Navigate to={'/login'}/>}/>
 
                 <Route path={'/login'} element={<SignIn/>}/>
@@ -22,6 +24,8 @@ export const AppPagesRoutes = () => {
                 <Route path={'/password-recovery'} element={<RecoveryPassword/>}/>
                 <Route path={'/new-password/:token'} element={<NewPassword/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
+                <Route path={'/packs'} element={<PacksList/>}/>
+                <Route path={'/packs/:packId'} element={<CardsList/>}/>
 
 
                 {/*он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
