@@ -8,7 +8,7 @@ const initialState = {
   isInitialized: false
 }
 
-export const appReducer = (state: initialStateType = initialState, action: AppActionsType): initialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
   switch (action.type) {
     case 'INITIALIZE_APP':
       return {...state, isInitialized: true}
@@ -44,9 +44,9 @@ export const initializeApp = () => async (dispatch: Dispatch<AppActionsType>) =>
 }
 
 //types
-type AppActionsType =
+export type AppActionsType =
   | ReturnType<typeof setIsInitialized>
   | ReturnType<typeof setAppError>
   | ChangeIsAuthType
   | SetUserDataType
-type initialStateType = typeof initialState
+type InitialStateType = typeof initialState

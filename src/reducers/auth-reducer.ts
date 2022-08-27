@@ -156,7 +156,7 @@ type RequestTypes = 'idle' | 'loading' | 'succeed' | 'failed'
 
 export type ChangeIsAuthType = ReturnType<typeof changeIsAuth>
 
-type AuthActionType =
+export type AuthActionType =
   | ReturnType<typeof setRecoveryStatus>
   | ChangeIsAuthType
   | SetUserDataType
