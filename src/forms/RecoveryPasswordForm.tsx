@@ -2,7 +2,7 @@ import React from 'react';
 import {useFormik} from 'formik';
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../store/store";
+import {AppRootStateType, useAppDispatch} from "../store/store";
 import {AnyAction} from "redux";
 import {recoveryPassword, setRecoveryStatus} from "../reducers/auth-reducer";
 import SuperInput from "../common/SuperInput/SuperInput";
@@ -12,7 +12,7 @@ import SuperButton from "../common/SuperButton/SuperButton";
 
 
 export const RecoveryPasswordForm = () => {
-  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+  const dispatch = useAppDispatch()
 
   const formik = useFormik({
     initialValues: {
