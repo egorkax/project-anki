@@ -4,19 +4,15 @@ import './components/Auth/AuthBlock.css'
 import {Header} from "./components/Header/Header";
 import {HashRouter} from "react-router-dom";
 import {AppPagesRoutes} from "./AppPagesRoutes";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./store/store";
+import {useAppDispatch, useAppSelector} from "./store/store";
 import {Preloader} from "./common/Preloader/Preloader";
-import {ThunkDispatch} from "redux-thunk";
-import {AnyAction} from "redux";
 import {initializeApp} from "./reducers/app-reducer";
 
 
 const App = () => {
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(initializeApp())
