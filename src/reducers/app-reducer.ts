@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
-import {changeIsAuth, changeIsAuthType} from "./auth-reducer";
+import {changeIsAuth, ChangeIsAuthType} from "./auth-reducer";
 import {setUserData, setUserDataType} from "./profile-reducer";
 
 enum APP_TYPES {
@@ -52,7 +52,7 @@ export const initializeApp = () => async (dispatch: Dispatch<actionType>) => {
 type actionType =
     | ReturnType<typeof setIsInitialized>
     | ReturnType<typeof setAppError>
-    | changeIsAuthType
+    | ChangeIsAuthType
     | setUserDataType
 type initialStateType = {
     isInitialized: boolean

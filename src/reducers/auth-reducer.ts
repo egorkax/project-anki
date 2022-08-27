@@ -3,15 +3,15 @@ import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {deleteUserData, setUserData, setUserDataType} from "./profile-reducer";
 
-const initialState: initialStateType = {
+const initialState = {
   isSentData: false,
   isAuth: false,
   error: '',
   recoveryEmail: '',
-  status: 'idle',
+  status: 'idle' as RequestTypes,
 }
 
-export const authReducer = (state = initialState, action: actionType): initialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
   switch (action.type) {
     case 'IS_SENT_DATA':
       return {...state, isSentData: action.isSentData}
@@ -41,7 +41,7 @@ const setAuthError = (error: string) =>
 export const setRecoveryEmail = (email: string) =>
   ({type: 'SET_RECOVERY_EMAIL', email} as const)
 
-export const setStatus = (status: requestTypes) =>
+export const setStatus = (status: RequestTypes) =>
   ({type: 'SET_STATUS', status} as const)
 
 //thunks
@@ -92,7 +92,7 @@ export const updatePassword = (password: string, token: string | undefined) => a
   }
 }
 
-export const signUp = (signUpData: signUpDataType) => async (dispatch: Dispatch<actionType>) => {
+export const signUp = (signUpData: SignUpDataType) => async (dispatch: Dispatch<AuthActionType>) => {
   try {
     const response = await authAPI.signUp(signUpData)
     dispatch(changeIsAuth(true))
@@ -150,27 +150,21 @@ export const signOut = () => async function (dispatch: Dispatch) {
 
 
 //types
-type initialStateType = {
-  isSentData: boolean
-  isAuth: boolean
-  error: string
-  recoveryEmail: string
-  status: requestTypes
-}
+type InitialStateType = typeof initialState
 
-type requestTypes = 'idle' | 'loading' | 'succeed' | 'failed'
+type RequestTypes = 'idle' | 'loading' | 'succeed' | 'failed'
 
-export type changeIsAuthType = ReturnType<typeof changeIsAuth>
+export type ChangeIsAuthType = ReturnType<typeof changeIsAuth>
 
-type actionType =
+type AuthActionType =
   | ReturnType<typeof setRecoveryStatus>
-  | changeIsAuthType
+  | ChangeIsAuthType
   | setUserDataType
   | ReturnType<typeof setAuthError>
   | ReturnType<typeof setRecoveryEmail>
   | ReturnType<typeof setStatus>
 
-export type signUpDataType = {
+export type SignUpDataType = {
   email: string
   password: string
 }

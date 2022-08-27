@@ -14,8 +14,8 @@ const rootReducer = combineReducers({
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
-
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
 
 // @ts-ignore
 window.store = store;
