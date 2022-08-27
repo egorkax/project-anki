@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {deleteUserData, setUserData, SetUserDataType} from "./profile-reducer";
+import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 
 const initialState = {
   isSentData: false,
@@ -128,7 +129,7 @@ export const signIn = (email: string, password: string, rememberMe: boolean) => 
   }
 }
 
-export const signOut = () => async function (dispatch: Dispatch) {
+export const signOut = ():AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType)=>{
   try {
     dispatch(setStatus('loading'))
     await authAPI.signOut()
