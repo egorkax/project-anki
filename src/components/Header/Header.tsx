@@ -10,16 +10,16 @@ export const Header = () => {
 
   const isAuth = useAppSelector(state => state.auth.isAuth)
 
-    return (
-        <header className={s.header}>
-           <div className={s.wrapper}>
-               <img src={logo} alt=''/>
-               {!isAuth ?
-                   <SuperButton><NavLink to={'/login'}>Sign in</NavLink></SuperButton>
-                   : <HeaderProfile/>
-               }
-           </div>
-        </header>
-    )
+  return (
+    <header className={s.header}>
+      <div className={s.wrapper}>
+        <img src={logo} alt=''/>
+        {!isAuth ?
+          <SuperButton><NavLink to={'/login'}>Sign in</NavLink></SuperButton>
+          : <HeaderProfile/>
+        }
+      </div>
+    </header>
+  )
 };
 

@@ -11,29 +11,23 @@ import {initializeApp} from "./reducers/app-reducer";
 
 const App = () => {
 
-    const isInitialized = useAppSelector(state => state.app.isInitialized)
-    const dispatch = useAppDispatch()
+  const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        dispatch(initializeApp())
-    }, [])
+  useEffect(() => {
+    dispatch(initializeApp())
+  }, [])
 
-    if (!isInitialized) return <Preloader/>
+  if (!isInitialized) return <Preloader/>
 
-
-    return (
-        <div className="App">
-            <HashRouter>
-
-
-                <Header/>
-
-                <AppPagesRoutes/>
-
-            </HashRouter>
-
-        </div>
-    );
+  return (
+    <div className="App">
+      <HashRouter>
+        <Header/>
+        <AppPagesRoutes/>
+      </HashRouter>
+    </div>
+  );
 }
 
 export default App;

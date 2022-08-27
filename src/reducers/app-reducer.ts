@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {changeIsAuth, ChangeIsAuthType} from "./auth-reducer";

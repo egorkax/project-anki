@@ -19,7 +19,7 @@ const initialState: UserType = {
   avatar: '',
 };
 
-export const profileReducer = (state = initialState, action: ProfileActionsType) => {
+export const profileReducer = (state = initialState, action: ProfileActionsType):UserType => {
   switch (action.type) {
     case 'SET_USER_DATA':
       return {...state, ...action.userData}
