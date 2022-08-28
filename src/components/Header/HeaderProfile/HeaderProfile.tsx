@@ -1,7 +1,7 @@
 import React from 'react';
-import ava from '../../assets/images/avatar.png'
-import s from './Header.module.css'
-import {useAppSelector} from "../../store/store";
+import ava from '../../../assets/images/avatar.png'
+import s from '../Header.module.css'
+import {useAppSelector} from "../../../store/store";
 
 
 export const HeaderProfile = () => {
