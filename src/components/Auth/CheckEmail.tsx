@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import {setRecoveryStatus} from "../../reducers/auth-reducer";
 import SuperButton from "../../common/SuperButton/SuperButton";
 import {useAppDispatch, useAppSelector} from "../../store/store";
-import {MailSvgIcon} from "../../assets/icons/MailSvgIcon/MailSvgIcon";
+import {FilterSvgIcon} from "../../assets/icons/MailSvgIcon/FilterSvgIcon";
 
 
 export const CheckEmail = () => {
@@ -20,7 +20,7 @@ export const CheckEmail = () => {
       <h1>Check Email</h1>
       <div className='add-reg-block'>
         <div>
-          <MailSvgIcon/>
+          <FilterSvgIcon/>
         </div>
         <div className='auth-desc'>We’ve sent an Email with instructions to {recoveryEmail}</div>
         <div className='auth-button-wrapper'>

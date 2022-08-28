@@ -7,6 +7,7 @@ import {AppPagesRoutes} from "./AppPagesRoutes";
 import {useAppDispatch, useAppSelector} from "./store/store";
 import {Preloader} from "./common/Preloader/Preloader";
 import {initializeApp} from "./reducers/app-reducer";
+import {SearchFilter} from "./components/Search&Filter/SearchFilter";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
     <div className="App">
       <HashRouter>
         <Header/>
+        <SearchFilter/>
         <AppPagesRoutes/>
       </HashRouter>
     </div>

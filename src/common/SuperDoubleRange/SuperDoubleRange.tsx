@@ -53,39 +53,41 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max,
   }, [minVal, maxVal, onChangeRange]);
 
   return (
-    <div className={style.container}>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        value={minVal}
-        onChange={(event: any) => {
-          const value = Math.min(Number(event.target.value), maxVal - 1);
-          setMinVal(value);
-          minValRef.current = value;
-        }}
-        className={style.thumb + ' ' + style.thumbLeft}
-        //@ts-ignore
-        style={{zIndex: (minVal > max - 100 && "5")}}
-      />
-      <input
-        type="range"
-        min={min}
-        max={max}
-        value={maxVal}
-        onChange={(event: any) => {
-          const value = Math.max(Number(event.target.value), minVal + 1);
-          setMaxVal(value);
-          maxValRef.current = value;
-        }}
-        className={style.thumb + ' ' + style.thumbRight}
-      />
+    <div className={style.doubleRange}>
+      <div className={style.container}>
+        <input
+          type="range"
+          min={min}
+          max={max}
+          value={minVal}
+          onChange={(event: any) => {
+            const value = Math.min(Number(event.target.value), maxVal - 1);
+            setMinVal(value);
+            minValRef.current = value;
+          }}
+          className={style.thumb + ' ' + style.thumbLeft}
+          //@ts-ignore
+          style={{zIndex: (minVal > max - 100 && "5")}}
+        />
+        <input
+          type="range"
+          min={min}
+          max={max}
+          value={maxVal}
+          onChange={(event: any) => {
+            const value = Math.max(Number(event.target.value), minVal + 1);
+            setMaxVal(value);
+            maxValRef.current = value;
+          }}
+          className={style.thumb + ' ' + style.thumbRight}
+        />
 
-      <div className={style.slider}>
-        <div className={style.sliderLeftValue}>{minVal}</div>
-        <div className={style.sliderTrack}/>
-        <div ref={range} className={style.sliderRange}/>
-        <div className={style.sliderRightValue}>{maxVal}</div>
+        <div className={style.slider}>
+          <div className={style.sliderLeftValue}>{minVal}</div>
+          <div className={style.sliderTrack}/>
+          <div ref={range} className={style.sliderRange}/>
+          <div className={style.sliderRightValue}>{maxVal}</div>
+        </div>
       </div>
     </div>
   );

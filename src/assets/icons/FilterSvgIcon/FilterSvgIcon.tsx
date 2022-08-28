@@ -1,6 +1,6 @@
 import React from "react";
 
-export const MailSvgIcon = () => {
+export const FilterSvgIcon = () => {
   return (
     <svg width="108" height="108">
       <svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">

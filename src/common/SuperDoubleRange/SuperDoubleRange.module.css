@@ -1,9 +1,15 @@
+.doubleRange{
+    display: block;
+    width: 250px;
+    margin-top: 0;
+}
+
 .container {
-    height: 100vh;
-    width: 155px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    top: 18px;
 }
 
 .slider {
