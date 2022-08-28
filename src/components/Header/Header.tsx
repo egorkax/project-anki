@@ -4,7 +4,7 @@ import s from './Header.module.css'
 import logo from '../../assets/images/logo.svg'
 import SuperButton from "../../common/SuperButton/SuperButton";
 import {useAppSelector} from "../../store/store";
-import {HeaderProfile} from "./HeaderProfile";
+import {HeaderProfile} from "../Header/HeaderProfile";
 
 export const Header = () => {
 
