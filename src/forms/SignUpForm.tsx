@@ -91,7 +91,7 @@ export const SignUpForm = () => {
 
 //types
 type errorsType = {
-  email?: string
-  password?: string
-  confirmPassword?: string
+    email?: string
+    password?: string
+    confirmPassword?: string
 }

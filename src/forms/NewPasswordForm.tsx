@@ -7,7 +7,7 @@ import SuperButton from "../common/SuperButton/SuperButton";
 import {useAppDispatch, useAppSelector} from "../store/store";
 
 export const NewPasswordForm = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
 
   const authStatus = useAppSelector(state => state.auth.status)
   const isLoading = authStatus === 'loading'

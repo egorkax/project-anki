@@ -50,7 +50,7 @@ export const changeUserNameTC = (name: string): AppThunk => async (dispatch: Dis
   }
 }
 //types
-export type SetUserDataType = ReturnType<typeof setUserData>
+export type setUserDataType = ReturnType<typeof setUserData>
 
 export type ProfileActionsType =
   | ReturnType<typeof setNewUserNameAC>
