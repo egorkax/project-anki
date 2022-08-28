@@ -1,7 +1,9 @@
 import {Dispatch} from "redux";
-import axios, {AxiosError} from "axios";
+import {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
-import {deleteUserData, setUserData, setUserDataType} from "./profile-reducer";
+import {deleteUserData, setUserData, SetUserDataType} from "./profile-reducer";
+import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
+import {handleServerAppError} from "../utils/error-utils";
 
 const initialState = {
   isSentData: false,
@@ -67,12 +69,7 @@ export const recoveryPassword = (email: string) => async function (dispatch: Dis
     dispatch(setRecoveryStatus(true))
   } catch (e) {
     const err = e as Error | AxiosError
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-      console.log(error)
-    } else {
-      console.log(err.message)
-    }
+    handleServerAppError(err, dispatch)
   }
 }
 
@@ -83,12 +80,7 @@ export const updatePassword = (password: string, token: string | undefined) => a
     dispatch(setRecoveryStatus(true))
   } catch (e) {
     const err = e as Error | AxiosError
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-      dispatch(setAuthError(error))
-    } else {
-      dispatch(setAuthError(`Native error ${err.message}`))
-    }
+    handleServerAppError(err, dispatch)
   }
 }
 
@@ -99,12 +91,7 @@ export const signUp = (signUpData: SignUpDataType) => async (dispatch: Dispatch<
     dispatch(setUserData(response.data))
   } catch (e) {
     const err = e as Error | AxiosError
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-      dispatch(setAuthError(error))
-    } else {
-      dispatch(setAuthError(`Native error ${err.message}`))
-    }
+    handleServerAppError(err, dispatch)
   }
 }
 
@@ -117,18 +104,12 @@ export const signIn = (email: string, password: string, rememberMe: boolean) => 
     dispatch(setUserData(response.data))
     dispatch(setStatus('succeed'))
   } catch (e) {
-    dispatch(setStatus('failed'))
     const err = e as Error | AxiosError
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-      dispatch(setAuthError(error))
-    } else {
-      dispatch(setAuthError(`Native error ${err.message}`))
-    }
+    handleServerAppError(err, dispatch)
   }
 }
 
-export const signOut = () => async function (dispatch: Dispatch) {
+export const signOut = (): AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
   try {
     dispatch(setStatus('loading'))
     await authAPI.signOut()
@@ -137,14 +118,8 @@ export const signOut = () => async function (dispatch: Dispatch) {
     dispatch(deleteUserData())
     dispatch(setStatus('succeed'))
   } catch (e) {
-    dispatch(setStatus('failed'))
     const err = e as Error | AxiosError
-    if (axios.isAxiosError(err)) {
-      const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-      dispatch(setAuthError(error))
-    } else {
-      dispatch(setAuthError(`Native error ${err.message}`))
-    }
+    handleServerAppError(err, dispatch)
   }
 }
 
@@ -156,10 +131,10 @@ type RequestTypes = 'idle' | 'loading' | 'succeed' | 'failed'
 
 export type ChangeIsAuthType = ReturnType<typeof changeIsAuth>
 
-type AuthActionType =
+export type AuthActionType =
   | ReturnType<typeof setRecoveryStatus>
   | ChangeIsAuthType
-  | setUserDataType
+  | SetUserDataType
   | ReturnType<typeof setAuthError>
   | ReturnType<typeof setRecoveryEmail>
   | ReturnType<typeof setStatus>

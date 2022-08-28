@@ -1,20 +1,17 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {useDispatch, useSelector} from "react-redux";
-import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../store/store";
-import {AnyAction} from "redux";
+import {useAppSelector} from "../store/store";
+import {useAppDispatch} from "../store/store";
 import {recoveryPassword, setRecoveryStatus} from "../reducers/auth-reducer";
 import SuperInput from "../common/SuperInput/SuperInput";
 import SuperButton from "../common/SuperButton/SuperButton";
 
 
 
-
 export const RecoveryPasswordForm = () => {
-  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+  const dispatch = useAppDispatch()
 
-  const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+  const authStatus = useAppSelector(state => state.auth.status)
   const isLoading = authStatus === 'loading'
 
   const formik = useFormik({

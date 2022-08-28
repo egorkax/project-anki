@@ -3,41 +3,31 @@ import './App.css';
 import './components/Auth/AuthBlock.css'
 import {HashRouter} from "react-router-dom";
 import {AppPagesRoutes} from "./AppPagesRoutes";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./store/store";
+import {useAppDispatch, useAppSelector} from "./store/store";
 import {Preloader} from "./common/Preloader/Preloader";
-import {ThunkDispatch} from "redux-thunk";
-import {AnyAction} from "redux";
 import {initializeApp} from "./reducers/app-reducer";
 import { Header } from './components/header/Header';
 
 
 const App = () => {
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+  const isInitialized = useAppSelector(state => state.app.isInitialized)
+  const dispatch = useAppDispatch()
 
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+  useEffect(() => {
+    dispatch(initializeApp())
+  }, [])
 
-    useEffect(() => {
-        dispatch(initializeApp())
-    }, [])
+  if (!isInitialized) return <Preloader/>
 
-    if (!isInitialized) return <Preloader/>
-
-
-    return (
-        <div className="App">
-            <HashRouter>
-
-
-                <Header/>
-
-                <AppPagesRoutes/>
-
-            </HashRouter>
-
-        </div>
-    );
+  return (
+    <div className="App">
+      <HashRouter>
+        <Header/>
+        <AppPagesRoutes/>
+      </HashRouter>
+    </div>
+  );
 }
 
 export default App;

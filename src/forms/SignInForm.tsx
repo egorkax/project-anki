@@ -1,27 +1,25 @@
-import React from 'react';
-import {useFormik} from 'formik';
-import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../store/store";
-import {AnyAction} from "redux";
-import {useDispatch, useSelector} from "react-redux";
-import {NavLink} from "react-router-dom";
-import {signIn} from '../reducers/auth-reducer';
-import SuperInput from "../common/SuperInput/SuperInput";
-import SuperCheckbox from "../common/SuperCheckbox/SuperCheckbox";
-import SuperButton from "../common/SuperButton/SuperButton";
+import React from 'react'
+import {NavLink} from "react-router-dom"
+import SuperButton from "../common/SuperButton/SuperButton"
+import SuperCheckbox from "../common/SuperCheckbox/SuperCheckbox"
+import SuperInput from "../common/SuperInput/SuperInput"
+import {useAppDispatch, useAppSelector} from "../store/store"
+import {useFormik} from "formik"
+import {signIn} from "../reducers/auth-reducer"
 
 export const SignInForm = () => {
-  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
-  const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+
+  const dispatch = useAppDispatch()
+  const authStatus = useAppSelector(state => state.auth.status)
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
-      rememberMe: false
+      rememberMe: false,
     },
     validate: (values) => {
-      const errors: FormikErrorType = {}
+      const errors: Error = {}
       if (!values.password) {
         errors.password = 'Required'
       } else if (values.password.length < 7) {
@@ -37,13 +35,10 @@ export const SignInForm = () => {
     onSubmit: values => {
       dispatch(signIn(values.email, values.password, values.rememberMe))
     },
-  });
-
+  })
   const emailError = formik.errors.email ? formik.errors.email : ''
   const passwordError = formik.errors.password ? formik.errors.password : ''
-
-  const isLoading = authStatus === 'loading'
-
+  const isLoading = (authStatus === 'loading')
   return (
     <form onSubmit={formik.handleSubmit}>
       <SuperInput
@@ -69,7 +64,6 @@ export const SignInForm = () => {
                      onChange={formik.handleChange}>
         Remember me
       </SuperCheckbox>
-
       <div className='forgotMe'>
         <NavLink to={'/password-recovery'}>Forgot Password?</NavLink>
       </div>
@@ -78,10 +72,10 @@ export const SignInForm = () => {
           in</SuperButton>
       </div>
     </form>
-  );
-};
+  )
+}
 //types
-type FormikErrorType = {
+type Error = {
   email?: string
   password?: string
   rememberMe?: boolean

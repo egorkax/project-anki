@@ -1,59 +1,52 @@
-import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {changeIsAuth, ChangeIsAuthType} from "./auth-reducer";
-import {setUserData, setUserDataType} from "./profile-reducer";
+import {setUserData, SetUserDataType} from "./profile-reducer";
+import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 
-enum APP_TYPES {
-    INITIALIZE_APP = 'project_anki/app/INITIALIZE_APP',
-    SET_APP_ERROR = 'project_anki/app/SET_APP_ERROR'
+const initialState = {
+  isInitialized: false
 }
 
-const initialState: initialStateType = {
-    isInitialized: false
-}
-
-export const appReducer = (state = initialState, action: actionType): initialStateType => {
-    switch (action.type) {
-        case APP_TYPES.INITIALIZE_APP:
-            return {...state, isInitialized: true}
-        default:
-            return state
-    }
+export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
+  switch (action.type) {
+    case 'INITIALIZE_APP':
+      return {...state, isInitialized: true}
+    default:
+      return state
+  }
 }
 
 //actions
-const setIsInitialized = () => ({type: APP_TYPES.INITIALIZE_APP})
-const setAppError = (error: string) => ({type: APP_TYPES.SET_APP_ERROR, error} as const)
+const setIsInitialized = () => ({type: 'INITIALIZE_APP'})
+const setAppError = (error: string) => ({type: 'SET_APP_ERROR', error} as const)
 
 //thunks
-export const initializeApp = () => async (dispatch: Dispatch<actionType>) => {
-    try {
-        const response = await authAPI.authMe()
+export const initializeApp = ():AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
+  try {
+    const response = await authAPI.authMe()
+    dispatch(setIsInitialized())
+    dispatch(changeIsAuth(true))
+    dispatch(setUserData(response.data))
+  } catch (e) {
+    const err = e as Error | AxiosError
+    if (axios.isAxiosError(err)) {
+      if (err.response?.status === 401) {
         dispatch(setIsInitialized())
-        dispatch(changeIsAuth(true))
-        dispatch(setUserData(response.data))
-    } catch (e) {
-        const err = e as Error | AxiosError
-        if (axios.isAxiosError(err)) {
-            if (err.response?.status === 401) {
-                dispatch(setIsInitialized())
-            } else {
-                const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-                dispatch(setAppError(error))
-            }
-        } else {
-            dispatch(setAppError(`Native error ${err.message}`))
-        }
+      } else {
+        const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
+        dispatch(setAppError(error))
+      }
+    } else {
+      dispatch(setAppError(`Native error ${err.message}`))
     }
+  }
 }
 
 //types
-type actionType =
-    | ReturnType<typeof setIsInitialized>
-    | ReturnType<typeof setAppError>
-    | ChangeIsAuthType
-    | setUserDataType
-type initialStateType = {
-    isInitialized: boolean
-}
+export type AppActionsType =
+  | ReturnType<typeof setIsInitialized>
+  | ReturnType<typeof setAppError>
+  | ChangeIsAuthType
+  | SetUserDataType
+type InitialStateType = typeof initialState
