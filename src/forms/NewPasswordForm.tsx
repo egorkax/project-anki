@@ -1,5 +1,9 @@
 import React from 'react';
 import {useFormik} from 'formik';
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootStateType} from "../store/store";
+import {AnyAction} from "redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {updatePassword} from "../reducers/auth-reducer";
 import SuperInput from '../common/SuperInput/SuperInput';
@@ -8,6 +12,11 @@ import {useAppDispatch} from "../store/store";
 
 export const NewPasswordForm = () => {
   const dispatch = useAppDispatch()
+  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+
+  const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+  const isLoading = authStatus === 'loading'
+
   let {token} = useParams();
 
 
@@ -43,7 +52,7 @@ export const NewPasswordForm = () => {
       />
       <div className='auth-desc'>Create new password and we will send you further instructions to email</div>
       <div className='auth-button-wrapper'>
-        <SuperButton superClassName='authButton' type='submit'>Create new password</SuperButton>
+        <SuperButton disabled={isLoading} isLoading={isLoading} superClassName={'authButton'} type='submit'>Create new password</SuperButton>
       </div>
     </form>
   );

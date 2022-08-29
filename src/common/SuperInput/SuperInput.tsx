@@ -1,4 +1,12 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useState} from 'react'
+import React, {
+    ChangeEvent,
+    FocusEvent,
+    DetailedHTMLProps,
+    InputHTMLAttributes,
+    KeyboardEvent,
+    useState,
+    useEffect
+} from 'react'
 import s from './SuperInput.module.css'
 import icon from '../../assets/icons/eye.svg'
 
@@ -24,6 +32,7 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
         className, spanClassName,
         label,
         name,
+        onBlur,
 
         ...restProps// все остальные пропсы попадут в объект restProps
     }
@@ -31,6 +40,10 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
 
     const [showMode, setShowMode] = useState(false)
     const [topLabelClass, setTopLabelClass] = useState('')
+
+    useEffect(() => {
+        restProps.value ? setTopLabelClass(s.topLabel) : setTopLabelClass('')
+    }, [])
 
 
     let finalType = type
@@ -42,7 +55,8 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
         setShowMode(!showMode)
     }
 
-    const onBlurHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
+        onBlur && onBlur(e)
         if(e.currentTarget.value) {
             setTopLabelClass(s.topLabel)
         } else {

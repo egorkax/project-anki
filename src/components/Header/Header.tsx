@@ -5,6 +5,9 @@ import logo from '../../assets/images/logo.svg'
 import SuperButton from "../../common/SuperButton/SuperButton";
 import {useAppSelector} from "../../store/store";
 import {HeaderProfile} from "./HeaderProfile/HeaderProfile";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../store/store";
+import { HeaderProfile } from './HeaderProfile';
 
 export const Header = () => {
 

@@ -1,0 +1,51 @@
+.packs-wrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.packs-block {
+    margin-top: 36px;
+}
+
+.packs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-wrapper {
+    margin-top: 24px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td {
+    padding: 15px 0;
+}
+
+table td:first-child {
+    padding-left: 36px;
+}
+
+.table-header {
+    background: #EFEFEF;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.pack-link {
+    cursor: pointer;
+    display: block;
+    color: black;
+    text-decoration: none;
+}
+
+.pack-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

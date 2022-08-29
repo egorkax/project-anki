@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import './components/Auth/AuthBlock.css'
-import {Header} from "./components/Header/Header";
 import {HashRouter} from "react-router-dom";
 import {AppPagesRoutes} from "./AppPagesRoutes";
 import {useAppDispatch, useAppSelector} from "./store/store";
 import {Preloader} from "./common/Preloader/Preloader";
 import {initializeApp} from "./reducers/app-reducer";
+import { Header } from './components/Header/Header';
 import {SearchFilter} from "./components/Search&Filter/SearchFilter";
 
 
