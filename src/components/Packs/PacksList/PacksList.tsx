@@ -8,6 +8,7 @@ import {AppRootStateType} from "../../../store/store";
 import {AnyAction} from "redux";
 import {fetchPacks} from "../../../reducers/packs-reducer";
 import {Navigate} from "react-router-dom";
+import {SearchFilter} from "../../Search&Filter/SearchFilter";
 
 export const PacksList = () => {
 
@@ -27,6 +28,7 @@ export const PacksList = () => {
                <h1>Packs list</h1>
                <SuperButton>Add new pack</SuperButton>
            </div>
+           <SearchFilter/>
            <PacksTable/>
        </div>
     )

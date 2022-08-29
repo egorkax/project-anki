@@ -1,11 +1,6 @@
 import React, {useEffect} from "react";
 import {useFormik} from "formik";
-import {useAppDispatch} from "../store/store";
-import {signUp} from "../reducers/auth-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../store/store";
-import {AnyAction} from "redux";
+import {useAppDispatch, useAppSelector} from "../store/store";
 import {setAuthError, signUp } from "../reducers/auth-reducer";
 import SuperInput from "../common/SuperInput/SuperInput";
 import SuperButton from "../common/SuperButton/SuperButton";
@@ -15,7 +10,7 @@ export const SignUpForm = () => {
 
   const dispatch = useAppDispatch()
 
-    const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+    const authStatus = useAppSelector(state => state.auth.status)
     const isLoading = authStatus === 'loading'
 
 

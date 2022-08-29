@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import './components/Auth/AuthBlock.css'
-import {HashRouter} from "react-router-dom";
-import {AppPagesRoutes} from "./AppPagesRoutes";
-import {useAppDispatch, useAppSelector} from "./store/store";
-import {Preloader} from "./common/Preloader/Preloader";
-import {initializeApp} from "./reducers/app-reducer";
-import { Header } from './components/Header/Header';
-import {SearchFilter} from "./components/Search&Filter/SearchFilter";
+import '../components/Auth/AuthBlock.css'
+import { HashRouter } from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from "../store/store";
+import { initializeApp } from '../reducers/app-reducer';
+import { Preloader } from '../common/Preloader/Preloader';
+import { AppPagesRoutes } from './AppPagesRoutes';
+import { Header } from '../components/Header/Header';
 
 
 const App = () => {
@@ -25,7 +24,6 @@ const App = () => {
     <div className="App">
       <HashRouter>
         <Header/>
-        <SearchFilter/>
         <AppPagesRoutes/>
       </HashRouter>
     </div>

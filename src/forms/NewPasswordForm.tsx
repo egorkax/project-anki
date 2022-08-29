@@ -12,7 +12,6 @@ import {useAppDispatch} from "../store/store";
 
 export const NewPasswordForm = () => {
   const dispatch = useAppDispatch()
-  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
 
   const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
   const isLoading = authStatus === 'loading'

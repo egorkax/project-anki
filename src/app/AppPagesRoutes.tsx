@@ -1,13 +1,13 @@
 import React from 'react'
 import {Navigate, Route, Routes, useParams} from "react-router-dom";
-import {SignIn} from "./components/Auth/SignIn";
-import {SignUp} from "./components/Auth/SignUp";
-import {RecoveryPassword} from "./components/Auth/RecoveryPassword";
-import {NewPassword} from "./components/Auth/NewPassword";
-import {Error404} from "./common/Error404/Error404";
-import {Profile} from "./components/Profile/Profile";
-import { PacksList } from './components/Packs/PacksList/PacksList';
-import {CardsList} from "./components/Packs/CardsList/CardsList";
+import {SignIn} from "../components/Auth/SignIn";
+import {SignUp} from "../components/Auth/SignUp";
+import {RecoveryPassword} from "../components/Auth/RecoveryPassword";
+import {NewPassword} from "../components/Auth/NewPassword";
+import {Error404} from "../common/Error404/Error404";
+import {Profile} from "../components/Profile/Profile";
+import { PacksList } from '../components/Packs/PacksList/PacksList';
+import {CardsList} from "../components/Packs/CardsList/CardsList";
 
 
 export const AppPagesRoutes = () => {
