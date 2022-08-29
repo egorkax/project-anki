@@ -2,9 +2,14 @@ import {instance} from "./instance";
 import {SORT_PACKS} from "../reducers/packs-reducer";
 
 export const packsApi = {
-    getPacks: (pageCount: number = 10, page: number = 1, sortPacks: SORT_PACKS = SORT_PACKS.FROM_HIGHER_TO_LOWER) => {
+    getPacks: (pageCount: number = 10,
+               page: number = 1,
+               sortPacks: SORT_PACKS = SORT_PACKS.FROM_HIGHER_TO_LOWER,
+               minCardsCount: number = 0,
+               maxCardsCount: number = 10,
+    ) => {
         return instance
-            .get<getPacksResponseType>(`/cards/pack?pageCount=${pageCount}&page=${page}&sortPacks=${sortPacks}`)
+            .get<getPacksResponseType>(`/cards/pack?pageCount=${pageCount}&page=${page}&sortPacks=${sortPacks}&min=${minCardsCount}&max=${maxCardsCount}`)
     }
 }
 

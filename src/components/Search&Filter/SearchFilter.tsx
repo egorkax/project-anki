@@ -2,11 +2,10 @@ import React from 'react';
 import {SuperDoubleRange} from "../../common/SuperDoubleRange/SuperDoubleRange";
 import s from './SearchFilter.module.css'
 import {FilterSvgIcon} from "../../assets/icons/MailSvgIcon/FilterSvgIcon";
+import {DoubleRange} from "./DoubleRange/DoubleRange";
 
 export const SearchFilter = () => {
-  const onChangeHandler = (min: number, max: number) => {
-    console.log(`min = ${min}, max = ${max}`)
-  }
+
   return (
     <div className={s.searchBlock}>
       <div className={s.inputItem}>
@@ -20,14 +19,8 @@ export const SearchFilter = () => {
           <button>All</button>
         </div>
       </div>
-      <div className={s.rangeBlock}>
-        <span>Number of cards</span>
-        <SuperDoubleRange
-          min={0}
-          max={100}
-          onChangeRange={onChangeHandler}
-        />
-      </div>
+        <DoubleRange/>
+
       <div className={s.filterButton}>
         <span>Clear</span>
         <button><FilterSvgIcon/></button>
