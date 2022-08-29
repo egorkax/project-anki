@@ -1,6 +1,6 @@
 import s from "../SearchFilter.module.css";
 import {SuperDoubleRange} from "../../../common/SuperDoubleRange/SuperDoubleRange";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {useDebounce} from "../../../hooks/useDebounce";
 import {changeMinMaxCardsCount, fetchPacks} from "../../../reducers/packs-reducer";
@@ -13,21 +13,22 @@ export const DoubleRange = () => {
     const dispatch = useAppDispatch()
 
     const [value, setValue] = useState({
-        min: minCardsCount,
-        max: maxCardsCount,
+        minCardsCount: minCardsCount,
+        maxCardsCount: maxCardsCount,
     })
 
-    // const debouncedValue = useDebounce(value, 500)
+    const debouncedValue = useDebounce(value, 500)
 
 
-    const onChangeHandler = (min: number, max: number) => {
-        setValue({min, max})
-    }
+    const onChangeHandler = useCallback((min: number, max: number) => {
+        setValue({minCardsCount: min, maxCardsCount: max})
+        console.log(`${min} and ${max}`)
+    }, [])
 
-    // useEffect(() => {
-    //     dispatch(changeMinMaxCardsCount(value))
-    //     dispatch(fetchPacks())
-    // }, [debouncedValue])
+    useEffect(() => {
+        dispatch(changeMinMaxCardsCount({filterMinCardsCount: value.minCardsCount, filterMaxCardsCount: value.maxCardsCount}))
+        dispatch(fetchPacks())
+    }, [debouncedValue])
 
     return (
         <div className={s.rangeBlock}>

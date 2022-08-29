@@ -5,7 +5,7 @@ import React, {
   useRef,
   DetailedHTMLProps,
   InputHTMLAttributes,
-  LegacyRef, ChangeEvent
+  LegacyRef, ChangeEvent, useMemo
 } from "react";
 import style from './SuperDoubleRange.module.css'
 
@@ -17,7 +17,7 @@ type SuperDoubleRangePropsType = DefaultInputPropsType & {
   max: number
 }
 
-export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max, onChangeRange}) => {
+const SuperDoubleRangeHidden: React.FC<SuperDoubleRangePropsType> = ({min, max, onChangeRange}) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(min);
@@ -53,6 +53,7 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max,
   }, [minVal, maxVal, onChangeRange]);
 
 
+
   return (
     <div className={style.doubleRange}>
       <div className={style.container}>
@@ -67,7 +68,8 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max,
             minValRef.current = value;
           }}
           className={style.thumb + ' ' + style.thumbLeft}
-          style={{zIndex: (minVal > max - 100 ? "5" : undefined)}}
+          // @ts-ignore
+          style={{zIndex: (minVal > max - 100 && "5")}}
         />
         <input
           type="range"
@@ -92,6 +94,9 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max,
     </div>
   );
 };
+
+export const SuperDoubleRange = React.memo(SuperDoubleRangeHidden)
+
 
 
 

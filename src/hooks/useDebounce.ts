@@ -18,4 +18,4 @@ export const useDebounce = (value: ValueType, delay: number) => {
 }
 
 //types
-type ValueType = string | { min: number, max: number }
+type ValueType = string | { minCardsCount: number, maxCardsCount: number }

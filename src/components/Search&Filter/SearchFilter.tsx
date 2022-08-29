@@ -1,17 +1,14 @@
 import React from 'react';
-import {SuperDoubleRange} from "../../common/SuperDoubleRange/SuperDoubleRange";
 import s from './SearchFilter.module.css'
 import {FilterSvgIcon} from "../../assets/icons/MailSvgIcon/FilterSvgIcon";
 import {DoubleRange} from "./DoubleRange/DoubleRange";
+import {SearchField} from "./SearchField";
 
 export const SearchFilter = () => {
 
   return (
     <div className={s.searchBlock}>
-      <div className={s.inputItem}>
-        <span>Search</span>
-        <input/>
-      </div>
+    <SearchField/>
       <div className={s.buttonBlock}>
         <span>Show packs cards</span>
         <div>
