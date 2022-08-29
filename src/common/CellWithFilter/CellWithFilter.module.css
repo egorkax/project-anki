@@ -1,0 +1,7 @@
+.wrapper {
+    cursor: pointer;
+}
+
+.fromHigherToLower {
+    transform: rotate(180deg);
+}

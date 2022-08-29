@@ -5,14 +5,18 @@ import {AppRootStateType} from "../../../store/store";
 import {cardType} from "../../../api/cards-api";
 import {CardsTableItem} from "./CardsTableItem";
 
-export const CardsTable = () => {
+type CardsTablePropsType = {
+    packId: string | undefined
+}
+
+export const CardsTable = ({packId, ...props}: CardsTablePropsType) => {
 
     const cards = useSelector<AppRootStateType, cardType[]>(state => state.cards.cards)
 
     return (
         <div className='table-wrapper'>
             <table>
-                <CardsTableHeader/>
+                <CardsTableHeader packId={packId}/>
                 <tbody>
                 {cards.map(card => <CardsTableItem
                     question={card.question}

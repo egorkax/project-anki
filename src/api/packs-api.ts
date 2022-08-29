@@ -1,7 +1,8 @@
 import {instance} from "./instance";
+import {SORT_PACKS} from "../reducers/packs-reducer";
 
 export const packsApi = {
-    getPacks: (pageCount: number = 10, page: number = 1, sortPacks: string = '0updated') => {
+    getPacks: (pageCount: number = 10, page: number = 1, sortPacks: SORT_PACKS = SORT_PACKS.FROM_HIGHER_TO_LOWER) => {
         return instance
             .get<getPacksResponseType>(`/cards/pack?pageCount=${pageCount}&page=${page}&sortPacks=${sortPacks}`)
     }

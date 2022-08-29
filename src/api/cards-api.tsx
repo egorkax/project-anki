@@ -1,9 +1,9 @@
 import {instance} from "./instance";
-import exp from "constants";
+import {SORT_CARDS} from "../reducers/cards-reducer";
 
 export const cardsApi = {
-    getCards: (packId: string) => {
-        return instance.get(`/cards/card?cardsPack_id=${packId}`)
+    getCards: (packId: string, sortCards: SORT_CARDS = SORT_CARDS.FROM_HIGHER_TO_LOWER) => {
+        return instance.get(`/cards/card?cardsPack_id=${packId}&sortCards=${sortCards}`)
     }
 }
 

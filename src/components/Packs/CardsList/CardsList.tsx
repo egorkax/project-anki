@@ -13,7 +13,6 @@ import {CardsTable} from "./CardsTable";
 export const CardsList = () => {
 
     const {packId} = useParams()
-
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
 
 
@@ -36,7 +35,7 @@ export const CardsList = () => {
                     <h1>{packName}</h1>
                     <SuperButton>Add new card</SuperButton>
                 </div>
-                <CardsTable/>
+                <CardsTable packId={packId}/>
             </div>
         </div>
     )
