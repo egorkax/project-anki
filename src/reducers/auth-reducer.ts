@@ -10,7 +10,7 @@ const initialState = {
   isAuth: false,
   error: '',
   recoveryEmail: '',
-  status: 'idle' as RequestTypes,
+  status: 'idle' as StatusTypes,
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
@@ -43,7 +43,7 @@ export const setAuthError = (error: string) =>
 export const setRecoveryEmail = (email: string) =>
   ({type: 'SET_RECOVERY_EMAIL', email} as const)
 
-export const setStatus = (status: RequestTypes) =>
+export const setStatus = (status: StatusTypes) =>
   ({type: 'SET_STATUS', status} as const)
 
 //thunks
@@ -60,7 +60,7 @@ export const recoveryPassword = (email: string) => async function (dispatch: Dis
                      Password recovery
                   </a>      
                   <br/>
-                     If you didn’t make this request, then you can ignore this email 🙂
+                     If you didn't make this request, then you can ignore this email 🙂
                   <br/>
                  </div>
                 </div>`
@@ -127,7 +127,7 @@ export const signOut = (): AppThunk => async (dispatch: DispatchType, getState: 
 //types
 type InitialStateType = typeof initialState
 
-type RequestTypes = 'idle' | 'loading' | 'succeed' | 'failed'
+export type StatusTypes = 'idle' | 'loading' | 'succeed' | 'failed'
 
 export type ChangeIsAuthType = ReturnType<typeof changeIsAuth>
 

@@ -5,7 +5,7 @@ import {ProfileActionsType, profileReducer} from "../reducers/profile-reducer";
 import {AppActionsType, appReducer} from "../reducers/app-reducer";
 import {AuthActionType, authReducer} from "../reducers/auth-reducer";
 import {PacksActionType, packsReducer} from "../reducers/packs-reducer";
-import {cardsReducer} from "../reducers/cards-reducer";
+import {CardsActionType, cardsReducer} from "../reducers/cards-reducer";
 
 
 const rootReducer = combineReducers({
@@ -19,7 +19,7 @@ export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddle
 
 //types
 export type AppRootStateType = ReturnType<typeof rootReducer>
-export type AllActionsType = AppActionsType | AuthActionType | ProfileActionsType | PacksActionType
+export type AllActionsType = AppActionsType | AuthActionType | ProfileActionsType | PacksActionType | CardsActionType
 export type DispatchType = ThunkDispatch<AppRootStateType, unknown, AllActionsType>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AllActionsType>
 

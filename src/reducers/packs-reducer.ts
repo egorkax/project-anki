@@ -3,6 +3,7 @@ import {AppRootStateType, AppThunk} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
 import {AxiosError} from "axios";
 import {cardsApi} from "../api/cards-api";
+import {setAppStatus} from "./app-reducer";
 
 export enum SORT_PACKS {
     FROM_HIGHER_TO_LOWER = '0updated',
@@ -83,8 +84,8 @@ export const clearFilters = () => ({type: 'CLEAR_FILTERS'} as const)
 export const fetchPacks = (): AppThunk =>
     async (dispatch, getState: () => AppRootStateType) => {
         try {
+            dispatch(setAppStatus('loading'))
             const isMy = getState().packs.isMy
-
             const params = {
                 packName: getState().packs.filterPackName,
                 min: getState().packs.filterMinCardsCount,
@@ -95,9 +96,10 @@ export const fetchPacks = (): AppThunk =>
                 user_id: isMy ? getState().profile._id : '',
             }
             const response = await packsApi.getPacks(params)
-
             dispatch(setPacks(response.data))
+            dispatch(setAppStatus('succeed'))
         } catch (e) {
+            dispatch(setAppStatus('failed'))
             handleServerAppError(e as Error | AxiosError, dispatch)
         }
     }

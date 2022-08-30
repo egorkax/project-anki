@@ -1,7 +1,8 @@
-import {AnyAction, Dispatch} from "redux";
 import {cardsApi, CardsParamsType, GetCardsResponseType} from "../api/cards-api";
-import {AppRootStateType} from "../store/store";
-import {ThunkAction} from "redux-thunk";
+import {AppRootStateType, AppThunk} from "../store/store";
+import {setAppStatus} from "./app-reducer";
+import {handleServerAppError} from "../utils/error-utils";
+import {AxiosError} from "axios";
 
 export enum SORT_CARDS {
     FROM_HIGHER_TO_LOWER = '0grade',
@@ -49,7 +50,7 @@ const initialState = {
     filterCardQuestion: '',
 }
 
-export const cardsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const cardsReducer = (state: InitialStateType = initialState, action: CardsActionType): InitialStateType => {
     switch (action.type) {
         case "SET_CARDS":
         case "CHANGE_CARDS_SORT":
@@ -71,9 +72,10 @@ export const changeFilterCardQuestion = (filterCardQuestion: string) =>
 
 
 //thunks
-export const fetchCards = (packId: string): ThunkAction<void, AppRootStateType, unknown, AnyAction> =>
+export const fetchCards = (packId: string): AppThunk =>
     async (dispatch, getState: () => AppRootStateType) => {
         try {
+            dispatch(setAppStatus('loading'))
             const params: CardsParamsType = {
                 cardsPack_id: packId,
                 sortCards: getState().cards.sortCards,
@@ -81,8 +83,10 @@ export const fetchCards = (packId: string): ThunkAction<void, AppRootStateType, 
             }
             const response = await cardsApi.getCards(params)
             dispatch(setCards(response.data))
+            dispatch(setAppStatus('succeed'))
         } catch (e) {
-            console.log(e)
+            dispatch(setAppStatus('failed'))
+            handleServerAppError(e as Error | AxiosError, dispatch)
         }
     }
 
@@ -90,7 +94,7 @@ export const fetchCards = (packId: string): ThunkAction<void, AppRootStateType, 
 
 type InitialStateType = typeof initialState
 
-type ActionType =
+export type CardsActionType =
     | ReturnType<typeof setCards>
     | ReturnType<typeof changeCardsSort>
     | ReturnType<typeof changeFilterCardQuestion>

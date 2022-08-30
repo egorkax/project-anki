@@ -1,0 +1,36 @@
+:root {
+    --main-height: 5px;
+}
+
+.plug {
+    width: 100%;
+    height: var(--main-height);
+}
+
+.loaderWrapper {
+    width: 100%;
+    height: var(--main-height);
+    background: transparent;
+    position: relative;
+}
+
+.loader {
+    width: 50%;
+    height: 100%;
+    background: #366EFF;
+    position: absolute;
+    left: -30%;
+    top: 0;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { left: -30%}
+    100% { left: 100%}
+}
+
+@keyframes spin {
+    0% { left: -30%}
+    100% { left: 100%}
+}
