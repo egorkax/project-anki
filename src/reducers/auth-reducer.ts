@@ -4,6 +4,7 @@ import {authAPI} from "../api/auth-api";
 import {deleteUserData, setUserData, SetUserDataType} from "./profile-reducer";
 import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
+import {setAppStatus} from "./app-reducer";
 
 const initialState = {
   isSentData: false,
@@ -47,8 +48,9 @@ export const setStatus = (status: StatusTypes) =>
   ({type: 'SET_STATUS', status} as const)
 
 //thunks
-export const recoveryPassword = (email: string) => async function (dispatch: Dispatch) {
+export const recoveryPassword = (email: string): AppThunk => async function (dispatch) {
   try {
+    dispatch(setAppStatus('loading'))
     dispatch(setRecoveryEmail(email))
     const payload = {
       email: email,
@@ -67,31 +69,36 @@ export const recoveryPassword = (email: string) => async function (dispatch: Dis
     }
     await authAPI.recovery(payload)
     dispatch(setRecoveryStatus(true))
+    dispatch(setAppStatus('succeed'))
   } catch (e) {
-    const err = e as Error | AxiosError
-    handleServerAppError(err, dispatch)
+    dispatch(setAppStatus('failed'))
+    handleServerAppError(e as Error | AxiosError, dispatch)
   }
 }
 
-export const updatePassword = (password: string, token: string | undefined) => async function (dispatch: Dispatch) {
+export const updatePassword = (password: string, token: string | undefined): AppThunk => async function (dispatch) {
   try {
+    dispatch(setAppStatus('loading'))
     let payload = {password: password, resetPasswordToken: token}
     await authAPI.newPass(payload)
     dispatch(setRecoveryStatus(true))
+    dispatch(setAppStatus('succeed'))
   } catch (e) {
-    const err = e as Error | AxiosError
-    handleServerAppError(err, dispatch)
+    dispatch(setAppStatus('failed'))
+    handleServerAppError(e as Error | AxiosError, dispatch)
   }
 }
 
-export const signUp = (signUpData: SignUpDataType) => async (dispatch: Dispatch<AuthActionType>) => {
+export const signUp = (signUpData: SignUpDataType):AppThunk => async (dispatch) => {
   try {
+    dispatch(setAppStatus('loading'))
     const response = await authAPI.signUp(signUpData)
     dispatch(changeIsAuth(true))
     dispatch(setUserData(response.data))
+    dispatch(setAppStatus('succeed'))
   } catch (e) {
-    const err = e as Error | AxiosError
-    handleServerAppError(err, dispatch)
+    dispatch(setAppStatus('failed'))
+    handleServerAppError(e as Error | AxiosError, dispatch)
   }
 }
 
@@ -104,8 +111,8 @@ export const signIn = (email: string, password: string, rememberMe: boolean) => 
     dispatch(setUserData(response.data))
     dispatch(setStatus('succeed'))
   } catch (e) {
-    const err = e as Error | AxiosError
-    handleServerAppError(err, dispatch)
+    dispatch(setStatus('failed'))
+    handleServerAppError(e as Error | AxiosError, dispatch)
   }
 }
 
@@ -118,8 +125,8 @@ export const signOut = (): AppThunk => async (dispatch: DispatchType, getState: 
     dispatch(deleteUserData())
     dispatch(setStatus('succeed'))
   } catch (e) {
-    const err = e as Error | AxiosError
-    handleServerAppError(err, dispatch)
+    dispatch(setStatus('failed'))
+    handleServerAppError(e as Error | AxiosError, dispatch)
   }
 }
 

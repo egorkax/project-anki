@@ -91,7 +91,6 @@ export const fetchCards = (packId: string): AppThunk =>
     }
 
 //types
-
 type InitialStateType = typeof initialState
 
 export type CardsActionType =

@@ -3,6 +3,7 @@ import {AxiosError} from "axios";
 import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 import {setStatus} from "./auth-reducer";
 import {handleServerAppError} from "../utils/error-utils";
+import {setAppStatus} from "./app-reducer";
 
 const initialState: UserType = {
   _id: '',
@@ -39,11 +40,14 @@ export const setUserData = (userData: UserType) => ({type: 'SET_USER_DATA', user
 export const deleteUserData = () => ({type: 'DELETE_USER_DATA'} as const)
 
 //thunks
-export const changeUserName = (name: string): AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
+export const changeUserName = (name: string): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
   try {
+    dispatch(setAppStatus('loading'))
     await profileAPI.changeUserName({name, avatar: ''})
     dispatch(setNewUserName(name))
+    dispatch(setAppStatus('succeed'))
   } catch (e) {
+    dispatch(setAppStatus('failed'))
     handleServerAppError(e as Error | AxiosError, dispatch)
   }
 }
