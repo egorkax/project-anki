@@ -6,6 +6,7 @@ import {changeFilterPackName, fetchPacks} from "../../reducers/packs-reducer";
 import {useAppDispatch} from "../../store/store";
 import {WhosePacksFilter} from "./WhosePacksFilter/WhosePacksFilter";
 import './SearchFilter.css'
+import {ClearButton} from "./clearButton/ClearButton";
 
 export const SearchFilter = () => {
 
@@ -23,11 +24,7 @@ export const SearchFilter = () => {
             </div>
             <WhosePacksFilter/>
             <DoubleRange/>
-
-            <div className='filterButton'>
-                <span>Clear</span>
-                <button><FilterSvgIcon/></button>
-            </div>
+            <ClearButton/>
         </div>
     )
 }

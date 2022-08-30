@@ -38,7 +38,7 @@ const initialState = {
     tokenDeathTime: 0,
     sortPacks: SORT_PACKS.FROM_HIGHER_TO_LOWER,
     filterMinCardsCount: 0,
-    filterMaxCardsCount: 10,
+    filterMaxCardsCount: 110,
     filterPackName: '',
     isMy: false,
 }
@@ -52,6 +52,14 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
         case "FILTER_PACK_NAME":
         case "CHANGE_IS_MY":
             return {...state, ...action.payload}
+        case 'CLEAR_FILTERS':
+            return {
+                ...state,
+                filterMinCardsCount: 0,
+                filterMaxCardsCount: 0,
+                filterPackName: '',
+                isMy: false,
+            }
         default:
             return state
     }
@@ -66,7 +74,9 @@ export const changeMinMaxCardsCount = (minMaxCardsCount: { filterMinCardsCount: 
     ({type: 'CHANGE_MIN_MAX_CARDS_COUNT', payload: {...minMaxCardsCount}} as const)
 export const changeFilterPackName = (filterPackName: string) =>
     ({type: 'FILTER_PACK_NAME', payload: {filterPackName}} as const)
-export const changeIsMy = (isMy: boolean) => ({type: 'CHANGE_IS_MY', payload: {isMy}} as const)
+export const changeIsMy = (isMy: boolean) =>
+    ({type: 'CHANGE_IS_MY', payload: {isMy}} as const)
+export const clearFilters = () => ({type: 'CLEAR_FILTERS'} as const)
 
 //thunks
 export const fetchPacks = (): AppThunk =>
@@ -100,3 +110,4 @@ export type PacksActionType =
     | ReturnType<typeof changeMinMaxCardsCount>
     | ReturnType<typeof changeFilterPackName>
     | ReturnType<typeof changeIsMy>
+    | ReturnType<typeof clearFilters>
