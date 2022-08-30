@@ -1,7 +1,7 @@
 import axios, {AxiosError} from "axios";
 import {Dispatch} from "redux";
-import { AppActionsType } from "../reducers/app-reducer";
-import {AuthActionType, setAuthError } from "../reducers/auth-reducer";
+import {setAuthError } from "../reducers/auth-reducer";
+import {AllActionsType} from "../store/store";
 
 export const handleServerAppError = (err: Error | AxiosError, dispatch: ErrorUtilsDispatchType) => {
   if (axios.isAxiosError(err)) {
@@ -12,6 +12,4 @@ export const handleServerAppError = (err: Error | AxiosError, dispatch: ErrorUti
   }
 }
 
-
-// @ts-ignore
-type ErrorUtilsDispatchType = Dispatch<AppActionsType | AuthActionType | ProfileActionsType>
+type ErrorUtilsDispatchType = Dispatch<AllActionsType>

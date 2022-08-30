@@ -1,4 +1,4 @@
-import s from "../SearchFilter.module.css";
+import "../SearchFilter.css";
 import {SuperDoubleRange} from "../../../common/SuperDoubleRange/SuperDoubleRange";
 import React, {useCallback, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
@@ -31,7 +31,7 @@ export const DoubleRange = () => {
     }, [debouncedValue])
 
     return (
-        <div className={s.rangeBlock}>
+        <div>
             <span>Number of cards</span>
             <SuperDoubleRange
                 min={minCardsCount}
