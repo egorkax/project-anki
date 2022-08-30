@@ -2,6 +2,7 @@ import {GetPacksResponseType, packsApi} from "../api/packs-api";
 import {AppRootStateType, AppThunk} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
 import {AxiosError} from "axios";
+import {cardsApi} from "../api/cards-api";
 
 export enum SORT_PACKS {
     FROM_HIGHER_TO_LOWER = '0updated',
@@ -96,6 +97,16 @@ export const fetchPacks = (): AppThunk =>
             const response = await packsApi.getPacks(params)
 
             dispatch(setPacks(response.data))
+        } catch (e) {
+            handleServerAppError(e as Error | AxiosError, dispatch)
+        }
+    }
+
+export const addNewPack = (name: string): AppThunk =>
+    async (dispatch, getState: () => AppRootStateType) => {
+        try {
+            await cardsApi.addPack({name})
+            dispatch(fetchPacks())
         } catch (e) {
             handleServerAppError(e as Error | AxiosError, dispatch)
         }
