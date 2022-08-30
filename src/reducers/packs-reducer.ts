@@ -39,17 +39,20 @@ const initialState = {
     sortPacks: SORT_PACKS.FROM_HIGHER_TO_LOWER,
     filterMinCardsCount: 0,
     filterMaxCardsCount: 10,
+    filterPackName: '',
 }
 
 const SET_PACKS = 'SET_PACKS'
 const CHANGE_PACKS_SORT = 'CHANGE_PACKS_SORT'
 const CHANGE_MIN_MAX_CARDS_COUNT = 'CHANGE_MIN_MAX_CARDS_COUNT'
+const FILTER_PACK_NAME = 'FILTER_PACK_NAME'
 
 export const packsReducer = (state: InitialStateType = initialState, action: PacksActionType): InitialStateType => {
     switch (action.type) {
         case "SET_PACKS":
         case "CHANGE_PACKS_SORT":
         case "CHANGE_MIN_MAX_CARDS_COUNT":
+        case "FILTER_PACK_NAME":
             return {...state, ...action.payload}
         default:
             return state
@@ -62,7 +65,9 @@ const setPacks = (packs: getPacksResponseType) =>
 export const changePacksSort = (sortPacks: SORT_PACKS) =>
     ({type: CHANGE_PACKS_SORT, payload: {sortPacks}} as const)
 export const changeMinMaxCardsCount = (minMaxCardsCount: { filterMinCardsCount: number, filterMaxCardsCount: number }) =>
-    ({type: CHANGE_MIN_MAX_CARDS_COUNT, payload: {...minMaxCardsCount}})
+    ({type: CHANGE_MIN_MAX_CARDS_COUNT, payload: {...minMaxCardsCount}} as const)
+export const changeFilterPackName = (filterPackName: string) =>
+    ({type: FILTER_PACK_NAME, payload: {filterPackName}} as const)
 
 //thunks
 export const fetchPacks = (): AppThunk =>
@@ -73,7 +78,8 @@ export const fetchPacks = (): AppThunk =>
             const sortPacks = getState().packs.sortPacks
             const minCardsCount = getState().packs.filterMinCardsCount
             const maxCardsCount = getState().packs.filterMaxCardsCount
-            const response = await packsApi.getPacks(pageCount, page, sortPacks, minCardsCount, maxCardsCount)
+            const filterPackName = getState().packs.filterPackName
+            const response = await packsApi.getPacks(pageCount, page, sortPacks, minCardsCount, maxCardsCount, filterPackName)
             dispatch(setPacks(response.data))
         } catch (e) {
             handleServerAppError(e as Error | AxiosError, dispatch)
@@ -87,3 +93,4 @@ export type PacksActionType =
     | ReturnType<typeof setPacks>
     | ReturnType<typeof changePacksSort>
     | ReturnType<typeof changeMinMaxCardsCount>
+    | ReturnType<typeof changeFilterPackName>

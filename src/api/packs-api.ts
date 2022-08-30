@@ -7,9 +7,10 @@ export const packsApi = {
                sortPacks: SORT_PACKS = SORT_PACKS.FROM_HIGHER_TO_LOWER,
                minCardsCount: number = 0,
                maxCardsCount: number = 10,
+               filterPackName: string = ''
     ) => {
         return instance
-            .get<getPacksResponseType>(`/cards/pack?pageCount=${pageCount}&page=${page}&sortPacks=${sortPacks}&min=${minCardsCount}&max=${maxCardsCount}`)
+            .get<getPacksResponseType>(`/cards/pack?packName=${filterPackName}&pageCount=${pageCount}&page=${page}&sortPacks=${sortPacks}&min=${minCardsCount}&max=${maxCardsCount}`)
     }
 }
 
