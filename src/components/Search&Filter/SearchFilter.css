@@ -4,7 +4,6 @@
     display: flex;
     justify-content: space-between;
     align-items: start;
-    margin-top: 42px;
 }
 .searchBlock span{
     font-style: normal;

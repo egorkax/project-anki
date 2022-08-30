@@ -2,13 +2,24 @@ import {instance} from "./instance";
 import {SORT_CARDS} from "../reducers/cards-reducer";
 
 export const cardsApi = {
-    getCards: (packId: string, sortCards: SORT_CARDS = SORT_CARDS.FROM_HIGHER_TO_LOWER) => {
-        return instance.get(`/cards/card?cardsPack_id=${packId}&sortCards=${sortCards}`)
+    getCards: (params: CardsParamsType) => {
+        return instance.get('/cards/card?', {params})
     }
 }
 
 //types
-export type cardType = {
+export type CardsParamsType = {
+    cardsPack_id: string
+    cardAnswer?: string
+    cardQuestion?: string
+    min?: number
+    max?: number
+    sortCards?: SORT_CARDS
+    page?: number
+    pageCount?: number
+}
+
+export type CardType = {
     _id: string
     __v: number
     answer: string
@@ -29,8 +40,8 @@ export type cardType = {
     user_id: string
 }
 
-export type getCardsResponseType = {
-    cards: cardType[]
+export type GetCardsResponseType = {
+    cards: CardType[]
     cardsTotalCount: number
     maxGrade: number
     minGrade: number

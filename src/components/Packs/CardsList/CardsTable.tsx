@@ -2,7 +2,7 @@ import React from "react";
 import {CardsTableHeader} from "./CardsTableHeader";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../store/store";
-import {cardType} from "../../../api/cards-api";
+import {CardType} from "../../../api/cards-api";
 import {CardsTableItem} from "./CardsTableItem";
 
 type CardsTablePropsType = {
@@ -11,7 +11,7 @@ type CardsTablePropsType = {
 
 export const CardsTable = ({packId, ...props}: CardsTablePropsType) => {
 
-    const cards = useSelector<AppRootStateType, cardType[]>(state => state.cards.cards)
+    const cards = useSelector<AppRootStateType, CardType[]>(state => state.cards.cards)
 
     return (
         <div className='table-wrapper'>

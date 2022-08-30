@@ -5,10 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../../store/store";
 import {AnyAction} from "redux";
-import {fetchCards} from "../../../reducers/cards-reducer";
+import {changeFilterCardQuestion, fetchCards} from "../../../reducers/cards-reducer";
 import {BackToPacksLink} from "../../../common/BackToPacksLink/BackToPacksLink";
 import '../PacksBlock.css'
 import {CardsTable} from "./CardsTable";
+import {SearchField} from "../../Search&Filter/SearchField/SearchField";
 
 export const CardsList = () => {
 
@@ -27,6 +28,13 @@ export const CardsList = () => {
 
     if (!isAuth) return <Navigate to={'/login'}/>
 
+    const searchCards = (value: string) => {
+        dispatch(changeFilterCardQuestion(value))
+        if (packId) {
+            dispatch(fetchCards(packId))
+        }
+    }
+
     return (
         <div className='packs-wrapper'>
             <BackToPacksLink/>
@@ -35,6 +43,7 @@ export const CardsList = () => {
                     <h1>{packName}</h1>
                     <SuperButton>Add new card</SuperButton>
                 </div>
+                <SearchField searchFunction={searchCards}/>
                 <CardsTable packId={packId}/>
             </div>
         </div>

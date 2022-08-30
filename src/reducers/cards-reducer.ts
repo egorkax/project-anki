@@ -1,5 +1,5 @@
 import {AnyAction, Dispatch} from "redux";
-import {cardsApi, getCardsResponseType} from "../api/cards-api";
+import {cardsApi, CardsParamsType, GetCardsResponseType} from "../api/cards-api";
 import {AppRootStateType} from "../store/store";
 import {ThunkAction} from "redux-thunk";
 
@@ -7,9 +7,6 @@ export enum SORT_CARDS {
     FROM_HIGHER_TO_LOWER = '0grade',
     FROM_LOWER_TO_HIGHER = '1grade',
 }
-
-const SET_CARDS = 'SET_CARDS'
-const CHANGE_CARDS_SORT = 'CHANGE_CARDS_SORT'
 
 const initialState = {
     cards: [
@@ -48,13 +45,15 @@ const initialState = {
     token: '',
     tokenDeathTime: 0,
     isDownFilter: false,
-    sortCards: SORT_CARDS.FROM_HIGHER_TO_LOWER
+    sortCards: SORT_CARDS.FROM_HIGHER_TO_LOWER,
+    filterCardQuestion: '',
 }
 
 export const cardsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case "SET_CARDS":
         case "CHANGE_CARDS_SORT":
+        case 'CHANGE_FILTER_CARD_QUESTION':
             return {...state, ...action.payload}
         default:
             return state
@@ -63,21 +62,29 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 
 
 //actions
-const setCards = (cards: getCardsResponseType) => ({type: SET_CARDS, payload: {...cards}} as const)
-export const changeCardsSort = (sortCards: SORT_CARDS) => ({type: CHANGE_CARDS_SORT, payload: {sortCards}} as const)
+const setCards = (cards: GetCardsResponseType) =>
+    ({type: 'SET_CARDS', payload: {...cards}} as const)
+export const changeCardsSort = (sortCards: SORT_CARDS) =>
+    ({type: 'CHANGE_CARDS_SORT', payload: {sortCards}} as const)
+export const changeFilterCardQuestion = (filterCardQuestion: string) =>
+    ({type: 'CHANGE_FILTER_CARD_QUESTION', payload: {filterCardQuestion}})
 
 
 //thunks
 export const fetchCards = (packId: string): ThunkAction<void, AppRootStateType, unknown, AnyAction> =>
     async (dispatch, getState: () => AppRootStateType) => {
-    try {
-        const sortCards = getState().cards.sortCards
-        const response = await cardsApi.getCards(packId, sortCards)
-        dispatch(setCards(response.data))
-    } catch (e) {
-        console.log(e)
+        try {
+            const params: CardsParamsType = {
+                cardsPack_id: packId,
+                sortCards: getState().cards.sortCards,
+                cardQuestion: getState().cards.filterCardQuestion,
+            }
+            const response = await cardsApi.getCards(params)
+            dispatch(setCards(response.data))
+        } catch (e) {
+            console.log(e)
+        }
     }
-}
 
 //types
 
@@ -86,3 +93,4 @@ type InitialStateType = typeof initialState
 type ActionType =
     | ReturnType<typeof setCards>
     | ReturnType<typeof changeCardsSort>
+    | ReturnType<typeof changeFilterCardQuestion>
