@@ -6,7 +6,8 @@ import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 
 const initialState = {
     isInitialized: false,
-    appStatus: 'idle' as StatusTypes
+    appStatus: 'idle' as StatusTypes,
+    appError: '',
 }
 
 export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
@@ -23,7 +24,7 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
 
 //actions
 const setIsInitialized = () => ({type: "INITIALIZE_APP"} as const)
-const setAppError = (appError: string) => ({type: "SET_APP_ERROR", payload: {appError}} as const)
+export const setAppError = (appError: string) => ({type: "SET_APP_ERROR", payload: {appError}} as const)
 export const setAppStatus = (appStatus: StatusTypes) => ({type: "SET_APP_STATUS", payload: {appStatus}} as const)
 
 //thunks

@@ -7,7 +7,7 @@ import { Preloader } from '../common/Loaders/Preloader/Preloader';
 import { AppPagesRoutes } from './AppPagesRoutes';
 import { Header } from '../components/Header/Header';
 import {useAppDispatch, useAppSelector} from '../store/store';
-import {LinearLoader} from "../common/Loaders/LinearLoader/LinearLoader";
+import {Alert} from "../common/Alert/Alert";
 
 
 const App = () => {
@@ -23,6 +23,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <Alert/>
       <HashRouter>
         <Header/>
         <AppPagesRoutes/>
