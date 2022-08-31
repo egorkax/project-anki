@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {deleteUserData, setUserData, SetUserDataType} from "./profile-reducer";

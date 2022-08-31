@@ -50,3 +50,16 @@ table td:first-child {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.empty-cards-block {
+    text-align: center;
+    margin-top: 86px;
+}
+
+.empty-cards-block p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    opacity: 0.5;
+    margin-bottom: 32px;
+}

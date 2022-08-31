@@ -9,8 +9,6 @@ import {AnyAction} from "redux";
 import {addNewPack, fetchPacks} from "../../../reducers/packs-reducer";
 import {Navigate} from "react-router-dom";
 import {SearchFilter} from "../../Search&Filter/SearchFilter";
-import {setAuthError} from "../../../reducers/auth-reducer";
-import {setAppError} from "../../../reducers/app-reducer";
 
 export const PacksList = () => {
 
