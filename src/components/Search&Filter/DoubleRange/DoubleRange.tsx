@@ -9,9 +9,11 @@ export const DoubleRange = () => {
 
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-    const appStatus = useAppSelector(state => state.app.appStatus)
-
-    const isLoading = appStatus === "loading"
+    const filterMinCardsCount = useAppSelector(state => state.packs.filterMinCardsCount)
+    const filterMaxCardsCount = useAppSelector(state => state.packs.filterMaxCardsCount)
+    // const appStatus = useAppSelector(state => state.app.appStatus)
+    //
+    // const isLoading = appStatus === "loading"
 
     const dispatch = useAppDispatch()
 
@@ -28,7 +30,7 @@ export const DoubleRange = () => {
     }, [])
 
     useEffect(() => {
-        if(!isLoading) {
+        if(filterMinCardsCount !== value.minCardsCount || filterMaxCardsCount !== value.maxCardsCount) {
             dispatch(changeMinMaxCardsCount({filterMinCardsCount: value.minCardsCount, filterMaxCardsCount: value.maxCardsCount}))
             dispatch(fetchPacks())
         }

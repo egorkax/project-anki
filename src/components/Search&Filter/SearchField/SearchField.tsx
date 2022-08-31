@@ -18,7 +18,9 @@ export const SearchField = ({searchFunction, ...props}: SearchFieldPropsType) =>
     }
 
     useEffect(() => {
-        searchFunction(debouncedValue as string)
+        if(debouncedValue) {
+            searchFunction(debouncedValue as string)
+        }
     }, [debouncedValue])
 
     return (

@@ -1,5 +1,4 @@
 import React from 'react';
-import {FilterSvgIcon} from "../../assets/icons/MailSvgIcon/FilterSvgIcon";
 import {DoubleRange} from "./DoubleRange/DoubleRange";
 import {SearchField} from "./SearchField/SearchField";
 import {changeFilterPackName, fetchPacks} from "../../reducers/packs-reducer";

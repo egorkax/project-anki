@@ -28,18 +28,18 @@ export const PacksList = () => {
             return
         }
         dispatch(fetchPacks())
-     }, [])
+    }, [])
 
     if (!isAuth) return <Navigate to={'/login'}/>
 
     return (
-       <div className='packs-block packs-wrapper'>
-           <div className='packs-header'>
-               <h1>Packs list</h1>
-               <SuperButton isLoading={isLoading} disabled={isLoading} onClick={addPack}>Add new pack</SuperButton>
-           </div>
-           <SearchFilter/>
-           <PacksTable/>
-       </div>
+        <div className='packs-block packs-wrapper'>
+            <div className='packs-header'>
+                <h1>Packs list</h1>
+                <SuperButton isLoading={isLoading} disabled={isLoading} onClick={addPack}>Add new pack</SuperButton>
+            </div>
+            <SearchFilter/>
+            <PacksTable/>
+        </div>
     )
 }
