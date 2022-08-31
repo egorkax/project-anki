@@ -2,8 +2,6 @@ import React from 'react';
 import s from './Profile.module.css'
 import {useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../store/store";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {BackToPacksLink} from "../../common/BackToPacksLink/BackToPacksLink";
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import {SuperDoubleRange} from "../../common/SuperDoubleRange/SuperDoubleRange";
 import s from './SearchFilter.module.css'
-import {FilterSvgIcon} from "../../assets/icons/MailSvgIcon/FilterSvgIcon";
+import {FilterSvgIcon} from "../../assets/icons/FilterSvgIcon";
+
 
 export const SearchFilter = () => {
   const onChangeHandler = (min: number, max: number) => {

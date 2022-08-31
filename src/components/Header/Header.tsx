@@ -5,6 +5,7 @@ import logo from '../../assets/images/logo.svg'
 import SuperButton from "../../common/SuperButton/SuperButton";
 import {useAppSelector} from "../../store/store";
 import {HeaderProfile} from "./HeaderProfile/HeaderProfile";
+import {DropDownMenu} from "./HeaderProfile/DropDownMenu";
 
 
 export const Header = () => {
@@ -17,7 +18,7 @@ export const Header = () => {
         <img src={logo} alt=''/>
         {!isAuth ?
           <SuperButton><NavLink to={'/login'}>Sign in</NavLink></SuperButton>
-          : <HeaderProfile/>
+          : <DropDownMenu/>
         }
       </div>
     </header>
