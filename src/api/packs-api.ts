@@ -2,15 +2,28 @@ import {instance} from "./instance";
 import {SORT_PACKS} from "../reducers/packs-reducer";
 
 export const packsApi = {
-    getPacks: (params: PacksParamsType) => {
+    getPacks: (params: GetPacksParamsType) => {
         return instance
             .get<GetPacksResponseType>('/cards/pack', {params})
+    },
+    changePack: (params: ChangePackParamsType) => {
+        return instance
+            .put<PackType>('/cards/pack', {cardsPack: params})
+    },
+    deletePack: (packId: string) => {
+        return instance.delete<PackType>(`/cards/pack?id=${packId}`)
     }
 }
 
 //types
 
-type PacksParamsType = {
+type ChangePackParamsType = {
+    _id: string
+    name?: string
+    private?: boolean
+}
+
+type GetPacksParamsType = {
     packName?: string
     min?: number
     max?: number

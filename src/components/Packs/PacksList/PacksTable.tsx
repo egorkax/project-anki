@@ -4,7 +4,7 @@ import '../PacksBlock.css'
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../store/store";
 import {PackType} from "../../../api/packs-api";
-import {PacksTableItem} from "./PacksTableItem";
+import {PacksTableItem} from "./PacksTableItem/PacksTableItem";
 
 export const PacksTable = () => {
 

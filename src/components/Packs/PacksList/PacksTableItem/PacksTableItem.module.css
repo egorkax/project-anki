@@ -6,4 +6,6 @@
 
 .icon {
     width: 16px;
+    border: none;
+    background: transparent;
 }
