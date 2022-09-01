@@ -37,7 +37,7 @@ export const DoubleRange = () => {
       }))
       dispatch(fetchPacks())
     }
-  }, [minCardsCount, maxCardsCount, debouncedValue])
+  }, [debouncedValue])
 
 
   return (
