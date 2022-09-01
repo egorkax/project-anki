@@ -93,12 +93,13 @@ export const fetchCards = (packId: string): AppThunk =>
   }
 
 export const showCardsPerPage = (pageCount: number, packId: string): AppThunk =>
-  async (dispatch) => {
+  async (dispatch, getState: () => AppRootStateType) => {
     try {
       dispatch(setAppStatus('loading'))
       const params: CardsParamsType = {
         cardsPack_id: packId,
-        pageCount: pageCount
+        pageCount: pageCount,
+        page: getState().cards.page
       }
       const response = await cardsApi.getCards(params)
       dispatch(setCards(response.data))
@@ -110,11 +111,12 @@ export const showCardsPerPage = (pageCount: number, packId: string): AppThunk =>
     }
   }
 export const currentCardsPage = (page: number, packId: string): AppThunk =>
-  async (dispatch) => {
+  async (dispatch, getState: () => AppRootStateType) => {
     try {
       dispatch(setAppStatus('loading'))
       const params: CardsParamsType = {
         cardsPack_id: packId,
+        pageCount: getState().cards.pageCount,
         page: page
       }
       const response = await cardsApi.getCards(params)
