@@ -8,6 +8,7 @@ import {Error404} from "../common/Error404/Error404";
 import {Profile} from "../components/Profile/Profile";
 import { PacksList } from '../components/Packs/PacksList/PacksList';
 import {CardsList} from "../components/Packs/CardsList/CardsList";
+import {LearnPacksMode} from "../components/Packs/LearnPacksMode/LearnPacksMode";
 
 
 export const AppPagesRoutes = () => {
@@ -26,6 +27,7 @@ export const AppPagesRoutes = () => {
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/packs'} element={<PacksList/>}/>
                 <Route path={'/packs/:packId'} element={<CardsList/>}/>
+                <Route path={'/packs/learn/:packId'} element={<LearnPacksMode/>}/>
 
 
                 {/*он отрисуется если пользователь захочет попасть на несуществующую страницу*/}

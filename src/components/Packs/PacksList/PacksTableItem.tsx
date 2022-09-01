@@ -3,6 +3,9 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../store/store";
 import {NavLink} from "react-router-dom";
 import style from './PacksTableItem.module.css'
+import {LearnSvgIcon} from "../../../assets/icons/LearnSvgIcon";
+import {EditSvgIcon} from "../../../assets/icons/EditSvgIcon";
+import {DeleteSvgIcon} from "../../../assets/icons/DeleteSvgIcon";
 
 type PacksTableItemPropsType = {
     name: string
@@ -36,13 +39,13 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
             <td>{cardsCount}</td>
             <td>{date}</td>
             <td>{createdBy}</td>
-            <td className={style.actions}>{
-                isMy ? <div>
-                    <div><img/></div>
-                    <div><img/></div>
-                    <div><img/></div>
-                </div> : <div>
-                    <div><img/></div>
+            <td>{
+                isMy ? <div className={style.actions}>
+                    <NavLink to={`/packs/learn/${packId}`} className={style.icon}><LearnSvgIcon/></NavLink>
+                    <div className={style.icon}><EditSvgIcon/></div>
+                    <div className={style.icon}><DeleteSvgIcon/></div>
+                </div> : <div className={style.actions}>
+                    <NavLink to={`/packs/learn/${packId}`} className={style.icon}><LearnSvgIcon/></NavLink>
                 </div>
             }</td>
         </tr>
