@@ -18,6 +18,7 @@ import {CardsTable} from "./CardsTable";
 import {SearchField} from "../../Search&Filter/SearchField/SearchField";
 import {Paginator} from "../../../common/Paginator/Paginator";
 
+
 export const CardsList = () => {
 
   const {packId} = useParams()

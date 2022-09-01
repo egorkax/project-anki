@@ -1,4 +1,4 @@
-import {addCardParamType, cardsApi, CardsParamsType, GetCardsResponseType} from "../api/cards-api";
+import {AddCardParamType, cardsApi, CardsParamsType, EditCardParamType, GetCardsResponseType} from "../api/cards-api";
 import {AppRootStateType, AppThunk} from "../store/store";
 import {setAppStatus} from "./app-reducer";
 import {handleServerAppError} from "../utils/error-utils";
@@ -131,11 +131,42 @@ export const createCard = (packId: string): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(setAppStatus('loading'))
-      const params: addCardParamType = {
-          cardsPack_id: packId,
+      const params: AddCardParamType = {
+        cardsPack_id: packId,
       }
       await cardsApi.addCard(params)
       dispatch(fetchCards(packId))
+      dispatch(setAppStatus('succeed'))
+    } catch (e) {
+      dispatch(setAppStatus('failed'))
+      const err = e as Error | AxiosError
+      handleServerAppError(err, dispatch)
+    }
+  }
+export const removeCard = (id: string, cardsPack_id: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setAppStatus('loading'))
+      await cardsApi.deleteCard(id)
+      dispatch(fetchCards(cardsPack_id))
+      dispatch(setAppStatus('succeed'))
+    } catch (e) {
+      dispatch(setAppStatus('failed'))
+      const err = e as Error | AxiosError
+      handleServerAppError(err, dispatch)
+    }
+  }
+export const updateCard = (id: string, cardsPack_id: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setAppStatus('loading'))
+      const params: EditCardParamType = {
+        _id: id,
+        question: 'Update Question',
+        comments: 'Update Comment'
+      }
+      await cardsApi.editCard(params)
+      dispatch(fetchCards(cardsPack_id))
       dispatch(setAppStatus('succeed'))
     } catch (e) {
       dispatch(setAppStatus('failed'))

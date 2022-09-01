@@ -23,6 +23,8 @@ export const CardsTable = ({packId, ...props}: CardsTablePropsType) => {
                     answer={card.answer}
                     lastUpdated={card.updated}
                     grade={card.grade}
+                    id={card._id}
+                    cardsPack_id ={card.cardsPack_id}
                 />)}
                 </tbody>
             </table>

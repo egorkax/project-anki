@@ -5,16 +5,22 @@ export const cardsApi = {
   getCards: (params: CardsParamsType) => {
     return instance.get('/cards/card?', {params})
   },
-  addPack: (params: addPackParamType) => {
+  addPack: (params: AddPackParamType) => {
     return instance.post('/cards/pack', {cardsPack: params})
   },
-  addCard: (params: addCardParamType) => {
+  addCard: (params: AddCardParamType) => {
     return instance.post('/cards/card', {card: params})
+  },
+  deleteCard: (id: string) => {
+    return instance.delete(`/cards/card?id=${id}`)
+  },
+  editCard: (params: EditCardParamType) => {
+    return instance.put('/cards/card', {card: params})
   },
 }
 
 //types
-type addPackParamType = {
+type AddPackParamType = {
   name?: string
   deckCover?: string
   private?: boolean
@@ -31,16 +37,21 @@ export type CardsParamsType = {
   pageCount?: number
 }
 
-export type addCardParamType = {
-    cardsPack_id: string
-    question?: string // если не отправить будет таким
-    answer?: string // если не отправить будет таким
-    grade?: number // 0..5, не обязателен
-    shots?: 0 // не обязателен
-    answerImg?: string // не обязателен "url or base 64"
-    questionImg?: string // не обязателен "url or base 64"
-    questionVideo?: string // не обязателен "url or base 64"
-    answerVideo?: string // не обязателен "url or base 64"
+export type AddCardParamType = {
+  cardsPack_id: string
+  question?: string
+  answer?: string
+  grade?: number
+  shots?: 0
+  answerImg?: string
+  questionImg?: string
+  questionVideo?: string
+  answerVideo?: string
+}
+export type EditCardParamType = {
+  _id: string
+  question?: string
+  comments?: string
 }
 
 
