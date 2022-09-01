@@ -1,8 +1,8 @@
-import {FilterSvgIcon} from "../../../assets/icons/MailSvgIcon/FilterSvgIcon";
 import React from "react";
 import style from './ClearButton.module.css'
 import {useAppDispatch} from "../../../store/store";
 import {clearFilters, fetchPacks} from "../../../reducers/packs-reducer";
+import {FilterSvgIcon} from "../../../assets/icons/FilterSvgIcon";
 
 export const ClearButton = () => {
 

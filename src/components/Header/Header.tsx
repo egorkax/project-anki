@@ -4,7 +4,6 @@ import s from './Header.module.css'
 import logo from '../../assets/images/logo.svg'
 import SuperButton from "../../common/SuperButton/SuperButton";
 import {useAppSelector} from "../../store/store";
-import {HeaderProfile} from "./HeaderProfile/HeaderProfile";
 import {LinearLoader} from "../../common/Loaders/LinearLoader/LinearLoader";
 import {DropDownMenu} from "./HeaderProfile/DropDownMenu";
 
@@ -22,22 +21,11 @@ export const Header = () => {
                 <img src={logo} alt=''/>
                 {!isAuth ?
                     <SuperButton><NavLink to={'/login'}>Sign in</NavLink></SuperButton>
-                    : <HeaderProfile/>
+                    : <DropDownMenu/>
                 }
             </div>
             {isLoading ?  <LinearLoader isLoading={isLoading}/> : null}
         </header>
     )
-  return (
-    <header className={s.header}>
-      <div className={s.wrapper}>
-        <img src={logo} alt=''/>
-        {!isAuth ?
-          <SuperButton><NavLink to={'/login'}>Sign in</NavLink></SuperButton>
-          : <DropDownMenu/>
-        }
-      </div>
-    </header>
-  )
 };
 

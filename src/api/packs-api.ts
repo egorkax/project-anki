@@ -6,10 +6,6 @@ export const packsApi = {
         return instance
             .get<GetPacksResponseType>('/cards/pack', {params})
     }
-  getPacks: (pageCount: number = 10, page: number = 1, sortPacks: SORT_PACKS = SORT_PACKS.FROM_HIGHER_TO_LOWER) => {
-    return instance
-      .get<getPacksResponseType>(`/cards/pack?pageCount=${pageCount}&page=${page}&sortPacks=${sortPacks}`)
-  }
 }
 
 //types

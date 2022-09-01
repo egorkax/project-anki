@@ -6,9 +6,6 @@ import {useAppDispatch} from "../../store/store";
 import {WhosePacksFilter} from "./WhosePacksFilter/WhosePacksFilter";
 import './SearchFilter.css'
 import {ClearButton} from "./clearButton/ClearButton";
-import {SuperDoubleRange} from "../../common/SuperDoubleRange/SuperDoubleRange";
-import s from './SearchFilter.module.css'
-import {FilterSvgIcon} from "../../assets/icons/FilterSvgIcon";
 
 
 export const SearchFilter = () => {
