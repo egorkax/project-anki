@@ -28,7 +28,7 @@ export const ProfileInfo = () => {
         <img className={s.avatar} src={ava} alt={'ava'}/>
       </div>
       <div className={s.blockName}>
-        <EditableSpan name={user.name}/>
+        <EditableSpan/>
       </div>
       <div className={s.blockEmail}>
         <span className={s.email}>{user.email}</span>

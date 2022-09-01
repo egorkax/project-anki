@@ -3,12 +3,12 @@ import { PacksTableHeader } from "./PacksTableHeader";
 import '../PacksBlock.css'
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../store/store";
-import {packType} from "../../../api/packs-api";
+import {PackType} from "../../../api/packs-api";
 import {PacksTableItem} from "./PacksTableItem";
 
 export const PacksTable = () => {
 
-    const packs = useSelector<AppRootStateType, packType[]>(state => state.packs.cardPacks)
+    const packs = useSelector<AppRootStateType, PackType[]>(state => state.packs.cardPacks)
 
     return (
         <div className='table-wrapper'>

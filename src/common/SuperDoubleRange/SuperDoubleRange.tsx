@@ -5,7 +5,7 @@ import React, {
   useRef,
   DetailedHTMLProps,
   InputHTMLAttributes,
-  LegacyRef
+  LegacyRef, ChangeEvent, useMemo
 } from "react";
 import style from './SuperDoubleRange.module.css'
 
@@ -17,7 +17,7 @@ type SuperDoubleRangePropsType = DefaultInputPropsType & {
   max: number
 }
 
-export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max, onChangeRange}) => {
+const SuperDoubleRangeHidden: React.FC<SuperDoubleRangePropsType> = ({min, max, onChangeRange}) => {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef(min);
@@ -52,6 +52,8 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max,
     onChangeRange(minVal, maxVal);
   }, [minVal, maxVal, onChangeRange]);
 
+
+
   return (
     <div className={style.doubleRange}>
       <div className={style.container}>
@@ -60,13 +62,13 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max,
           min={min}
           max={max}
           value={minVal}
-          onChange={(event: any) => {
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
             const value = Math.min(Number(event.target.value), maxVal - 1);
             setMinVal(value);
             minValRef.current = value;
           }}
           className={style.thumb + ' ' + style.thumbLeft}
-          //@ts-ignore
+          // @ts-ignore
           style={{zIndex: (minVal > max - 100 && "5")}}
         />
         <input
@@ -74,7 +76,7 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max,
           min={min}
           max={max}
           value={maxVal}
-          onChange={(event: any) => {
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
             const value = Math.max(Number(event.target.value), minVal + 1);
             setMaxVal(value);
             maxValRef.current = value;
@@ -92,6 +94,9 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = ({min, max,
     </div>
   );
 };
+
+export const SuperDoubleRange = React.memo(SuperDoubleRangeHidden)
+
 
 
 

@@ -3,6 +3,7 @@ import {AxiosError} from "axios";
 import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 import {setStatus} from "./auth-reducer";
 import {handleServerAppError} from "../utils/error-utils";
+import {setAppStatus} from "./app-reducer";
 
 const initialState: UserType = {
   _id: '',
@@ -34,26 +35,27 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
 }
 
 // actions
-export const setNewUserNameAC = (name: string) => ({type: 'SET_USER_NAME', name} as const)
+export const setNewUserName = (name: string) => ({type: 'SET_USER_NAME', name} as const)
 export const setUserData = (userData: UserType) => ({type: 'SET_USER_DATA', userData} as const)
 export const deleteUserData = () => ({type: 'DELETE_USER_DATA'} as const)
 
 //thunks
-export const changeUserNameTC = (name: string): AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
+export const changeUserName = (name: string): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
   try {
+    dispatch(setAppStatus('loading'))
     await profileAPI.changeUserName({name, avatar: ''})
-    dispatch(setNewUserNameAC(name))
+    dispatch(setNewUserName(name))
+    dispatch(setAppStatus('succeed'))
   } catch (e) {
-    dispatch(setStatus('failed'))
-    const err = e as Error | AxiosError
-    handleServerAppError(err, dispatch)
+    dispatch(setAppStatus('failed'))
+    handleServerAppError(e as Error | AxiosError, dispatch)
   }
 }
 //types
 export type SetUserDataType = ReturnType<typeof setUserData>
 
 export type ProfileActionsType =
-  | ReturnType<typeof setNewUserNameAC>
+  | ReturnType<typeof setNewUserName>
   | ReturnType<typeof deleteUserData>
   | SetUserDataType
 
