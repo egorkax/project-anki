@@ -1,4 +1,4 @@
-import {cardsApi, CardsParamsType, GetCardsResponseType} from "../api/cards-api";
+import {addCardParamType, cardsApi, CardsParamsType, GetCardsResponseType} from "../api/cards-api";
 import {AppRootStateType, AppThunk} from "../store/store";
 import {setAppStatus} from "./app-reducer";
 import {handleServerAppError} from "../utils/error-utils";
@@ -55,7 +55,6 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
     case "SET_CARDS":
     case "CHANGE_CARDS_SORT":
     case 'CHANGE_FILTER_CARD_QUESTION':
-      debugger
       return {...state, ...action.payload}
     default:
       return state
@@ -121,6 +120,22 @@ export const currentCardsPage = (page: number, packId: string): AppThunk =>
       }
       const response = await cardsApi.getCards(params)
       dispatch(setCards(response.data))
+      dispatch(setAppStatus('succeed'))
+    } catch (e) {
+      dispatch(setAppStatus('failed'))
+      const err = e as Error | AxiosError
+      handleServerAppError(err, dispatch)
+    }
+  }
+export const createCard = (packId: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setAppStatus('loading'))
+      const params: addCardParamType = {
+          cardsPack_id: packId,
+      }
+      await cardsApi.addCard(params)
+      dispatch(fetchCards(packId))
       dispatch(setAppStatus('succeed'))
     } catch (e) {
       dispatch(setAppStatus('failed'))

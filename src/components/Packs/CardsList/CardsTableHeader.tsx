@@ -37,6 +37,7 @@ export const CardsTableHeader = ({packId, ...props}: CardsTableHeaderPropsType) 
             <td>Answer</td>
             <CellWithFilter name='Last updated' sort={sort} changeFilter={changeFilter}/>
             <td>Grade</td>
+            <td>Actions</td>
         </tr>
         </thead>
     )

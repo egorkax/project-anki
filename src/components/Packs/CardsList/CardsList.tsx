@@ -6,6 +6,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType, useAppSelector} from "../../../store/store";
 import {AnyAction} from "redux";
 import {
+  createCard,
   changeFilterCardQuestion,
   currentCardsPage,
   fetchCards,
@@ -45,7 +46,9 @@ export const CardsList = () => {
   }
 
   const addCard = () => {
-    alert('new card added')
+    if (packId) {
+      dispatch(createCard(packId))
+    }
   }
 
   const onChangeShowItems = (pageCount: number) => {
@@ -72,7 +75,7 @@ export const CardsList = () => {
         : <div className='packs-block'>
           <div className='packs-header'>
             <h1>{packName}</h1>
-            <SuperButton>Add new card</SuperButton>
+            <SuperButton onClick={addCard}>Add new card</SuperButton>
           </div>
           <SearchField searchFunction={searchCards}/>
           <CardsTable packId={packId}/>
