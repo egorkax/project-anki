@@ -156,7 +156,7 @@ export const removeCard = (id: string, cardsPack_id: string): AppThunk =>
       handleServerAppError(err, dispatch)
     }
   }
-export const updateCard = (id: string, cardsPack_id: string): AppThunk =>
+export const updateCard = (cardsPack_id: string, id: string): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(setAppStatus('loading'))
