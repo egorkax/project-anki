@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation, useParams} from "react-router-dom";
 import s from './Header.module.css'
 import logo from '../../assets/images/logo.svg'
 import SuperButton from "../../common/SuperButton/SuperButton";
@@ -15,13 +15,16 @@ export const Header = () => {
 
     const isLoading = appStatus === "loading"
 
+    const {pathname} = useLocation()
+
     return (
         <header className={s.header}>
             <div className={s.wrapper}>
                 <img src={logo} alt=''/>
-                {!isAuth ?
-                    <SuperButton><NavLink to={'/login'}>Sign in</NavLink></SuperButton>
-                    : <DropDownMenu/>
+                {isAuth ?
+                    <DropDownMenu/> :
+                    pathname === '/login' ? <SuperButton><NavLink to={'/registration'}>Sign up</NavLink></SuperButton>
+                        : <SuperButton><NavLink to={'/login'}>Sign in</NavLink></SuperButton>
                 }
             </div>
             {isLoading ?  <LinearLoader isLoading={isLoading}/> : null}
