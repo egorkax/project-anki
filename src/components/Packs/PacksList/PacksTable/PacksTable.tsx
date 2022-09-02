@@ -10,6 +10,7 @@ export const PacksTable = () => {
 
     const packs = useSelector<AppRootStateType, PackType[]>(state => state.packs.cardPacks)
 
+
     return (
         <div className='table-wrapper'>
             <table>
