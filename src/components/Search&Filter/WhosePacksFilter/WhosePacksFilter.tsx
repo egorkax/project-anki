@@ -1,7 +1,7 @@
 import React from "react";
 import style from './WhosePacksFilter.module.css'
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {changeIsMy, fetchPacks} from "../../../reducers/packs-reducer";
+import {changeIsMy, changeMinMaxCardsCount, fetchPacks} from "../../../reducers/packs-reducer";
 
 export const WhosePacksFilter = () => {
 
@@ -14,6 +14,10 @@ export const WhosePacksFilter = () => {
 
     const showMyPacks = () => {
         dispatch(changeIsMy(true))
+        dispatch(changeMinMaxCardsCount({
+            filterMinCardsCount: 1,
+            filterMaxCardsCount: 10
+        }))
         dispatch(fetchPacks())
     }
 
