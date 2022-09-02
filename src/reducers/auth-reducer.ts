@@ -1,16 +1,16 @@
+import {Dispatch} from "redux";
 import {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {deleteUserData, setUserData, SetUserDataType} from "./profile-reducer";
 import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
-import {setAppStatus} from "./app-reducer";
 
 const initialState = {
   isSentData: false,
   isAuth: false,
   error: '',
   recoveryEmail: '',
-  status: 'idle' as StatusTypes,
+  status: 'idle' as RequestTypes,
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
@@ -43,13 +43,12 @@ export const setAuthError = (error: string) =>
 export const setRecoveryEmail = (email: string) =>
   ({type: 'SET_RECOVERY_EMAIL', email} as const)
 
-export const setStatus = (status: StatusTypes) =>
+export const setStatus = (status: RequestTypes) =>
   ({type: 'SET_STATUS', status} as const)
 
 //thunks
-export const recoveryPassword = (email: string): AppThunk => async function (dispatch) {
+export const recoveryPassword = (email: string) => async function (dispatch: Dispatch) {
   try {
-    dispatch(setAppStatus('loading'))
     dispatch(setRecoveryEmail(email))
     const payload = {
       email: email,
@@ -61,43 +60,38 @@ export const recoveryPassword = (email: string): AppThunk => async function (dis
                      Password recovery
                   </a>      
                   <br/>
-                     If you didn't make this request, then you can ignore this email 🙂
+                     If you didn’t make this request, then you can ignore this email 🙂
                   <br/>
                  </div>
                 </div>`
     }
     await authAPI.recovery(payload)
     dispatch(setRecoveryStatus(true))
-    dispatch(setAppStatus('succeed'))
   } catch (e) {
-    dispatch(setAppStatus('failed'))
-    handleServerAppError(e as Error | AxiosError, dispatch)
+    const err = e as Error | AxiosError
+    handleServerAppError(err, dispatch)
   }
 }
 
-export const updatePassword = (password: string, token: string | undefined): AppThunk => async function (dispatch) {
+export const updatePassword = (password: string, token: string | undefined) => async function (dispatch: Dispatch) {
   try {
-    dispatch(setAppStatus('loading'))
     let payload = {password: password, resetPasswordToken: token}
     await authAPI.newPass(payload)
     dispatch(setRecoveryStatus(true))
-    dispatch(setAppStatus('succeed'))
   } catch (e) {
-    dispatch(setAppStatus('failed'))
-    handleServerAppError(e as Error | AxiosError, dispatch)
+    const err = e as Error | AxiosError
+    handleServerAppError(err, dispatch)
   }
 }
 
-export const signUp = (signUpData: SignUpDataType):AppThunk => async (dispatch) => {
+export const signUp = (signUpData: SignUpDataType) => async (dispatch: Dispatch<AuthActionType>) => {
   try {
-    dispatch(setAppStatus('loading'))
     const response = await authAPI.signUp(signUpData)
     dispatch(changeIsAuth(true))
-    dispatch(setUserData(response.data.addedUser))
-    dispatch(setAppStatus('succeed'))
+    dispatch(setUserData(response.data))
   } catch (e) {
-    dispatch(setAppStatus('failed'))
-    handleServerAppError(e as Error | AxiosError, dispatch)
+    const err = e as Error | AxiosError
+    handleServerAppError(err, dispatch)
   }
 }
 
@@ -110,8 +104,8 @@ export const signIn = (email: string, password: string, rememberMe: boolean) => 
     dispatch(setUserData(response.data))
     dispatch(setStatus('succeed'))
   } catch (e) {
-    dispatch(setStatus('failed'))
-    handleServerAppError(e as Error | AxiosError, dispatch)
+    const err = e as Error | AxiosError
+    handleServerAppError(err, dispatch)
   }
 }
 
@@ -124,8 +118,8 @@ export const signOut = (): AppThunk => async (dispatch: DispatchType, getState: 
     dispatch(deleteUserData())
     dispatch(setStatus('succeed'))
   } catch (e) {
-    dispatch(setStatus('failed'))
-    handleServerAppError(e as Error | AxiosError, dispatch)
+    const err = e as Error | AxiosError
+    handleServerAppError(err, dispatch)
   }
 }
 
@@ -133,7 +127,7 @@ export const signOut = (): AppThunk => async (dispatch: DispatchType, getState: 
 //types
 type InitialStateType = typeof initialState
 
-export type StatusTypes = 'idle' | 'loading' | 'succeed' | 'failed'
+type RequestTypes = 'idle' | 'loading' | 'succeed' | 'failed'
 
 export type ChangeIsAuthType = ReturnType<typeof changeIsAuth>
 

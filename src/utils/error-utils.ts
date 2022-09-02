@@ -1,16 +1,17 @@
 import axios, {AxiosError} from "axios";
+import {AuthActionType, setAuthError} from "../reducers/auth-reducer";
 import {Dispatch} from "redux";
-import {AllActionsType} from "../store/store";
-import {setAppError, setAppStatus} from "../reducers/app-reducer";
-import {setAuthError} from "../reducers/auth-reducer";
+import {AppActionsType} from "../reducers/app-reducer";
+import {ProfileActionsType} from "../reducers/profile-reducer";
 
 export const handleServerAppError = (err: Error | AxiosError, dispatch: ErrorUtilsDispatchType) => {
   if (axios.isAxiosError(err)) {
     const error = err.response?.data ? (err.response.data as { error: string }).error : err.message
-    dispatch(setAppError(error))
+    dispatch(setAuthError(error))
   } else {
-    dispatch(setAppError(`Native error ${err.message}`))
+    dispatch(setAuthError(`Native error ${err.message}`))
   }
 }
 
-type ErrorUtilsDispatchType = Dispatch<AllActionsType>
+
+type ErrorUtilsDispatchType = Dispatch<AppActionsType | AuthActionType | ProfileActionsType>
