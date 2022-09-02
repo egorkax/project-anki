@@ -18,7 +18,6 @@ import {CardsTable} from "./CardsTable";
 import {SearchField} from "../../Search&Filter/SearchField/SearchField";
 import {Paginator} from "../../../common/Paginator/Paginator";
 import style from "../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.css";
-import {LearnSvgIcon} from "../../../assets/icons/LearnSvgIcon";
 
 
 export const CardsList = () => {
