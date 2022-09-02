@@ -68,8 +68,7 @@ const SuperDoubleRangeHidden: React.FC<SuperDoubleRangePropsType> = ({min, max, 
             minValRef.current = value;
           }}
           className={style.thumb + ' ' + style.thumbLeft}
-          // @ts-ignore
-          style={{zIndex: (minVal > max - 100 && "5")}}
+          style={{zIndex: (minVal > max - 100 ? "5" : undefined)}}
         />
         <input
           type="range"

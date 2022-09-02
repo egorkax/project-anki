@@ -2,7 +2,6 @@ import {GetPacksResponseType, packsApi} from "../api/packs-api";
 import {AppRootStateType, AppThunk} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
 import {AxiosError} from "axios";
-import {cardsApi} from "../api/cards-api";
 import {setAppStatus} from "./app-reducer";
 
 export enum SORT_PACKS {
@@ -142,17 +141,17 @@ export const deletePack = (packId: string): AppThunk =>
   }
 
 export const addNewPack = (name: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      dispatch(setAppStatus('loading'))
-      await cardsApi.addPack({name})
-      dispatch(fetchPacks())
-      dispatch(setAppStatus('succeed'))
-    } catch (e) {
-      dispatch(setAppStatus('failed'))
-      handleServerAppError(e as Error | AxiosError, dispatch)
+    async (dispatch) => {
+        try {
+            dispatch(setAppStatus('loading'))
+            await packsApi.addPack({name})
+            dispatch(fetchPacks())
+            dispatch(setAppStatus('succeed'))
+        } catch (e) {
+            dispatch(setAppStatus('failed'))
+            handleServerAppError(e as Error | AxiosError, dispatch)
+        }
     }
-  }
 
 export const changePackNamePrivacy = (_id: string, name?: string, privacy?: boolean): AppThunk =>
   async (dispatch) => {

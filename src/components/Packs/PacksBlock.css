@@ -71,3 +71,9 @@ table td:first-child {
     opacity: 0.5;
     margin-bottom: 32px;
 }
+
+.name {
+    max-width: 278px;
+    overflow: hidden;
+    overflow-clip: d;
+}

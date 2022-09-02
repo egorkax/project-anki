@@ -2,12 +2,9 @@ import {instance} from "./instance";
 import {SORT_CARDS} from "../reducers/cards-reducer";
 
 export const cardsApi = {
-  getCards: (params: CardsParamsType) => {
-    return instance.get('/cards/card?', {params})
-  },
-  addPack: (params: AddPackParamType) => {
-    return instance.post('/cards/pack', {cardsPack: params})
-  },
+    getCards: (params: CardsParamsType) => {
+        return instance.get<GetCardsResponseType>('/cards/card?', {params})
+    },
   addCard: (params: AddCardParamType) => {
     return instance.post('/cards/card', {card: params})
   },
@@ -20,11 +17,6 @@ export const cardsApi = {
 }
 
 //types
-type AddPackParamType = {
-  name?: string
-  deckCover?: string
-  private?: boolean
-}
 
 export type CardsParamsType = {
   cardsPack_id: string

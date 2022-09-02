@@ -93,7 +93,7 @@ export const signUp = (signUpData: SignUpDataType):AppThunk => async (dispatch) 
     dispatch(setAppStatus('loading'))
     const response = await authAPI.signUp(signUpData)
     dispatch(changeIsAuth(true))
-    dispatch(setUserData(response.data))
+    dispatch(setUserData(response.data.addedUser))
     dispatch(setAppStatus('succeed'))
   } catch (e) {
     dispatch(setAppStatus('failed'))
