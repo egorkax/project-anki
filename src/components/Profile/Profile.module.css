@@ -3,23 +3,6 @@
     margin: 0 auto;
 }
 
-.backLinkWrapper {
-    margin-top: 24px;
-}
-
-.backLink {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.backLink .icon {
-    margin-right: 12px;
-}
-
 .profileInfo {
     display: flex;
     align-items: center;
@@ -38,14 +21,12 @@
     font-size: 22px;
     line-height: 27px;
     margin-top: 27px;
-
 }
 
 .blockAvatar {
     width: 96px;
     height: 96px;
     margin-top: 30px;
-
 }
 
 .avatar {
@@ -64,7 +45,6 @@
     font-size: 22px;
     line-height: 24px;
     cursor: pointer;
-
 }
 
 .blockEmail {
@@ -81,10 +61,9 @@
 }
 
 .blockButton {
-
     margin-top: 20px;
-
 }
+
 .button{
     width: 127px;
     height: 36px;

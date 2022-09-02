@@ -1,62 +1,58 @@
 import React, {useState} from 'react';
-import s from "../../components/Profile/Profile.module.css";
-import {Button, FormControl, Input, InputAdornment, InputLabel} from "@mui/material";
-import {changeUserNameTC} from "../../reducers/profile-reducer";
-import {useDispatch} from "react-redux";
-import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../../store/store";
-import {AnyAction} from "redux";
+import style from './EditableSpan.module.css'
+import {changeUserName} from "../../reducers/profile-reducer";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {useFormik} from "formik";
 
-type EditableSpanPropsType = {
-    name: string
 
-}
+export const EditableSpan = () => {
 
-export const EditableSpan = (props: EditableSpanPropsType) => {
+  const name = useAppSelector(state => state.profile.name)
 
-    const [editMode, setEditMode] = useState(false);
-    const [newName, setNewName] = useState(props.name);
+  const [editMode, setEditMode] = useState(false);
 
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+  const dispatch = useAppDispatch()
 
-    const activateEditMode = () => {
-        setEditMode(true);
-        setNewName(props.name);
+  const activateEditMode = () => {
+    setEditMode(true);
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      nickname: name,
+    },
+    onSubmit: (values) => {
+      setEditMode(false)
+      dispatch(changeUserName(values.nickname))
     }
+  })
 
-    const saveNewName = (): void => {
-        dispatch(changeUserNameTC(newName));
-        setEditMode(false);
-    };
+  return (
+    <div className={style.wrapper}>
+      {!editMode ? (
+        <span onClick={activateEditMode} className={'d'}> {name} ✎</span>
+      ) : (
+          <form onSubmit={formik.handleSubmit}>
+            <div>
+              <label htmlFor='nickname'>Nickname</label>
+              <input
+                  id='nickname'
+                  type='text'
+                  name='nickname'
+                  value={formik.values.nickname}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+              />
+            </div>
+            <div>
+              <button type="submit">SAVE</button>
+            </div>
+          </form>
+      )
+      }
+    </div>
 
-    return (
-        <div>
-            {!editMode ? (
-                <span onDoubleClick={activateEditMode} className={s.name}> {props.name} ✎</span>
-            ) : (
-                <FormControl variant="standard">
-                    <InputLabel>Nickname</InputLabel>
-                    <Input
-                        defaultValue={newName}
-                        onChange={e => setNewName(e.currentTarget.value)}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <Button
-                                    variant="contained"
-                                    className={s.saveButton}
-                                    onClick={saveNewName}
-                                >
-                                    save
-                                </Button>
-                            </InputAdornment>
-                        }
-                    />
-                </FormControl>
-            )
-            }
-        </div>
-
-    )
+  )
 };
 
 

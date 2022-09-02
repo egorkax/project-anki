@@ -7,7 +7,7 @@ import React, {
     useState,
     useEffect
 } from 'react'
-import s from './SuperInput.module.css'
+import style from './SuperInput.module.css'
 import icon from '../../assets/icons/eye.svg'
 
 // тип пропсов обычного инпута
@@ -42,7 +42,7 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
     const [topLabelClass, setTopLabelClass] = useState('')
 
     useEffect(() => {
-        restProps.value ? setTopLabelClass(s.topLabel) : setTopLabelClass('')
+        restProps.value ? setTopLabelClass(style.topLabel) : setTopLabelClass('')
     }, [])
 
 
@@ -58,7 +58,7 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
     const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
         onBlur && onBlur(e)
         if(e.currentTarget.value) {
-            setTopLabelClass(s.topLabel)
+            setTopLabelClass(style.topLabel)
         } else {
             setTopLabelClass('')
         }
@@ -82,13 +82,13 @@ const SuperInput: React.FC<SuperInputTextPropsType> = (
         debugger
     }
 
-    const finalLabelClassName = `${s.label} ${topLabelClass}`
-    const finalSpanClassName = `${s.error} ${spanClassName ? spanClassName : ''}`
-    const finalInputClassName = `${s.input} ${error?s.errorInput:s.superInput} ${className}`
-    const finalButtonClassName = `${s.icon} ${showMode ? s.shownIcon : ''}`
+    const finalLabelClassName = `${style.label} ${topLabelClass}`
+    const finalSpanClassName = `${style.error} ${spanClassName ? spanClassName : ''}`
+    const finalInputClassName = `${style.input} ${error?style.errorInput:style.superInput} ${className}`
+    const finalButtonClassName = `${style.icon} ${showMode ? style.shownIcon : ''}`
 
     return (
-        <div className={s.wrapper}>
+        <div className={style.wrapper}>
             <input
                 type={finalType}
                 onChange={onChangeCallback}

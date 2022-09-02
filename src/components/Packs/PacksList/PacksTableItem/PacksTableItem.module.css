@@ -1,0 +1,11 @@
+.actions {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 16px;
+    border: none;
+    background: transparent;
+}

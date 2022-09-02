@@ -1,0 +1,9 @@
+.searchBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.searchField {
+    width: 413px;
+}
