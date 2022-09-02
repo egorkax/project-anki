@@ -1,28 +1,34 @@
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
-import {changeIsAuth, ChangeIsAuthType} from "./auth-reducer";
-import {setUserData, SetUserDataType} from "./profile-reducer";
+import {changeIsAuth, StatusTypes} from "./auth-reducer";
+import {setUserData} from "./profile-reducer";
 import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 
 const initialState = {
-  isInitialized: false
+  isInitialized: false,
+  appStatus: 'idle' as StatusTypes,
+  appError: '',
 }
 
 export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
   switch (action.type) {
     case 'INITIALIZE_APP':
       return {...state, isInitialized: true}
+    case "SET_APP_STATUS":
+    case "SET_APP_ERROR":
+      return {...state, ...action.payload}
     default:
       return state
   }
 }
 
 //actions
-const setIsInitialized = () => ({type: 'INITIALIZE_APP'})
-const setAppError = (error: string) => ({type: 'SET_APP_ERROR', error} as const)
+const setIsInitialized = () => ({type: "INITIALIZE_APP"} as const)
+export const setAppError = (appError: string) => ({type: "SET_APP_ERROR", payload: {appError}} as const)
+export const setAppStatus = (appStatus: StatusTypes) => ({type: "SET_APP_STATUS", payload: {appStatus}} as const)
 
 //thunks
-export const initializeApp = ():AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
+export const initializeApp = (): AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
   try {
     const response = await authAPI.authMe()
     dispatch(setIsInitialized())
@@ -47,6 +53,6 @@ export const initializeApp = ():AppThunk => async (dispatch: DispatchType, getSt
 export type AppActionsType =
   | ReturnType<typeof setIsInitialized>
   | ReturnType<typeof setAppError>
-  | ChangeIsAuthType
-  | SetUserDataType
+  | ReturnType<typeof setAppStatus>
+
 type InitialStateType = typeof initialState
