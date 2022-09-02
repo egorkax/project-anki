@@ -1,12 +1,13 @@
 import {instance, instanceForHeroku} from "./instance";
 import {SignUpDataType} from "../reducers/auth-reducer";
+import {UserType} from "../reducers/profile-reducer";
 
 export const authAPI = {
     authMe: () => {
         return instance.post<ResponseSignInType>('/auth/me')
     },
     signUp: (signUpData: SignUpDataType) => {
-        return instance.post('auth/register', signUpData)
+        return instance.post<signUpResponseType>('auth/register', signUpData)
     },
     signIn(payload: SignInParamsType) {
         return instance.post<ResponseSignInType>(`auth/login`, payload)
@@ -24,7 +25,7 @@ export const authAPI = {
 
 //types
 type signUpResponseType = {
-    addedUser: {}
+    addedUser: UserType
     error?: string
 }
 export type ResponseNewPassType = {

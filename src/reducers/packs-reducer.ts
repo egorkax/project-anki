@@ -145,7 +145,7 @@ export const addNewPack = (name: string): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(setAppStatus('loading'))
-            await cardsApi.addPack({name})
+            await packsApi.addPack({name})
             dispatch(fetchPacks())
             dispatch(setAppStatus('succeed'))
         } catch (e) {
