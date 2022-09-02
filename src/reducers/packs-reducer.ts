@@ -2,7 +2,6 @@ import {GetPacksResponseType, packsApi} from "../api/packs-api";
 import {AppRootStateType, AppThunk} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
 import {AxiosError} from "axios";
-import {setAppStatus} from "./app-reducer";
 
 export enum SORT_PACKS {
   FROM_HIGHER_TO_LOWER = '0updated',
