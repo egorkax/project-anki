@@ -25,10 +25,10 @@ export const DoubleRange = () => {
   const debouncedValue = useDebounce(value, 500)
 
 
-  function onChangeHandler(min: number, max: number) {
+  const onChangeHandler = useCallback((min: number, max: number) => {
     setValue({minCardsCount: min, maxCardsCount: max}
     )
-  }
+  },[])
 
   useEffect(() => {
     if (filterMinCardsCount !== value.minCardsCount || filterMaxCardsCount !== value.maxCardsCount) {
