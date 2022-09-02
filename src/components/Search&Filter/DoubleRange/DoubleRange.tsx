@@ -11,9 +11,6 @@ export const DoubleRange = () => {
   let maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
   let filterMinCardsCount = useAppSelector(state => state.packs.filterMinCardsCount)
   let filterMaxCardsCount = useAppSelector(state => state.packs.filterMaxCardsCount)
-  // const appStatus = useAppSelector(state => state.app.appStatus)
-  //
-  // const isLoading = appStatus === "loading"
 
   const dispatch = useAppDispatch()
 
@@ -22,13 +19,15 @@ export const DoubleRange = () => {
     maxCardsCount: maxCardsCount,
   })
 
+
   const debouncedValue = useDebounce(value, 500)
 
 
-  const onChangeHandler = useCallback((min: number, max: number) => {
+  let onChangeHandler = useCallback((min: number, max: number) => {
     setValue({minCardsCount: min, maxCardsCount: max}
     )
-  },[])
+  }, [])
+
 
   useEffect(() => {
     if (filterMinCardsCount !== value.minCardsCount || filterMaxCardsCount !== value.maxCardsCount) {
@@ -47,8 +46,8 @@ export const DoubleRange = () => {
         {/*Number of cards*/}
       </div>
       <SuperDoubleRange
-        min={minCardsCount}
-        max={maxCardsCount}
+        min={0}
+        max={110}
         onChangeRange={onChangeHandler}
       />
     </div>

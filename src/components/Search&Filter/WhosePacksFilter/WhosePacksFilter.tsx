@@ -14,10 +14,6 @@ export const WhosePacksFilter = () => {
 
     const showMyPacks = () => {
         dispatch(changeIsMy(true))
-        dispatch(changeMinMaxCardsCount({
-            filterMinCardsCount: 1,
-            filterMaxCardsCount: 10
-        }))
         dispatch(fetchPacks())
     }
 
