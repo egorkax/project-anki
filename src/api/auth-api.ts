@@ -7,7 +7,7 @@ export const authAPI = {
         return instance.post<ResponseSignInType>('/auth/me')
     },
     signUp: (signUpData: SignUpDataType) => {
-        return instance.post<signUpResponseType>('auth/register', signUpData)
+        return instance.post<SignUpResponseType>('auth/register', signUpData)
     },
     signIn(payload: SignInParamsType) {
         return instance.post<ResponseSignInType>(`auth/login`, payload)
@@ -24,7 +24,7 @@ export const authAPI = {
 }
 
 //types
-type signUpResponseType = {
+type SignUpResponseType = {
     addedUser: UserType
     error?: string
 }
