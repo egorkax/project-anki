@@ -10,7 +10,7 @@ const initialState = {
   isAuth: false,
   error: '',
   recoveryEmail: '',
-  status: 'idle' as RequestTypes,
+  status: 'idle' as StatusTypes,
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
@@ -61,7 +61,7 @@ export const recoveryPassword = (email: string): AppThunk => async function (dis
                      Password recovery
                   </a>      
                   <br/>
-                     If you didn’t make this request, then you can ignore this email 🙂
+                     If you didn't make this request, then you can ignore this email 🙂
                   <br/>
                  </div>
                 </div>`
