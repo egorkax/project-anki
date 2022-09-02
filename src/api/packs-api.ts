@@ -6,7 +6,7 @@ export const packsApi = {
         return instance
             .get<GetPacksResponseType>('/cards/pack', {params})
     },
-    addPack: (params: addPackParamType) => {
+    addPack: (params: AddPackParamType) => {
         return instance.post('/cards/pack', {cardsPack: params})
     },
     changePack: (params: ChangePackParamsType) => {
@@ -19,8 +19,7 @@ export const packsApi = {
 }
 
 //types
-
-type addPackParamType = {
+type AddPackParamType = {
     name?: string
     deckCover?: string
     private?: boolean

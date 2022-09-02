@@ -17,7 +17,6 @@ export const cardsApi = {
 }
 
 //types
-
 export type CardsParamsType = {
   cardsPack_id: string
   cardAnswer?: string
