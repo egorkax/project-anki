@@ -4,7 +4,10 @@ import {useParams} from "react-router-dom";
 import {updatePassword} from "../reducers/auth-reducer";
 import SuperInput from '../common/SuperInput/SuperInput';
 import SuperButton from "../common/SuperButton/SuperButton";
-import {useAppDispatch, useAppSelector} from "../store/store";
+import {AppRootStateType, useAppSelector} from "../store/store";
+import {ThunkDispatch} from "redux-thunk";
+import {AnyAction} from "redux";
+import {useDispatch} from "react-redux";
 
 export const NewPasswordForm = () => {
   const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()

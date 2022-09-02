@@ -3,8 +3,8 @@ import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setRecoveryStatus} from "../../reducers/auth-reducer";
 import SuperButton from "../../common/SuperButton/SuperButton";
-import {useAppDispatch, useAppSelector} from "../../store/store";
 import {MailSvgIcon} from "../../assets/icons/MailSvgIcon/MailSvgIcon";
+import {AppRootStateType} from "../../store/store";
 
 
 export const CheckEmail = () => {
