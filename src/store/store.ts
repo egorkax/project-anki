@@ -4,12 +4,16 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {ProfileActionsType, profileReducer} from "../reducers/profile-reducer";
 import {AppActionsType, appReducer} from "../reducers/app-reducer";
 import {AuthActionType, authReducer} from "../reducers/auth-reducer";
+import {cardsReducer} from "../reducers/cards-reducer";
+import {packsReducer} from "../reducers/packs-reducer";
 
 
 const rootReducer = combineReducers({
     profile: profileReducer,
     app: appReducer,
-    auth: authReducer
+    auth: authReducer,
+    cards: cardsReducer,
+    packs: packsReducer,
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 //types

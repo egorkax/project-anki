@@ -6,7 +6,6 @@ import { initializeApp } from '../reducers/app-reducer';
 import { Preloader } from '../common/Loaders/Preloader/Preloader';
 import { AppPagesRoutes } from './AppPagesRoutes';
 import {useAppDispatch, useAppSelector} from '../store/store';
-import {Alert} from "../common/Alert/Alert";
 import {Header} from "../components/Header/Header";
 
 
@@ -23,7 +22,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <Alert/>
       <HashRouter>
         <Header/>
         <AppPagesRoutes/>
