@@ -1,9 +1,9 @@
 import React from "react";
 import { PacksTableHeader } from "./PacksTableHeader";
-import '../PacksBlock.css'
+import '../../PacksBlock.css'
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
-import {PackType} from "../../../api/packs-api";
+import {AppRootStateType} from "../../../../store/store";
+import {PackType} from "../../../../api/packs-api";
 import {PacksTableItem} from "./PacksTableItem/PacksTableItem";
 
 export const PacksTable = () => {

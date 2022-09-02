@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import SuperButton from "../../../common/SuperButton/SuperButton";
-import {PacksTable} from "./PacksTable";
+import {PacksTable} from "./PacksTable/PacksTable";
 import '../PacksBlock.css'
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";

@@ -1,9 +1,9 @@
 import React from "react";
-import '../PacksBlock.css'
-import {CellWithFilter} from "../../../common/CellWithFilter/CellWithFilter";
+import '../../PacksBlock.css'
+import {CellWithFilter} from "../../../../common/CellWithFilter/CellWithFilter";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
-import {changePacksSort, fetchPacks, SORT_PACKS} from "../../../reducers/packs-reducer";
+import {AppRootStateType} from "../../../../store/store";
+import {changePacksSort, fetchPacks, SORT_PACKS} from "../../../../reducers/packs-reducer";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 
