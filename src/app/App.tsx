@@ -5,9 +5,9 @@ import { HashRouter } from 'react-router-dom';
 import { initializeApp } from '../reducers/app-reducer';
 import { Preloader } from '../common/Loaders/Preloader/Preloader';
 import { AppPagesRoutes } from './AppPagesRoutes';
-import { Header } from '../components/Header/Header';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {Alert} from "../common/Alert/Alert";
+import {Header} from "../components/Header/Header";
 
 
 const App = () => {

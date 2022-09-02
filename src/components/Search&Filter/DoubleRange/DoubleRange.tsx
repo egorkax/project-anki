@@ -42,8 +42,8 @@ export const DoubleRange = () => {
   return (
     <div>
       <div className='filterLabel'>
-        {filterMinCardsCount}-------{filterMaxCardsCount}
-        {/*Number of cards*/}
+        {/*{filterMinCardsCount}-------{filterMaxCardsCount}*/}
+        Number of cards
       </div>
       <SuperDoubleRange
         min={0}
