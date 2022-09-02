@@ -28,9 +28,9 @@ export const PacksTableHeader = () => {
         <thead className='table-header'>
         <tr>
             <td className='name'>Name</td>
-            <td>Cards</td>
+            <td className='cards-count'>Cards</td>
             <CellWithFilter name='Last updated' sort={sort} changeFilter={changeFilter}/>
-            <td>Created by</td>
+            <td className='author-name'>Created by</td>
             <td>Actions</td>
         </tr>
         </thead>
