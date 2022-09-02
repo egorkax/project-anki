@@ -6,13 +6,13 @@ export const cardsApi = {
         return instance.get<GetCardsResponseType>('/cards/card?', {params})
     },
   addCard: (params: AddCardParamType) => {
-    return instance.post('/cards/card', {card: params})
+    return instance.post<{newCard: CardType}>('/cards/card', {card: params})
   },
   deleteCard: (id: string) => {
-    return instance.delete(`/cards/card?id=${id}`)
+    return instance.delete<{deletedCard: CardType}>(`/cards/card?id=${id}`)
   },
   editCard: (params: EditCardParamType) => {
-    return instance.put('/cards/card', {card: params})
+    return instance.put<{updatedCard: CardType}>('/cards/card', {card: params})
   },
 }
 

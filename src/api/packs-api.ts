@@ -7,14 +7,14 @@ export const packsApi = {
             .get<GetPacksResponseType>('/cards/pack', {params})
     },
     addPack: (params: AddPackParamType) => {
-        return instance.post('/cards/pack', {cardsPack: params})
+        return instance.post<{newCardsPack: PackType}>('/cards/pack', {cardsPack: params})
     },
     changePack: (params: ChangePackParamsType) => {
         return instance
             .put<PackType>('/cards/pack', {cardsPack: params})
     },
     deletePack: (packId: string) => {
-        return instance.delete<PackType>(`/cards/pack?id=${packId}`)
+        return instance.delete<{deletedCardsPack: PackType}>(`/cards/pack?id=${packId}`)
     }
 }
 
