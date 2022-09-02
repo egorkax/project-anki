@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/project-anki/static/css/main.39a50533.css",
-    "main.js": "/project-anki/static/js/main.d23d0e4f.js",
+    "main.css": "/project-anki/static/css/main.887df0fa.css",
+    "main.js": "/project-anki/static/js/main.07634ce8.js",
     "static/js/787.28cb0dcd.chunk.js": "/project-anki/static/js/787.28cb0dcd.chunk.js",
     "static/media/avatar.png": "/project-anki/static/media/avatar.4c6981b3aa26e18ed4ec.png",
     "static/media/logo.svg": "/project-anki/static/media/logo.6035a8f0df6a3ccf0900230854a8abfd.svg",
     "index.html": "/project-anki/index.html",
-    "static/media/black_loader.svg": "/project-anki/static/media/black_loader.9313ba8cd8e2cfba45d3ddc6c7940377.svg",
-    "static/media/loader.svg": "/project-anki/static/media/loader.fbc1eb031627369e6d41b9e9764d4575.svg",
-    "static/media/logout.svg": "/project-anki/static/media/logout.819881059549eb959ed296b6cbf2861e.svg",
-    "static/media/eye.svg": "/project-anki/static/media/eye.1348276d9deebf9199ef47e5a381515c.svg",
-    "static/media/arrow.svg": "/project-anki/static/media/arrow.9c43ee4473c188dca31578cbfa023bb9.svg",
-    "main.39a50533.css.map": "/project-anki/static/css/main.39a50533.css.map",
-    "main.d23d0e4f.js.map": "/project-anki/static/js/main.d23d0e4f.js.map",
+    "static/media/black_loader.svg": "/project-anki/static/media/black_loader.2deaf08224002bafe5b847dc33172356.svg",
+    "static/media/loader.svg": "/project-anki/static/media/loader.0763ebceada9196f1ea2e92e4409711c.svg",
+    "static/media/logout.svg": "/project-anki/static/media/logout.4631dbd136b384a8118857f16dae43d5.svg",
+    "static/media/eye.svg": "/project-anki/static/media/eye.2d50f92250443e4d80c88f2bb50e7eb9.svg",
+    "static/media/arrow.svg": "/project-anki/static/media/arrow.19c7bd8ee7d32ca8451f1de3f6803354.svg",
+    "static/media/Polygon 2.svg": "/project-anki/static/media/Polygon 2.fea3ba07db5a1e87b16c9acd04731f72.svg",
+    "main.887df0fa.css.map": "/project-anki/static/css/main.887df0fa.css.map",
+    "main.07634ce8.js.map": "/project-anki/static/js/main.07634ce8.js.map",
     "787.28cb0dcd.chunk.js.map": "/project-anki/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.39a50533.css",
-    "static/js/main.d23d0e4f.js"
+    "static/css/main.887df0fa.css",
+    "static/js/main.07634ce8.js"
   ]
 }
