@@ -7,6 +7,7 @@ import { Preloader } from '../common/Loaders/Preloader/Preloader';
 import { AppPagesRoutes } from './AppPagesRoutes';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {Header} from "../components/Header/Header";
+import {ModalWindow} from "../common/ModalWindow/ModalWindow";
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <ModalWindow/>
       <HashRouter>
         <Header/>
         <AppPagesRoutes/>

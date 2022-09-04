@@ -1,0 +1,17 @@
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background: #00000099;
+    z-index: 3;
+}
+
+.modal {
+    opacity: 1;
+    width: 395px;
+    background: #FFFFFF;
+}
+
+.header {
+
+}
