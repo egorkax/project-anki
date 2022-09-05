@@ -1,11 +1,12 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Grades} from "./Grades/Gradex";
 import {CardType} from "../../../api/cards-api";
 import {LearnCard} from "./LernQuestion/LearnCard";
 import s from "./Learn.module.css"
 import {BackToPacksLink} from "../../../common/BackToPacksLink/BackToPacksLink";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {updateGrade} from "../../../reducers/cards-reducer";
+import {fetchCards, updateGrade} from "../../../reducers/cards-reducer";
+import {useParams} from "react-router-dom";
 
 const maxGradeValue = 6;
 
@@ -27,9 +28,11 @@ const getCard = (cards: Array<CardType>): CardType => {
 };
 
 
-export const LearnPacksMode = () => {
+export const Learn = () => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
-    const [grade, setGrade] = useState(1);
+    const [grade, setGrade] = useState<number>(1);
+    const [firstCard, setFirstCard] = useState<boolean>(true);
+    const {packId} = useParams();
     const [card, setCard] = useState<CardType>({
         _id: '',
         cardsPack_id: '',
@@ -52,13 +55,27 @@ export const LearnPacksMode = () => {
     });
 
     const cards = useAppSelector(state => state.cards.cards);
+    const packName = useAppSelector(state => state.cards.packName);
+
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        if (firstCard) {
+            if (packId) {
+                dispatch(fetchCards(packId));
+            }
+            setFirstCard(false);
+        }
+        if (cards.length > 0) setCard(getCard(cards));
 
+        return () => {
+            console.log('useEffect off');
+        }
+    }, [dispatch, packId, cards, firstCard]);
     const onShowAnswer = () => setIsChecked(true);
 
     const onNext = (): void => {
-        dispatch(updateGrade({grade, card_id: card._id}));
+        packId && dispatch(updateGrade({grade, card_id: card._id}, packId));
         setIsChecked(false);
         if (cards.length > 0) {
             setCard(getCard(cards));
@@ -71,16 +88,21 @@ export const LearnPacksMode = () => {
             <div className={s.back}>
                 <BackToPacksLink/>
             </div>
+            <div className={s.blockLearn}>
             <div className={s.title}>
-                Learn "Pack Name"
+                Learn "{packName}"
             </div>
             {!isChecked ? (
-                    <LearnCard buttonName={'Show answer'} onClick={onShowAnswer} card={card}/>
+                    <LearnCard buttonName={'Show answer'} onClick={onShowAnswer} card={card} isChecked={isChecked}/>
                 ) :
-                <LearnCard buttonName={'Next'} onClick={onNext} card={card}>
+                <LearnCard buttonName={'Next'} onClick={onNext} card={card} isChecked={isChecked}>
+                    <div className={s.answer}>
+                        <b>Answer:</b>{card.answer}
+                    </div>
                     <Grades setGrade={setGrade}/>
                 </LearnCard>
             }
+            </div>
         </div>
     )
 }

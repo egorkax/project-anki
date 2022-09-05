@@ -90,6 +90,7 @@ export const fetchCards = (packId: string): AppThunk =>
                 page: getState().cards.page
             }
             const response = await cardsApi.getCards(params)
+            debugger
             dispatch(setCards(response.data))
             dispatch(setAppStatus('succeed'))
         } catch (e) {
@@ -182,13 +183,12 @@ export const updateCard = (cardsPack_id: string, id: string): AppThunk =>
         }
     }
 
-export const updateGrade = (params:UpdatedGradeDataType): AppThunk =>
+export const updateGrade = (params: UpdatedGradeDataType, packId: string): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(setAppStatus('loading'))
-
             await cardsApi.updateGrade(params)
-
+            dispatch(fetchCards(packId))
             dispatch(setAppStatus('succeed'))
         } catch (e) {
             dispatch(setAppStatus('failed'))

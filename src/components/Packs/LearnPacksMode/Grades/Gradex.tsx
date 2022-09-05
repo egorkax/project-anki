@@ -23,15 +23,17 @@ export const Grades = (props: PropsType) => {
 
     return (
         <div>
-            <div>Rate yourself</div>
-            {grades.map(grade => (
-                <div key={grade.id} className={s.gradeItem}>
-                    <label>
-                        <input type={"radio"} name={'grades'} value={grade.value} onChange={onChangeRadioHandle}/>
-                        <span className={s.gradeItemText}>{grade.label}</span>
-                    </label>
-                </div>
-            ))}
+            <div className={s.blockGrade}>
+                Rate yourself:
+                {grades.map(grade => (
+                    <div key={grade.id} className={s.gradeItem}>
+                        <label>
+                            <input type={"radio"} name={'grades'} value={grade.value} onChange={onChangeRadioHandle}/>
+                            <span className={s.gradeItemText}>{grade.label}</span>
+                        </label>
+                    </div>
+                ))}
+            </div>
         </div>
 
     )

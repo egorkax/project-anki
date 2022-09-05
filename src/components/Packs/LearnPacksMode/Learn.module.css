@@ -1,3 +1,19 @@
-.back{
+.blockLearn {
+}
 
+.back {
+
+}
+
+.title {
+    padding-left: 1000px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 27px;
+
+}
+
+.answer {
+    padding-left: 33px;
 }

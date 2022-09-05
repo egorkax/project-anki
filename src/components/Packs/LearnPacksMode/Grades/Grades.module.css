@@ -1,5 +1,8 @@
+.blockGrade{
+    padding-left: 33px;
+}
 .gradeItem{
-    padding-left:33px;
+    padding-top: 12px;
 }
 .gradeItemText{
     font-style: normal;
