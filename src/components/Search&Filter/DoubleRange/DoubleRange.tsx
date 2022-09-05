@@ -24,8 +24,7 @@ export const DoubleRange = () => {
 
 
   let onChangeHandler = useCallback((min: number, max: number) => {
-    setValue({minCardsCount: min, maxCardsCount: max}
-    )
+    setValue({minCardsCount: min, maxCardsCount: max})
   }, [])
 
 
@@ -42,7 +41,6 @@ export const DoubleRange = () => {
   return (
     <div>
       <div className='filterLabel'>
-        {/*{filterMinCardsCount}-------{filterMaxCardsCount}*/}
         Number of cards
       </div>
       <SuperDoubleRange

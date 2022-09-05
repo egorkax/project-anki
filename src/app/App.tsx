@@ -25,7 +25,6 @@ const App = () => {
 
     return (
         <div className="App">
-            <ModalWindow header='Add new task' isOpen={true}/>
             <Alert/>
             <HashRouter>
                 <Header/>

@@ -142,11 +142,11 @@ export const deletePack = (packId: string): AppThunk =>
     }
   }
 
-export const addNewPack = (name: string): AppThunk =>
+export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(setAppStatus('loading'))
-            await packsApi.addPack({name})
+            await packsApi.addPack({name, private: isPrivate})
             dispatch(fetchPacks())
             dispatch(setAppStatus('succeed'))
         } catch (e) {

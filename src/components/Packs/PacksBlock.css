@@ -86,3 +86,11 @@ table td:first-child {
     width: 200px;
     overflow: hidden;
 }
+
+/*modal windows*/
+
+.modal-buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+}
