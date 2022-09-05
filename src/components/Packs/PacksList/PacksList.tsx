@@ -6,61 +6,81 @@ import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType, useAppSelector} from "../../../store/store";
 import {AnyAction} from "redux";
-import {currentPage, fetchPacks, showItemsPerPage} from "../../../reducers/packs-reducer";
+import {addNewPack, currentPage, fetchPacks, showItemsPerPage} from "../../../reducers/packs-reducer";
 import {Navigate} from "react-router-dom";
 import {SearchFilter} from "../../Search&Filter/SearchFilter";
 import {Paginator} from "../../../common/Paginator/Paginator";
-import {AddPackModal} from "./PacksModalWindows/AddPackModal";
+import {PackModalWithForm} from "./PacksModalWindows/PackModalWithForm";
 
 export const PacksList = () => {
 
-  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
 
-  const isAuth = useAppSelector(state => state.auth.isAuth)
-  const appStatus = useAppSelector(state => state.app.appStatus)
-  const totalPacksCount = useAppSelector(state => state.packs.cardPacksTotalCount)
-  const pageCount = useAppSelector(state => state.packs.pageCount)
-  const page = useAppSelector(state => state.packs.page)
+    const isAuth = useAppSelector(state => state.auth.isAuth)
+    const appStatus = useAppSelector(state => state.app.appStatus)
+    const totalPacksCount = useAppSelector(state => state.packs.cardPacksTotalCount)
+    const pageCount = useAppSelector(state => state.packs.pageCount)
+    const page = useAppSelector(state => state.packs.page)
 
-  const isLoading = appStatus === "loading"
+    const isLoading = appStatus === "loading"
 
-  const [addPackOpen, setAddPackOpen] = useState(false)
-
-  const addPack = () => {
-    setAddPackOpen(true)
-  }
+    const [addPackOpen, setAddPackOpen] = useState(false)
+    const [editPackOpen, setEditPackOpen] = useState(false)
 
 
-  useEffect(() => {
-    if (!isAuth) {
-      return
+    useEffect(() => {
+        if (!isAuth) {
+            return
+        }
+        dispatch(fetchPacks())
+    }, [])
+
+    const openModalAddPack = () => {
+        setAddPackOpen(true)
     }
-    dispatch(fetchPacks())
-  }, [])
 
-  const onChangeShowItems = (pageCount: number) => {
-    dispatch(showItemsPerPage(pageCount))
-  }
-  const onChangePageHandler = (page: number) => {
-    dispatch(currentPage(page))
-  }
+    const openModalEditPack = () => {
+        setEditPackOpen(true)
+    }
 
-  if (!isAuth) return <Navigate to={'/login'}/>
+    const editPack = (name: string, isPrivatePack: boolean) => {
+        dispatch(addNewPack(name, isPrivatePack))
+    }
 
-  return (
-    <div className='packs-block packs-wrapper'>
-      <AddPackModal isOpen={addPackOpen} closeModalWindow={setAddPackOpen}/>
-      <div className='packs-header'>
-        <h1>Packs list</h1>
-        <SuperButton isLoading={isLoading} disabled={isLoading} onClick={addPack}>Add new pack</SuperButton>
-      </div>
-      <SearchFilter/>
-      <PacksTable/>
-      <Paginator totalItemsCount={totalPacksCount}
-                 pageSize={pageCount}
-                 currentPage={page}
-                 onChangePage={onChangePageHandler}
-                 onChangeShowItems={onChangeShowItems}/>
-    </div>
-  )
+    const addPack = (name: string, isPrivatePack: boolean) => {
+        dispatch(addNewPack(name, isPrivatePack))
+    }
+
+    const onChangeShowItems = (pageCount: number) => {
+        dispatch(showItemsPerPage(pageCount))
+    }
+    const onChangePageHandler = (page: number) => {
+        dispatch(currentPage(page))
+    }
+
+    if (!isAuth) return <Navigate to={'/login'}/>
+
+    return (
+        <div className='packs-block packs-wrapper'>
+            <PackModalWithForm header='Add new pack' submitForm={addPack} isOpen={addPackOpen}
+                               closeModalWindow={setAddPackOpen}/>
+            <PackModalWithForm header='Edit pack' isOpen={editPackOpen} closeModalWindow={setEditPackOpen}
+                               submitForm={() => {
+                               }}/>
+            <div className='packs-header'>
+                <h1>Packs list</h1>
+                <SuperButton isLoading={isLoading} disabled={isLoading} onClick={openModalAddPack}>Add new
+                    pack</SuperButton>
+            </div>
+            <SearchFilter/>
+            <PacksTable
+                openEditModalWindow={openModalEditPack}
+            />
+            <Paginator totalItemsCount={totalPacksCount}
+                       pageSize={pageCount}
+                       currentPage={page}
+                       onChangePage={onChangePageHandler}
+                       onChangeShowItems={onChangeShowItems}/>
+        </div>
+    )
 }
