@@ -5,7 +5,7 @@ import {changeFilterPackName, fetchPacks} from "../../reducers/packs-reducer";
 import {useAppDispatch} from "../../store/store";
 import {WhosePacksFilter} from "./WhosePacksFilter/WhosePacksFilter";
 import './SearchFilter.css'
-import {ClearButton} from "./clearButton/ClearButton";
+import {ClearButton} from "./СlearButton/ClearButton";
 
 
 export const SearchFilter = () => {

@@ -1,9 +1,9 @@
 import "../SearchFilter.css";
-import {SuperDoubleRange} from "../../../common/SuperDoubleRange/SuperDoubleRange";
 import React, {useCallback, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {useDebounce} from "../../../hooks/useDebounce";
 import {changeMinMaxCardsCount, fetchPacks} from "../../../reducers/packs-reducer";
+import {SuperDoubleRange} from "../../../common/SuperDoubleRange/SuperDoubleRange";
 
 export const DoubleRange = () => {
 
@@ -19,14 +19,12 @@ export const DoubleRange = () => {
     maxCardsCount: maxCardsCount,
   })
 
-
   const debouncedValue = useDebounce(value, 500)
-
 
   let onChangeHandler = useCallback((min: number, max: number) => {
     setValue({minCardsCount: min, maxCardsCount: max}
     )
-  }, [])
+  }, [setValue])
 
 
   useEffect(() => {
@@ -42,12 +40,11 @@ export const DoubleRange = () => {
   return (
     <div>
       <div className='filterLabel'>
-        {/*{filterMinCardsCount}-------{filterMaxCardsCount}*/}
         Number of cards
       </div>
       <SuperDoubleRange
-        min={0}
-        max={110}
+        min={minCardsCount}
+        max={maxCardsCount}
         onChangeRange={onChangeHandler}
       />
     </div>
