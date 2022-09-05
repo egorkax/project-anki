@@ -19,9 +19,7 @@ export const DoubleRange = () => {
     maxCardsCount: maxCardsCount,
   })
 
-
   const debouncedValue = useDebounce(value, 500)
-
 
   let onChangeHandler = useCallback((min: number, max: number) => {
     setValue({minCardsCount: min, maxCardsCount: max}
@@ -42,7 +40,6 @@ export const DoubleRange = () => {
   return (
     <div>
       <div className='filterLabel'>
-        {/*{filterMinCardsCount}-------{filterMaxCardsCount}*/}
         Number of cards
       </div>
       <SuperDoubleRange

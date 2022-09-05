@@ -55,11 +55,11 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
       return {...state, ...action.payload}
     case 'CLEAR_FILTERS':
       return {
-        ...state,
-        filterMinCardsCount: 0,
-        filterMaxCardsCount: 0,
-        filterPackName: '',
-        isMy: false,
+        ...initialState,
+        // filterMinCardsCount: 0,
+        // filterMaxCardsCount: 0,
+        // filterPackName: '',
+        // isMy: false,
       }
     default:
       return state
