@@ -140,7 +140,6 @@ export const deletePack = (): AppThunk =>
     async (dispatch, getState: () => AppRootStateType) => {
         try {
             const packId = getState().packs.currentPackId
-            dispatch(setAppStatus('loading'))
             await packsApi.deletePack(packId)
             dispatch(fetchPacks())
         } catch (e) {
@@ -152,10 +151,8 @@ export const deletePack = (): AppThunk =>
 export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
     async (dispatch) => {
         try {
-            dispatch(setAppStatus('loading'))
             await packsApi.addPack({name, private: isPrivate})
             dispatch(fetchPacks())
-            dispatch(setAppStatus('succeed'))
         } catch (e) {
             dispatch(setAppStatus('failed'))
             handleServerAppError(e as Error | AxiosError, dispatch)
@@ -166,7 +163,6 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
     async (dispatch, getState: () => AppRootStateType) => {
         try {
             const _id = getState().packs.currentPackId
-            dispatch(setAppStatus('loading'))
             await packsApi.changePack({_id, name, private: privacy})
             await dispatch(fetchCards(_id))
             dispatch(fetchPacks())

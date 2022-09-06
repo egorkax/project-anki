@@ -1,7 +1,7 @@
 import {useAppDispatch} from "../../../store/store";
 import {setAppStatus} from "../../../reducers/app-reducer";
 import {deletePack, editPack, setCurrentPackIdName} from "../../../reducers/packs-reducer";
-import {InfoIcon} from "../../../assets/icons/InfoIcon";
+import {MenuIcon} from "../../../assets/icons/MenuIcon";
 import {NavLink} from "react-router-dom";
 import {LearnSvgIcon} from "../../../assets/icons/LearnSvgIcon";
 import {EditSvgIcon} from "../../../assets/icons/EditSvgIcon";
@@ -38,7 +38,7 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
                          submitForm={editPackHandler}
                          closeModalWindow={setEditPackOpen}/>
       <div className='dropdown'>
-        <h1>{props.packName} <InfoIcon/></h1>
+        <h1>{props.packName} <MenuIcon/></h1>
         <div className='dropdownContent'>
           <NavLink to={`/packs/learn/${props.packId}`}><LearnSvgIcon/> Learn</NavLink>
           <a onClick={() => setEditPackOpen(true)}><EditSvgIcon/> Edit</a>

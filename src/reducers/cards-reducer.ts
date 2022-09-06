@@ -137,13 +137,11 @@ export const currentCardsPage = (page: number, packId: string): AppThunk =>
 export const createCard = (packId: string): AppThunk =>
     async (dispatch) => {
         try {
-            dispatch(setAppStatus('loading'))
             const params: AddCardParamType = {
                 cardsPack_id: packId,
             }
             await cardsApi.addCard(params)
             dispatch(fetchCards(packId))
-            dispatch(setAppStatus('succeed'))
         } catch (e) {
             dispatch(setAppStatus('failed'))
             const err = e as Error | AxiosError
