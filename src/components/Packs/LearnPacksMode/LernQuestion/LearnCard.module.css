@@ -1,0 +1,44 @@
+.blockLearn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 439px;
+    height: 204px;
+    margin: 0 auto;
+
+    background: #FFFFFF;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.blockLearnAnswer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 439px;
+    height: 492px;
+    margin: 0 auto;
+
+    background: #FFFFFF;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+.question{
+    padding-left: 33px;
+}
+.attempts {
+    height: 24px;
+    top: 247px;
+    padding-left: 33px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    opacity: 0.5;
+}
+.button{
+    width: 373px;
+    height: 36px;
+    margin: 0 auto;
+}
