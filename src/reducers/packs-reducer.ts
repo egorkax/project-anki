@@ -5,9 +5,10 @@ import {AxiosError} from "axios";
 import {setAppStatus} from "./app-reducer";
 
 
+
 export enum SORT_PACKS {
-    FROM_HIGHER_TO_LOWER = '0updated',
-    FROM_LOWER_TO_HIGHER = '1updated',
+  FROM_HIGHER_TO_LOWER = '0updated',
+  FROM_LOWER_TO_HIGHER = '1updated',
 }
 
 const initialState = {
@@ -43,22 +44,31 @@ const initialState = {
     filterMaxCardsCount: 110,
     filterPackName: '',
     isMy: false,
+    currentPackId: '',
+    currentPackName: '',
 }
 
 
 export const packsReducer = (state: InitialStateType = initialState, action: PacksActionType): InitialStateType => {
-  switch (action.type) {
-    case "SET_PACKS":
-    case "CHANGE_PACKS_SORT":
-    case "CHANGE_MIN_MAX_CARDS_COUNT":
-    case "FILTER_PACK_NAME":
-    case "CHANGE_IS_MY":
-      return {...state, ...action.payload}
-    case 'CLEAR_FILTERS':
-      return {...initialState}
-    default:
-      return state
-  }
+    switch (action.type) {
+        case "SET_PACKS":
+        case "CHANGE_PACKS_SORT":
+        case "CHANGE_MIN_MAX_CARDS_COUNT":
+        case "FILTER_PACK_NAME":
+        case "CHANGE_IS_MY":
+        case 'SET_CURRENT_PACK_ID_NAME':
+            return {...state, ...action.payload}
+        case 'CLEAR_FILTERS':
+            return {
+                ...state,
+                filterMinCardsCount: 0,
+                filterMaxCardsCount: 0,
+                filterPackName: '',
+                isMy: false,
+            }
+        default:
+            return state
+    }
 }
 
 //actions
@@ -74,6 +84,8 @@ export const changeIsMy = (isMy: boolean) =>
     ({type: 'CHANGE_IS_MY', payload: {isMy}} as const)
 export const clearFilters = () =>
     ({type: 'CLEAR_FILTERS'} as const)
+export const setCurrentPackIdName = (currentPackId: string, currentPackName: string) =>
+    ({type: 'SET_CURRENT_PACK_ID_NAME', payload: {currentPackId, currentPackName}})
 
 //thunks
 export const fetchPacks = (): AppThunk =>
@@ -123,50 +135,40 @@ export const showItemsPerPage = (pageCount: number): AppThunk =>
         }
     }
 
-export const deletePack = (packId: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      await packsApi.deletePack(packId)
-      dispatch(fetchPacks())
-    } catch (e) {
-      dispatch(setAppStatus('failed'))
-      handleServerAppError(e as Error | AxiosError, dispatch)
+export const deletePack = (): AppThunk =>
+    async (dispatch, getState: () => AppRootStateType) => {
+        try {
+            const packId = getState().packs.currentPackId
+            dispatch(setAppStatus('loading'))
+            await packsApi.deletePack(packId)
+            dispatch(fetchPacks())
+        } catch (e) {
+            dispatch(setAppStatus('failed'))
+            handleServerAppError(e as Error | AxiosError, dispatch)
+        }
     }
-  }
-export const editPack = (packId: string): AppThunk =>
-  async (dispatch) => {
-    try {
-      const params = {
-        _id: packId,
-        name: "Edited" //
-      }
-      await packsApi.changePack(params)
-      dispatch(fetchPacks())
-    } catch (e) {
-      dispatch(setAppStatus('failed'))
-      handleServerAppError(e as Error | AxiosError, dispatch)
-    }
-  }
 
 export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
-  async (dispatch) => {
-    try {
-      dispatch(setAppStatus('loading'))
-      await packsApi.addPack({name, private: isPrivate})
-      dispatch(fetchPacks())
-      dispatch(setAppStatus('succeed'))
-    } catch (e) {
-      dispatch(setAppStatus('failed'))
-      handleServerAppError(e as Error | AxiosError, dispatch)
-    }
-  }
-
-export const changePackNamePrivacy = (_id: string, name?: string, privacy?: boolean): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(setAppStatus('loading'))
+            await packsApi.addPack({name, private: isPrivate})
+            dispatch(fetchPacks())
+            dispatch(setAppStatus('succeed'))
+        } catch (e) {
+            dispatch(setAppStatus('failed'))
+            handleServerAppError(e as Error | AxiosError, dispatch)
+        }
+    }
+
+export const editPack = (name?: string, privacy?: boolean): AppThunk =>
+    async (dispatch, getState: () => AppRootStateType) => {
+        try {
+            const _id = getState().packs.currentPackId
+            dispatch(setAppStatus('loading'))
             await packsApi.changePack({_id, name, private: privacy})
             dispatch(fetchPacks())
+            dispatch(setCurrentPackIdName('', ''))
         } catch (e) {
             dispatch(setAppStatus('failed'))
             handleServerAppError(e as Error | AxiosError, dispatch)
@@ -197,7 +199,6 @@ export const currentPage = (page: number): AppThunk =>
         }
     }
 
-
 //types
 type InitialStateType = typeof initialState
 
@@ -208,3 +209,4 @@ export type PacksActionType =
     | ReturnType<typeof changeFilterPackName>
     | ReturnType<typeof changeIsMy>
     | ReturnType<typeof clearFilters>
+    | ReturnType<typeof setCurrentPackIdName>

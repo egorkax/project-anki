@@ -7,37 +7,36 @@ import {PackType} from "../../../../api/packs-api";
 import {PacksTableItem} from "./PacksTableItem/PacksTableItem";
 
 type PacksTablePropsType = {
-  openEditModalWindow: () => void
+    openEditModalWindow: () => void
+    openRemoveModalWindow: () => void
 }
 
 export const PacksTable = (props: PacksTablePropsType) => {
 
-  const {
-    openEditModalWindow,
-  } = props
+    const {
+        openEditModalWindow,
+        openRemoveModalWindow
+    } = props
 
   const packs = useSelector<AppRootStateType, PackType[]>(state => state.packs.cardPacks)
 
 
-  const dispatch = useAppDispatch()
-
-
-  return (
-    <div className='table-wrapper'>
-      <table>
-        <PacksTableHeader/>
-        <tbody>
-        {packs.map(pack =>
-          <PacksTableItem key={pack._id}
-                          name={pack.name}
-                          cardsCount={pack.cardsCount}
-                          lastUpdated={pack.updated}
-                          createdBy={pack.user_name}
-                          userId={pack.user_id}
-                          packId={pack._id}
-          />)}
-        </tbody>
-      </table>
-    </div>
-  )
+    return (
+        <div className='table-wrapper'>
+            <table>
+                <PacksTableHeader/>
+                <tbody>
+                {packs.map(pack => <PacksTableItem name={pack.name}
+                                                   cardsCount={pack.cardsCount}
+                                                   lastUpdated={pack.updated}
+                                                   createdBy={pack.user_name}
+                                                   userId={pack.user_id}
+                                                   packId={pack._id}
+                                                   openEditModalWindow={openEditModalWindow}
+                                                   openRemoveModalWindow={openRemoveModalWindow}
+                />)}
+                </tbody>
+            </table>
+        </div>
+    )
 }
