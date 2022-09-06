@@ -5,6 +5,8 @@ import style from './PacksTableItem.module.css'
 import {LearnSvgIcon} from "../../../../../assets/icons/LearnSvgIcon";
 import {EditSvgIcon} from "../../../../../assets/icons/EditSvgIcon";
 import {DeleteSvgIcon} from "../../../../../assets/icons/DeleteSvgIcon";
+import {changePackNamePrivacy, deletePack} from "../../../../../reducers/packs-reducer";
+import {setAppStatus} from "../../../../../reducers/app-reducer";
 import {setCurrentPackIdName} from "../../../../../reducers/packs-reducer";
 
 type PacksTableItemPropsType = {
@@ -45,6 +47,10 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
         openEditModalWindow()
         dispatch(setCurrentPackIdName(packId, name))
     }
+  const editPackHandler = () => {
+    dispatch(setAppStatus('loading'))
+    dispatch(changePackNamePrivacy(packId,'123'))
+  }
 
     const openRemoveModal = () => {
         openRemoveModalWindow()
