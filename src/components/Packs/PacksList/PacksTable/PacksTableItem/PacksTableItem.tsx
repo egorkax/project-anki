@@ -5,7 +5,7 @@ import style from './PacksTableItem.module.css'
 import {LearnSvgIcon} from "../../../../../assets/icons/LearnSvgIcon";
 import {EditSvgIcon} from "../../../../../assets/icons/EditSvgIcon";
 import {DeleteSvgIcon} from "../../../../../assets/icons/DeleteSvgIcon";
-import {deletePack, editPack} from "../../../../../reducers/packs-reducer";
+import {changePackNamePrivacy, deletePack} from "../../../../../reducers/packs-reducer";
 import {setAppStatus} from "../../../../../reducers/app-reducer";
 
 type PacksTableItemPropsType = {
@@ -35,7 +35,7 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
 
   const editPackHandler = () => {
     dispatch(setAppStatus('loading'))
-    dispatch(editPack(packId))
+    dispatch(changePackNamePrivacy(packId,'123'))
   }
 
   const removePackHandler = () => {

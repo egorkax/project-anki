@@ -5,6 +5,8 @@ import style from "../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.
 import {SearchField} from "../../Search&Filter/SearchField/SearchField";
 import {CardsTable} from "./CardsTable";
 import {Paginator} from "../../../common/Paginator/Paginator";
+import {TitlePackWithMenu} from "./TitlePackWithMenu";
+import {PackModalWithForm} from "../PacksList/PacksModalWindows/PackModalWithForm";
 
 export type PacksBlockPropsType = {
   packName: string
@@ -23,7 +25,7 @@ export const PacksBlock: React.FC<PacksBlockPropsType> = (props) => {
   return (
     <div className='packs-block'>
       <div className='packs-header'>
-        <h1>{props.packName}</h1>
+        <TitlePackWithMenu packName={props.packName} packId={props.packId}/>
         {props.isMy
           ? <SuperButton onClick={props.addCard}>Add new card</SuperButton>
           : <SuperButton>

@@ -83,7 +83,6 @@ export const fetchCards = (packId: string): AppThunk =>
                 page: getState().cards.page
             }
             const response = await cardsApi.getCards(params)
-            debugger
             dispatch(setCards(response.data))
             dispatch(setAppStatus('succeed'))
         } catch (e) {
