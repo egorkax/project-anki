@@ -47,24 +47,18 @@ const initialState = {
 
 
 export const packsReducer = (state: InitialStateType = initialState, action: PacksActionType): InitialStateType => {
-    switch (action.type) {
-        case "SET_PACKS":
-        case "CHANGE_PACKS_SORT":
-        case "CHANGE_MIN_MAX_CARDS_COUNT":
-        case "FILTER_PACK_NAME":
-        case "CHANGE_IS_MY":
-            return {...state, ...action.payload}
-        case 'CLEAR_FILTERS':
-            return {
-                ...state,
-                filterMinCardsCount: 0,
-                filterMaxCardsCount: 0,
-                filterPackName: '',
-                isMy: false,
-            }
-        default:
-            return state
-    }
+  switch (action.type) {
+    case "SET_PACKS":
+    case "CHANGE_PACKS_SORT":
+    case "CHANGE_MIN_MAX_CARDS_COUNT":
+    case "FILTER_PACK_NAME":
+    case "CHANGE_IS_MY":
+      return {...state, ...action.payload}
+    case 'CLEAR_FILTERS':
+      return {...initialState}
+    default:
+      return state
+  }
 }
 
 //actions
@@ -130,29 +124,42 @@ export const showItemsPerPage = (pageCount: number): AppThunk =>
     }
 
 export const deletePack = (packId: string): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            await packsApi.deletePack(packId)
-            dispatch(fetchPacks())
-        } catch (e) {
-            dispatch(setAppStatus('failed'))
-            handleServerAppError(e as Error | AxiosError, dispatch)
-        }
+  async (dispatch) => {
+    try {
+      await packsApi.deletePack(packId)
+      dispatch(fetchPacks())
+    } catch (e) {
+      dispatch(setAppStatus('failed'))
+      handleServerAppError(e as Error | AxiosError, dispatch)
     }
+  }
+export const editPack = (packId: string): AppThunk =>
+  async (dispatch) => {
+    try {
+      const params = {
+        _id: packId,
+        name: "Edited" //
+      }
+      await packsApi.changePack(params)
+      dispatch(fetchPacks())
+    } catch (e) {
+      dispatch(setAppStatus('failed'))
+      handleServerAppError(e as Error | AxiosError, dispatch)
+    }
+  }
 
-export const addNewPack = (name: string): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            await packsApi.addPack({name})
-            dispatch(fetchPacks())
-            dispatch(setAppStatus('succeed'))
-        } catch (e) {
-            dispatch(setAppStatus('failed'))
-            handleServerAppError(e as Error | AxiosError, dispatch)
-        }
+export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setAppStatus('loading'))
+      await packsApi.addPack({name, private: isPrivate})
+      dispatch(fetchPacks())
+      dispatch(setAppStatus('succeed'))
+    } catch (e) {
+      dispatch(setAppStatus('failed'))
+      handleServerAppError(e as Error | AxiosError, dispatch)
     }
+  }
 
 export const changePackNamePrivacy = (_id: string, name?: string, privacy?: boolean): AppThunk =>
     async (dispatch) => {

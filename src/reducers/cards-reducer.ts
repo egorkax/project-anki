@@ -152,50 +152,32 @@ export const createCard = (packId: string): AppThunk =>
         }
     }
 export const removeCard = (cardsPack_id: string, id: string): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            await cardsApi.deleteCard(id)
-            dispatch(fetchCards(cardsPack_id))
-            dispatch(setAppStatus('succeed'))
-        } catch (e) {
-            dispatch(setAppStatus('failed'))
-            const err = e as Error | AxiosError
-            handleServerAppError(err, dispatch)
-        }
+  async (dispatch) => {
+    try {
+      await cardsApi.deleteCard(id)
+      dispatch(fetchCards(cardsPack_id))
+    } catch (e) {
+      dispatch(setAppStatus('failed'))
+      const err = e as Error | AxiosError
+      handleServerAppError(err, dispatch)
     }
+  }
 export const updateCard = (cardsPack_id: string, id: string): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            const params: EditCardParamType = {
-                _id: id,
-                question: 'Update Question',
-                comments: 'Update Comment'
-            }
-            await cardsApi.editCard(params)
-            dispatch(fetchCards(cardsPack_id))
-            dispatch(setAppStatus('succeed'))
-        } catch (e) {
-            dispatch(setAppStatus('failed'))
-            const err = e as Error | AxiosError
-            handleServerAppError(err, dispatch)
-        }
+  async (dispatch) => {
+    try {
+      const params: EditCardParamType = {
+        _id: id,
+        question: 'Update Question',
+        comments: 'Update Comment'
+      }
+      await cardsApi.editCard(params)
+      dispatch(fetchCards(cardsPack_id))
+    } catch (e) {
+      dispatch(setAppStatus('failed'))
+      const err = e as Error | AxiosError
+      handleServerAppError(err, dispatch)
     }
-
-export const updateGrade = (params: UpdatedGradeDataType, packId: string): AppThunk =>
-    async (dispatch) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            await cardsApi.updateGrade(params)
-            dispatch(fetchCards(packId))
-            dispatch(setAppStatus('succeed'))
-        } catch (e) {
-            dispatch(setAppStatus('failed'))
-            const err = e as Error | AxiosError
-            handleServerAppError(err, dispatch)
-        }
-    }
+  }
 
 //types
 type InitialStateType = typeof initialState

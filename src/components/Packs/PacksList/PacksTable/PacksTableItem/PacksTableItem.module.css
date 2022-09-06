@@ -9,3 +9,9 @@
     border: none;
     background: transparent;
 }
+.disable{
+    width: 16px;
+    border: none;
+    background: transparent;
+    opacity: 0.6;
+}

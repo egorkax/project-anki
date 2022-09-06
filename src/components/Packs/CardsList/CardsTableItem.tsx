@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {removeCard, updateCard} from "../../../reducers/cards-reducer";
 import {NavLink} from "react-router-dom";
 import {LearnSvgIcon} from "../../../assets/icons/LearnSvgIcon";
+import {setAppStatus} from "../../../reducers/app-reducer";
 
 type CardsTableItemPropsType = {
   question: string
@@ -30,14 +31,18 @@ export const CardsTableItem = (props: CardsTableItemPropsType) => {
   const dispatch = useAppDispatch()
   const userId = useAppSelector(state => state.profile._id)
   const packUserId = useAppSelector(state => state.cards.packUserId)
+  const appStatus = useAppSelector(state => state.app.appStatus)
+
 
   const date = lastUpdated.slice(0, 10)
 
   const onClickDeleteCard = () => {
+    dispatch(setAppStatus('loading'))
     dispatch(removeCard(cardsPack_id, id))
   }
 
   const onClickEditCard = () => {
+    dispatch(setAppStatus('loading'))
     dispatch(updateCard(cardsPack_id, id))
   }
   const isMy = userId === packUserId
@@ -49,13 +54,23 @@ export const CardsTableItem = (props: CardsTableItemPropsType) => {
       <td>{date}</td>
       <td>{grade}</td>
       <td>{
-        isMy ? <div className={style.actions}>
-          <NavLink to={`/packs/learn/${cardsPack_id}`} className={style.icon}><LearnSvgIcon/></NavLink>
-          <button onClick={onClickEditCard} className={style.icon}><EditSvgIcon/></button>
-          <button onClick={onClickDeleteCard} className={style.icon}><DeleteSvgIcon/></button>
-        </div> : <div className={style.actions}>
-          <NavLink to={`/packs/learn/${cardsPack_id}`} className={style.icon}><LearnSvgIcon/></NavLink>
-        </div>
+        isMy
+          ? <div className={style.actions}>
+            <NavLink to={`/packs/learn/${cardsPack_id}`} className={style.icon}><LearnSvgIcon/></NavLink>
+            <button onClick={onClickEditCard}
+                    className={appStatus !== 'succeed' ? style.disable : style.icon}
+                    disabled={appStatus !== 'succeed'}>
+              <EditSvgIcon/>
+            </button>
+            <button onClick={onClickDeleteCard}
+                    className={appStatus !== 'succeed' ? style.disable : style.icon}
+                    disabled={appStatus !== 'succeed'}>
+              <DeleteSvgIcon/>
+            </button>
+          </div>
+          : <div className={style.actions}>
+            <NavLink to={`/packs/learn/${cardsPack_id}`} className={style.icon}><LearnSvgIcon/></NavLink>
+          </div>
       }</td>
     </tr>
   )

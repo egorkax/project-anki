@@ -6,28 +6,28 @@ import {CardType} from "../../../api/cards-api";
 import {CardsTableItem} from "./CardsTableItem";
 
 type CardsTablePropsType = {
-    packId: string | undefined
+  packId: string | undefined
 }
 
 export const CardsTable = ({packId, ...props}: CardsTablePropsType) => {
 
-    const cards = useSelector<AppRootStateType, CardType[]>(state => state.cards.cards)
+  const cards = useSelector<AppRootStateType, CardType[]>(state => state.cards.cards)
 
-    return (
-        <div className='table-wrapper'>
-            <table>
-                <CardsTableHeader packId={packId}/>
-                <tbody>
-                {cards.map(card => <CardsTableItem
-                    question={card.question}
-                    answer={card.answer}
-                    lastUpdated={card.updated}
-                    grade={card.grade}
-                    id={card._id}
-                    cardsPack_id ={card.cardsPack_id}
-                />)}
-                </tbody>
-            </table>
-        </div>
-    )
+  return (
+    <div className='table-wrapper'>
+      <table>
+        <CardsTableHeader packId={packId}/>
+        <tbody>
+        {cards.map(card => <CardsTableItem key={card._id}
+                                           question={card.question}
+                                           answer={card.answer}
+                                           lastUpdated={card.updated}
+                                           grade={card.grade}
+                                           id={card._id}
+                                           cardsPack_id={card.cardsPack_id}
+        />)}
+        </tbody>
+      </table>
+    </div>
+  )
 }
