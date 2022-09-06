@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../PacksList/PacksTableItem/PacksTableItem.module.css";
+import style from "../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.css";
 import {EditSvgIcon} from "../../../assets/icons/EditSvgIcon";
 import {DeleteSvgIcon} from "../../../assets/icons/DeleteSvgIcon";
 import {useAppDispatch, useAppSelector} from "../../../store/store";

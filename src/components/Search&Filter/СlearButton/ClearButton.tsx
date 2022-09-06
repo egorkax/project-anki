@@ -14,8 +14,8 @@ export const ClearButton = () => {
     }
 
     return (
-        <div className={style.wrapper}>
-            <button onClick={onClickHandler} className={style.button}><FilterSvgIcon/></button>
-        </div>
+      <div className={style.wrapper}>
+          <button onClick={onClickHandler} className={style.button}><FilterSvgIcon/></button>
+      </div>
     )
 }

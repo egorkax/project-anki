@@ -73,7 +73,24 @@ table td:first-child {
 }
 
 .name {
-    max-width: 278px;
+    width: 300px;
     overflow: hidden;
     overflow-clip: d;
+}
+
+.cards-count {
+    width: 200px;
+}
+
+.author-name {
+    width: 200px;
+    overflow: hidden;
+}
+
+/*modal windows*/
+
+.modal-buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
 }

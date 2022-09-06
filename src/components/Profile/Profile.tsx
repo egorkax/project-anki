@@ -1,9 +1,9 @@
 import React from 'react';
 import s from './Profile.module.css'
+import {Navigate, NavLink} from "react-router-dom";
 import {useAppSelector} from "../../store/store";
-import {Navigate} from "react-router-dom";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {BackToPacksLink} from "../../common/BackToPacksLink/BackToPacksLink";
+import { BackToPacksLink } from '../../common/BackToPacksLink/BackToPacksLink';
 
 
 export const Profile = () => {
@@ -12,12 +12,12 @@ export const Profile = () => {
 
   if (!isAuth) return <Navigate to={'/login'}/>
 
-    return (
-        <div className={s.blockProfile}>
-            <BackToPacksLink/>
-            <ProfileInfo/>
-        </div>
-    );
+  return (
+      <div className={s.blockProfile}>
+          <BackToPacksLink/>
+          <ProfileInfo/>
+      </div>
+  );
 };
 
 

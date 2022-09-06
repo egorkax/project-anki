@@ -1,12 +1,11 @@
 import React from 'react'
-import {NavLink, useLocation, useParams} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import s from './Header.module.css'
 import logo from '../../assets/images/logo.svg'
 import SuperButton from "../../common/SuperButton/SuperButton";
 import {useAppSelector} from "../../store/store";
-import {LinearLoader} from "../../common/Loaders/LinearLoader/LinearLoader";
-import {DropDownMenu} from "./HeaderProfile/DropDownMenu";
-
+import { DropDownMenu } from './HeaderProfile/DropDownMenu';
+import { LinearLoader } from '../../common/Loaders/LinearLoader/LinearLoader';
 
 export const Header = () => {
 

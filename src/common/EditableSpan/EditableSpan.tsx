@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import style from './EditableSpan.module.css'
-import {changeUserName} from "../../reducers/profile-reducer";
+import {changeUserNameTC} from "../../reducers/profile-reducer";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {useFormik} from "formik";
 
@@ -23,7 +23,7 @@ export const EditableSpan = () => {
     },
     onSubmit: (values) => {
       setEditMode(false)
-      dispatch(changeUserName(values.nickname))
+      dispatch(changeUserNameTC(values.nickname))
     }
   })
 

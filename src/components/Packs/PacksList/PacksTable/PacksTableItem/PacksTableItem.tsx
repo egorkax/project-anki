@@ -1,12 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../../../store/store";
+import {AppRootStateType, useAppDispatch} from "../../../../../store/store";
 import {NavLink} from "react-router-dom";
 import style from './PacksTableItem.module.css'
-import {LearnSvgIcon} from "../../../../assets/icons/LearnSvgIcon";
-import {EditSvgIcon} from "../../../../assets/icons/EditSvgIcon";
-import {DeleteSvgIcon} from "../../../../assets/icons/DeleteSvgIcon";
-import {changePackNamePrivacy, deletePack} from "../../../../reducers/packs-reducer";
+import {LearnSvgIcon} from "../../../../../assets/icons/LearnSvgIcon";
+import {EditSvgIcon} from "../../../../../assets/icons/EditSvgIcon";
+import {DeleteSvgIcon} from "../../../../../assets/icons/DeleteSvgIcon";
+import {addNewPack, changePackNamePrivacy, deletePack} from "../../../../../reducers/packs-reducer";
+import { PackModalWithForm } from "../../PacksModalWindows/PackModalWithForm";
 
 type PacksTableItemPropsType = {
     name: string
@@ -18,6 +19,7 @@ type PacksTableItemPropsType = {
 }
 
 export const PacksTableItem = (props: PacksTableItemPropsType) => {
+
 
     const profileId = useSelector<AppRootStateType, string>(state => state.profile._id)
 
@@ -37,7 +39,6 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
     const isMy = profileId === userId
 
     const editPack = () => {
-        dispatch(changePackNamePrivacy(packId, 'Edited pack', false))
     }
 
     const removePack = () => {

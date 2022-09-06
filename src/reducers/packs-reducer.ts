@@ -4,6 +4,8 @@ import {handleServerAppError} from "../utils/error-utils";
 import {AxiosError} from "axios";
 import {setAppStatus} from "./app-reducer";
 
+
+
 export enum SORT_PACKS {
   FROM_HIGHER_TO_LOWER = '0updated',
   FROM_LOWER_TO_HIGHER = '1updated',
@@ -140,11 +142,11 @@ export const deletePack = (packId: string): AppThunk =>
     }
   }
 
-export const addNewPack = (name: string): AppThunk =>
+export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(setAppStatus('loading'))
-            await packsApi.addPack({name})
+            await packsApi.addPack({name, private: isPrivate})
             dispatch(fetchPacks())
             dispatch(setAppStatus('succeed'))
         } catch (e) {

@@ -1,6 +1,6 @@
 import {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
-import {deleteUserData, setUserData, SetUserDataType} from "./profile-reducer";
+import {deleteUserData, setUserData} from "./profile-reducer";
 import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
 import {setAppStatus} from "./app-reducer";
@@ -140,7 +140,6 @@ export type ChangeIsAuthType = ReturnType<typeof changeIsAuth>
 export type AuthActionType =
   | ReturnType<typeof setRecoveryStatus>
   | ChangeIsAuthType
-  | SetUserDataType
   | ReturnType<typeof setAuthError>
   | ReturnType<typeof setRecoveryEmail>
   | ReturnType<typeof setStatus>

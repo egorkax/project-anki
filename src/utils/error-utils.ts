@@ -1,8 +1,8 @@
 import axios, {AxiosError} from "axios";
+import {AuthActionType} from "../reducers/auth-reducer";
 import {Dispatch} from "redux";
-import {AllActionsType} from "../store/store";
-import {setAppError, setAppStatus} from "../reducers/app-reducer";
-import {setAuthError} from "../reducers/auth-reducer";
+import {AppActionsType, setAppError} from "../reducers/app-reducer";
+import {ProfileActionsType} from "../reducers/profile-reducer";
 
 export const handleServerAppError = (err: Error | AxiosError, dispatch: ErrorUtilsDispatchType) => {
   if (axios.isAxiosError(err)) {
@@ -13,4 +13,5 @@ export const handleServerAppError = (err: Error | AxiosError, dispatch: ErrorUti
   }
 }
 
-type ErrorUtilsDispatchType = Dispatch<AllActionsType>
+
+type ErrorUtilsDispatchType = Dispatch<AppActionsType | AuthActionType | ProfileActionsType>

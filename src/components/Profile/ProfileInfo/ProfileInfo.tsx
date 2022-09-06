@@ -12,14 +12,14 @@ import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 
 export const ProfileInfo = () => {
-  const user = useSelector<AppRootStateType, UserType>(state => state.profile);
-  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
-  const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+    const user = useSelector<AppRootStateType,UserType>(state => state.profile);
+    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+    const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
 
-  const isLoading = authStatus === 'loading'
-  const logOutHandler = () => {
-    dispatch(signOut())
-  }
+    const isLoading = authStatus === 'loading'
+    const logOutHandler = () => {
+        dispatch(signOut())
+    }
 
   return (
     <div className={s.profileInfo}>

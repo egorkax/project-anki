@@ -1,19 +1,18 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../store/store";
-import {AnyAction} from "redux";
-import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {updatePassword} from "../reducers/auth-reducer";
 import SuperInput from '../common/SuperInput/SuperInput';
 import SuperButton from "../common/SuperButton/SuperButton";
-import {useAppDispatch} from "../store/store";
+import {AppRootStateType, useAppSelector} from "../store/store";
+import {ThunkDispatch} from "redux-thunk";
+import {AnyAction} from "redux";
+import {useDispatch} from "react-redux";
 
 export const NewPasswordForm = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
 
-  const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+  const authStatus = useAppSelector(state => state.auth.status)
   const isLoading = authStatus === 'loading'
 
   let {token} = useParams();
