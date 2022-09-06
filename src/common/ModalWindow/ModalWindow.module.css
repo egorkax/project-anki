@@ -1,0 +1,55 @@
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background: #00000099;
+    z-index: 3;
+    display: none;
+    top: 0;
+    left: 0 ;
+    justify-content: center;
+    align-items: center;
+}
+
+.open {
+    display: flex;
+}
+
+.modal {
+    opacity: 1;
+    width: 395px;
+    background: #FFFFFF;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #D9D9D9;
+    padding: 19px 24px;
+}
+
+.closeButton {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: transparent;
+}
+
+.closeButton:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.closeButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+.container {
+    padding: 35px 24px;
+}

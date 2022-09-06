@@ -57,11 +57,11 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
       return {...state, ...action.payload}
     case 'CLEAR_FILTERS':
       return {
-        ...state,
-        filterMinCardsCount: 0,
-        filterMaxCardsCount: 0,
-        filterPackName: '',
-        isMy: false,
+        ...initialState,
+        // filterMinCardsCount: 0,
+        // filterMaxCardsCount: 0,
+        // filterPackName: '',
+        // isMy: false,
       }
     default:
       return state
@@ -142,11 +142,11 @@ export const deletePack = (packId: string): AppThunk =>
     }
   }
 
-export const addNewPack = (name: string): AppThunk =>
+export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
     async (dispatch) => {
         try {
             dispatch(setAppStatus('loading'))
-            await packsApi.addPack({name})
+            await packsApi.addPack({name, private: isPrivate})
             dispatch(fetchPacks())
             dispatch(setAppStatus('succeed'))
         } catch (e) {
