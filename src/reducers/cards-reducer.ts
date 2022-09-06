@@ -146,10 +146,8 @@ export const createCard = (packId: string): AppThunk =>
 export const removeCard = (cardsPack_id: string, id: string): AppThunk =>
   async (dispatch) => {
     try {
-      dispatch(setAppStatus('loading'))
       await cardsApi.deleteCard(id)
       dispatch(fetchCards(cardsPack_id))
-      dispatch(setAppStatus('succeed'))
     } catch (e) {
       dispatch(setAppStatus('failed'))
       const err = e as Error | AxiosError
@@ -159,7 +157,6 @@ export const removeCard = (cardsPack_id: string, id: string): AppThunk =>
 export const updateCard = (cardsPack_id: string, id: string): AppThunk =>
   async (dispatch) => {
     try {
-      dispatch(setAppStatus('loading'))
       const params: EditCardParamType = {
         _id: id,
         question: 'Update Question',
@@ -167,7 +164,6 @@ export const updateCard = (cardsPack_id: string, id: string): AppThunk =>
       }
       await cardsApi.editCard(params)
       dispatch(fetchCards(cardsPack_id))
-      dispatch(setAppStatus('succeed'))
     } catch (e) {
       dispatch(setAppStatus('failed'))
       const err = e as Error | AxiosError
