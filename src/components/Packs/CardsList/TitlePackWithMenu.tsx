@@ -1,6 +1,6 @@
 import {useAppDispatch} from "../../../store/store";
 import {setAppStatus} from "../../../reducers/app-reducer";
-import {changePackNamePrivacy, deletePack} from "../../../reducers/packs-reducer";
+import {deletePack, editPack, setCurrentPackIdName} from "../../../reducers/packs-reducer";
 import {InfoIcon} from "../../../assets/icons/InfoIcon";
 import {NavLink} from "react-router-dom";
 import {LearnSvgIcon} from "../../../assets/icons/LearnSvgIcon";
@@ -19,14 +19,15 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
 
   const editPackHandler = (name: string, isPrivatePack: boolean) => {
     if (props.packId) {
-      dispatch(changePackNamePrivacy(props.packId, name, isPrivatePack))
+      dispatch(setCurrentPackIdName(props.packId, props.packName))
+      dispatch(editPack(name, isPrivatePack))
     }
   }
 
   const removePackHandler = () => {
     dispatch(setAppStatus('loading'))
     if (props.packId) {
-      dispatch(deletePack(props.packId))
+      dispatch(deletePack())
     }
   }
 

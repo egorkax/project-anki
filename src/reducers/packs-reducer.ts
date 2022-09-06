@@ -3,6 +3,7 @@ import {AppRootStateType, AppThunk} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
 import {AxiosError} from "axios";
 import {setAppStatus} from "./app-reducer";
+import {fetchCards} from "./cards-reducer";
 
 
 
@@ -167,6 +168,7 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
             const _id = getState().packs.currentPackId
             dispatch(setAppStatus('loading'))
             await packsApi.changePack({_id, name, private: privacy})
+            await dispatch(fetchCards(_id))
             dispatch(fetchPacks())
             dispatch(setCurrentPackIdName('', ''))
         } catch (e) {

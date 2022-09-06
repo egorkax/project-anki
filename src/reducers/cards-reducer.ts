@@ -1,4 +1,11 @@
-import {AddCardParamType, cardsApi, CardsParamsType, EditCardParamType, GetCardsResponseType} from "../api/cards-api";
+import {
+    AddCardParamType,
+    cardsApi,
+    CardsParamsType,
+    EditCardParamType,
+    GetCardsResponseType,
+    UpdatedGradeDataType
+} from "../api/cards-api";
 import {AppRootStateType, AppThunk} from "../store/store";
 import {setAppStatus} from "./app-reducer";
 import {handleServerAppError} from "../utils/error-utils";

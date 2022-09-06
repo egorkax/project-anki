@@ -75,7 +75,7 @@ export const PacksList = () => {
             <DeletePackModal isOpen={removePackOpen} closeModalWindow={setRemovePackOpen}/>
             <div className='packs-header'>
                 <h1>Packs list</h1>
-                <SuperButton isLoading={isLoading} disabled={isLoading} onClick={openModalAddPack}>Add new
+                <SuperButton disabled={isLoading} onClick={openModalAddPack}>Add new
                     pack</SuperButton>
             </div>
             <SearchFilter/>
