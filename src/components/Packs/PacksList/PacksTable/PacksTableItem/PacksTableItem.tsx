@@ -21,7 +21,7 @@ type PacksTableItemPropsType = {
 export const PacksTableItem = (props: PacksTableItemPropsType) => {
 
 
-    const profileId = useSelector<AppRootStateType, string>(state => state.profile._id)
+    const profileId = useAppSelector(state => state.profile._id)
 
     const dispatch = useAppDispatch()
 
