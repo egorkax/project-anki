@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType, useAppSelector} from "../../../store/store";
 import {AnyAction} from "redux";
-import {addNewPack, currentPage, fetchPacks, showItemsPerPage} from "../../../reducers/packs-reducer";
+import {addNewPack, currentPage, editPack, fetchPacks, showItemsPerPage} from "../../../reducers/packs-reducer";
 import {Navigate} from "react-router-dom";
 import {SearchFilter} from "../../Search&Filter/SearchFilter";
 import {Paginator} from "../../../common/Paginator/Paginator";
@@ -43,8 +43,8 @@ export const PacksList = () => {
         setEditPackOpen(true)
     }
 
-    const editPack = (name: string, isPrivatePack: boolean) => {
-        dispatch(addNewPack(name, isPrivatePack))
+    const changePack = (name: string, isPrivatePack: boolean) => {
+        dispatch(editPack(name, isPrivatePack))
     }
 
     const addPack = (name: string, isPrivatePack: boolean) => {
@@ -65,8 +65,7 @@ export const PacksList = () => {
             <PackModalWithForm header='Add new pack' submitForm={addPack} isOpen={addPackOpen}
                                closeModalWindow={setAddPackOpen}/>
             <PackModalWithForm header='Edit pack' isOpen={editPackOpen} closeModalWindow={setEditPackOpen}
-                               submitForm={() => {
-                               }}/>
+                               submitForm={changePack}/>
             <div className='packs-header'>
                 <h1>Packs list</h1>
                 <SuperButton isLoading={isLoading} disabled={isLoading} onClick={openModalAddPack}>Add new

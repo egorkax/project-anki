@@ -70,6 +70,8 @@ export const CardsList = () => {
 
     if (!isAuth) return <Navigate to={'/login'}/>
 
+    const headerButtonName = isMy ? 'Add new card' : 'Learn pack'
+
     return (
         <div className='packs-wrapper'>
             <BackToPacksLink/>

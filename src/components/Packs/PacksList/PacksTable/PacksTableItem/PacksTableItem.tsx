@@ -6,8 +6,7 @@ import style from './PacksTableItem.module.css'
 import {LearnSvgIcon} from "../../../../../assets/icons/LearnSvgIcon";
 import {EditSvgIcon} from "../../../../../assets/icons/EditSvgIcon";
 import {DeleteSvgIcon} from "../../../../../assets/icons/DeleteSvgIcon";
-import {addNewPack, changePackNamePrivacy, deletePack} from "../../../../../reducers/packs-reducer";
-import { PackModalWithForm } from "../../PacksModalWindows/PackModalWithForm";
+import {deletePack, setCurrentPackId} from "../../../../../reducers/packs-reducer";
 
 type PacksTableItemPropsType = {
     name: string
@@ -16,6 +15,7 @@ type PacksTableItemPropsType = {
     createdBy: string
     userId: string
     packId: string
+    editPack: () => void
 }
 
 export const PacksTableItem = (props: PacksTableItemPropsType) => {
@@ -32,13 +32,17 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
         createdBy,
         userId,
         packId,
+        editPack,
     } = props
 
     const date = lastUpdated.slice(0, 10)
 
     const isMy = profileId === userId
 
-    const editPack = () => {
+
+    const openEditModal = () => {
+        editPack()
+        dispatch(setCurrentPackId(packId))
     }
 
     const removePack = () => {
@@ -54,7 +58,7 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
             <td>{
                 isMy ? <div className={style.actions}>
                     <NavLink to={`/packs/learn/${packId}`} className={style.icon}><LearnSvgIcon/></NavLink>
-                    <button onClick={editPack}  className={style.icon}><EditSvgIcon/></button>
+                    <button onClick={openEditModal}  className={style.icon}><EditSvgIcon/></button>
                     <button onClick={removePack} className={style.icon}><DeleteSvgIcon/></button>
                 </div> : <div className={style.actions}>
                     <NavLink to={`/packs/learn/${packId}`} className={style.icon}><LearnSvgIcon/></NavLink>
