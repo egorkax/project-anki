@@ -2,7 +2,7 @@ import React from "react";
 import {PacksTableHeader} from "./PacksTableHeader";
 import '../../PacksBlock.css'
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../../../store/store";
+import {AppRootStateType} from "../../../../store/store";
 import {PackType} from "../../../../api/packs-api";
 import {PacksTableItem} from "./PacksTableItem/PacksTableItem";
 
@@ -11,16 +11,11 @@ type PacksTablePropsType = {
 }
 
 export const PacksTable = (props: PacksTablePropsType) => {
-
   const {
     openEditModalWindow,
   } = props
 
   const packs = useSelector<AppRootStateType, PackType[]>(state => state.packs.cardPacks)
-
-
-  const dispatch = useAppDispatch()
-
 
   return (
     <div className='table-wrapper'>

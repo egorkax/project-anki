@@ -5,7 +5,7 @@ import {LearnCard} from "./LernQuestion/LearnCard";
 import s from "./Learn.module.css"
 import {BackToPacksLink} from "../../../common/BackToPacksLink/BackToPacksLink";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {fetchCards, updateGrade} from "../../../reducers/cards-reducer";
+import {fetchCards} from "../../../reducers/cards-reducer";
 import {useParams} from "react-router-dom";
 
 const maxGradeValue = 6;
@@ -75,7 +75,7 @@ export const Learn = () => {
     const onShowAnswer = () => setIsChecked(true);
 
     const onNext = (): void => {
-        packId && dispatch(updateGrade({grade, card_id: card._id}, packId));
+        // packId && dispatch(updateGrade({grade, card_id: card._id}, packId));
         setIsChecked(false);
         if (cards.length > 0) {
             setCard(getCard(cards));
