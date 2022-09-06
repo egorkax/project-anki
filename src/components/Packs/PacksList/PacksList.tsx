@@ -14,73 +14,69 @@ import {PackModalWithForm} from "./PacksModalWindows/PackModalWithForm";
 
 export const PacksList = () => {
 
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
 
-    const isAuth = useAppSelector(state => state.auth.isAuth)
-    const appStatus = useAppSelector(state => state.app.appStatus)
-    const totalPacksCount = useAppSelector(state => state.packs.cardPacksTotalCount)
-    const pageCount = useAppSelector(state => state.packs.pageCount)
-    const page = useAppSelector(state => state.packs.page)
+  const isAuth = useAppSelector(state => state.auth.isAuth)
+  const appStatus = useAppSelector(state => state.app.appStatus)
+  const totalPacksCount = useAppSelector(state => state.packs.cardPacksTotalCount)
+  const pageCount = useAppSelector(state => state.packs.pageCount)
+  const page = useAppSelector(state => state.packs.page)
 
-    const isLoading = appStatus === "loading"
+  const isLoading = appStatus === "loading"
 
-    const [addPackOpen, setAddPackOpen] = useState(false)
-    const [editPackOpen, setEditPackOpen] = useState(false)
+  const [addPackOpen, setAddPackOpen] = useState(false)
+  const [editPackOpen, setEditPackOpen] = useState(false)
 
 
-    useEffect(() => {
-        if (!isAuth) {
-            return
-        }
-        dispatch(fetchPacks())
-    }, [])
-
-    const openModalAddPack = () => {
-        setAddPackOpen(true)
+  useEffect(() => {
+    if (!isAuth) {
+      return
     }
+    dispatch(fetchPacks())
+  }, [])
 
-    const openModalEditPack = () => {
-        setEditPackOpen(true)
-    }
+  const openModalAddPack = () => {
+    setAddPackOpen(true)
+  }
 
-    const editPack = (name: string, isPrivatePack: boolean) => {
-        dispatch(addNewPack(name, isPrivatePack))
-    }
+  const openModalEditPack = () => {
+    setEditPackOpen(true)
+  }
 
-    const addPack = (name: string, isPrivatePack: boolean) => {
-        dispatch(addNewPack(name, isPrivatePack))
-    }
+  const addPack = (name: string, isPrivatePack: boolean) => {
+    dispatch(addNewPack(name, isPrivatePack))
+  }
 
-    const onChangeShowItems = (pageCount: number) => {
-        dispatch(showItemsPerPage(pageCount))
-    }
-    const onChangePageHandler = (page: number) => {
-        dispatch(currentPage(page))
-    }
+  const onChangeShowItems = (pageCount: number) => {
+    dispatch(showItemsPerPage(pageCount))
+  }
+  const onChangePageHandler = (page: number) => {
+    dispatch(currentPage(page))
+  }
 
-    if (!isAuth) return <Navigate to={'/login'}/>
+  if (!isAuth) return <Navigate to={'/login'}/>
 
-    return (
-        <div className='packs-block packs-wrapper'>
-            <PackModalWithForm header='Add new pack' submitForm={addPack} isOpen={addPackOpen}
-                               closeModalWindow={setAddPackOpen}/>
-            <PackModalWithForm header='Edit pack' isOpen={editPackOpen} closeModalWindow={setEditPackOpen}
-                               submitForm={() => {
-                               }}/>
-            <div className='packs-header'>
-                <h1>Packs list</h1>
-                <SuperButton isLoading={isLoading} disabled={isLoading} onClick={openModalAddPack}>Add new
-                    pack</SuperButton>
-            </div>
-            <SearchFilter/>
-            <PacksTable
-                openEditModalWindow={openModalEditPack}
-            />
-            <Paginator totalItemsCount={totalPacksCount}
-                       pageSize={pageCount}
-                       currentPage={page}
-                       onChangePage={onChangePageHandler}
-                       onChangeShowItems={onChangeShowItems}/>
-        </div>
-    )
+  return (
+    <div className='packs-block packs-wrapper'>
+      <PackModalWithForm header='Add new pack' submitForm={addPack} isOpen={addPackOpen}
+                         closeModalWindow={setAddPackOpen}/>
+      <PackModalWithForm header='Edit pack' isOpen={editPackOpen} closeModalWindow={setEditPackOpen}
+                         submitForm={() => {
+                         }}/>
+      <div className='packs-header'>
+        <h1>Packs list</h1>
+        <SuperButton disabled={isLoading} onClick={openModalAddPack}>Add new
+          pack</SuperButton>
+      </div>
+      <SearchFilter/>
+      <PacksTable
+        openEditModalWindow={openModalEditPack}
+      />
+      <Paginator totalItemsCount={totalPacksCount}
+                 pageSize={pageCount}
+                 currentPage={page}
+                 onChangePage={onChangePageHandler}
+                 onChangeShowItems={onChangeShowItems}/>
+    </div>
+  )
 }
