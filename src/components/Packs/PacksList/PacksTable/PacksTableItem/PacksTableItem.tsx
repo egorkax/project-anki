@@ -6,7 +6,7 @@ import style from './PacksTableItem.module.css'
 import {LearnSvgIcon} from "../../../../../assets/icons/LearnSvgIcon";
 import {EditSvgIcon} from "../../../../../assets/icons/EditSvgIcon";
 import {DeleteSvgIcon} from "../../../../../assets/icons/DeleteSvgIcon";
-import {deletePack, setCurrentPackId} from "../../../../../reducers/packs-reducer";
+import {setCurrentPackIdName} from "../../../../../reducers/packs-reducer";
 
 type PacksTableItemPropsType = {
     name: string
@@ -15,7 +15,8 @@ type PacksTableItemPropsType = {
     createdBy: string
     userId: string
     packId: string
-    editPack: () => void
+    openEditModalWindow: () => void
+    openRemoveModalWindow: () => void
 }
 
 export const PacksTableItem = (props: PacksTableItemPropsType) => {
@@ -32,7 +33,8 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
         createdBy,
         userId,
         packId,
-        editPack,
+        openEditModalWindow,
+        openRemoveModalWindow,
     } = props
 
     const date = lastUpdated.slice(0, 10)
@@ -41,12 +43,13 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
 
 
     const openEditModal = () => {
-        editPack()
-        dispatch(setCurrentPackId(packId))
+        openEditModalWindow()
+        dispatch(setCurrentPackIdName(packId, name))
     }
 
-    const removePack = () => {
-        dispatch(deletePack(packId))
+    const openRemoveModal = () => {
+        openRemoveModalWindow()
+        dispatch(setCurrentPackIdName(packId, name))
     }
 
     return (
@@ -59,7 +62,7 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
                 isMy ? <div className={style.actions}>
                     <NavLink to={`/packs/learn/${packId}`} className={style.icon}><LearnSvgIcon/></NavLink>
                     <button onClick={openEditModal}  className={style.icon}><EditSvgIcon/></button>
-                    <button onClick={removePack} className={style.icon}><DeleteSvgIcon/></button>
+                    <button onClick={openRemoveModal} className={style.icon}><DeleteSvgIcon/></button>
                 </div> : <div className={style.actions}>
                     <NavLink to={`/packs/learn/${packId}`} className={style.icon}><LearnSvgIcon/></NavLink>
                 </div>

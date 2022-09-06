@@ -44,6 +44,7 @@ const initialState = {
     filterPackName: '',
     isMy: false,
     currentPackId: '',
+    currentPackName: '',
 }
 
 
@@ -54,7 +55,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
         case "CHANGE_MIN_MAX_CARDS_COUNT":
         case "FILTER_PACK_NAME":
         case "CHANGE_IS_MY":
-        case 'SET_CURRENT_PACK_ID':
+        case 'SET_CURRENT_PACK_ID_NAME':
             return {...state, ...action.payload}
         case 'CLEAR_FILTERS':
             return {
@@ -82,8 +83,8 @@ export const changeIsMy = (isMy: boolean) =>
     ({type: 'CHANGE_IS_MY', payload: {isMy}} as const)
 export const clearFilters = () =>
     ({type: 'CLEAR_FILTERS'} as const)
-export const setCurrentPackId = (currentPackId: string) =>
-    ({type: 'SET_CURRENT_PACK_ID', payload: {currentPackId}})
+export const setCurrentPackIdName = (currentPackId: string, currentPackName: string) =>
+    ({type: 'SET_CURRENT_PACK_ID_NAME', payload: {currentPackId, currentPackName}})
 
 //thunks
 export const fetchPacks = (): AppThunk =>
@@ -133,9 +134,10 @@ export const showItemsPerPage = (pageCount: number): AppThunk =>
         }
     }
 
-export const deletePack = (packId: string): AppThunk =>
-    async (dispatch) => {
+export const deletePack = (): AppThunk =>
+    async (dispatch, getState: () => AppRootStateType) => {
         try {
+            const packId = getState().packs.currentPackId
             dispatch(setAppStatus('loading'))
             await packsApi.deletePack(packId)
             dispatch(fetchPacks())
@@ -165,7 +167,7 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
             dispatch(setAppStatus('loading'))
             await packsApi.changePack({_id, name, private: privacy})
             dispatch(fetchPacks())
-            dispatch(setCurrentPackId(''))
+            dispatch(setCurrentPackIdName('', ''))
         } catch (e) {
             dispatch(setAppStatus('failed'))
             handleServerAppError(e as Error | AxiosError, dispatch)
@@ -206,4 +208,4 @@ export type PacksActionType =
     | ReturnType<typeof changeFilterPackName>
     | ReturnType<typeof changeIsMy>
     | ReturnType<typeof clearFilters>
-    | ReturnType<typeof setCurrentPackId>
+    | ReturnType<typeof setCurrentPackIdName>

@@ -8,18 +8,17 @@ import {PacksTableItem} from "./PacksTableItem/PacksTableItem";
 
 type PacksTablePropsType = {
     openEditModalWindow: () => void
+    openRemoveModalWindow: () => void
 }
 
 export const PacksTable = (props: PacksTablePropsType) => {
 
     const {
         openEditModalWindow,
+        openRemoveModalWindow
     } = props
 
     const packs = useSelector<AppRootStateType, PackType[]>(state => state.packs.cardPacks)
-
-
-    const dispatch = useAppDispatch()
 
 
     return (
@@ -33,7 +32,8 @@ export const PacksTable = (props: PacksTablePropsType) => {
                                                    createdBy={pack.user_name}
                                                    userId={pack.user_id}
                                                    packId={pack._id}
-                                                   editPack={openEditModalWindow}
+                                                   openEditModalWindow={openEditModalWindow}
+                                                   openRemoveModalWindow={openRemoveModalWindow}
                 />)}
                 </tbody>
             </table>

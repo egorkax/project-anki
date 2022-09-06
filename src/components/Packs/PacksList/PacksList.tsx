@@ -11,6 +11,7 @@ import {Navigate} from "react-router-dom";
 import {SearchFilter} from "../../Search&Filter/SearchFilter";
 import {Paginator} from "../../../common/Paginator/Paginator";
 import {PackModalWithForm} from "./PacksModalWindows/PackModalWithForm";
+import {DeletePackModal} from "./PacksModalWindows/DeletePackModal";
 
 export const PacksList = () => {
 
@@ -26,6 +27,7 @@ export const PacksList = () => {
 
     const [addPackOpen, setAddPackOpen] = useState(false)
     const [editPackOpen, setEditPackOpen] = useState(false)
+    const [removePackOpen, setRemovePackOpen] = useState(false)
 
 
     useEffect(() => {
@@ -41,6 +43,10 @@ export const PacksList = () => {
 
     const openModalEditPack = () => {
         setEditPackOpen(true)
+    }
+
+    const openModalRemovePack = () => {
+        setRemovePackOpen(true)
     }
 
     const changePack = (name: string, isPrivatePack: boolean) => {
@@ -66,6 +72,7 @@ export const PacksList = () => {
                                closeModalWindow={setAddPackOpen}/>
             <PackModalWithForm header='Edit pack' isOpen={editPackOpen} closeModalWindow={setEditPackOpen}
                                submitForm={changePack}/>
+            <DeletePackModal isOpen={removePackOpen} closeModalWindow={setRemovePackOpen}/>
             <div className='packs-header'>
                 <h1>Packs list</h1>
                 <SuperButton isLoading={isLoading} disabled={isLoading} onClick={openModalAddPack}>Add new
@@ -74,6 +81,7 @@ export const PacksList = () => {
             <SearchFilter/>
             <PacksTable
                 openEditModalWindow={openModalEditPack}
+                openRemoveModalWindow={openModalRemovePack}
             />
             <Paginator totalItemsCount={totalPacksCount}
                        pageSize={pageCount}
