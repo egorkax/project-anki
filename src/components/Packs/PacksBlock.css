@@ -101,7 +101,7 @@ table td:first-child {
 .dropdownContent {
     display: none;
     position: absolute;
-    left: 0;
+    right: 0;
     min-width: 126px;
     background: #FFFFFF;
     border: 1px solid #CFCFCF;

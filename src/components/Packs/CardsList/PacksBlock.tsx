@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import SuperButton from "../../../common/SuperButton/SuperButton";
 import {NavLink} from "react-router-dom";
 import style from "../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.css";
@@ -6,7 +6,13 @@ import {SearchField} from "../../Search&Filter/SearchField/SearchField";
 import {CardsTable} from "./CardsTable";
 import {Paginator} from "../../../common/Paginator/Paginator";
 import {TitlePackWithMenu} from "./TitlePackWithMenu";
-import {PackModalWithForm} from "../PacksList/PacksModalWindows/PackModalWithForm";
+import {DeletePackModal} from "../PacksList/PacksModalWindows/DeletePackModal";
+import {useDispatch} from "react-redux";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootStateType} from "../../../store/store";
+import {AnyAction} from "redux";
+import {updateCard} from "../../../reducers/cards-reducer";
+import {CardModalWithForm} from "./CardModalWithForm";
 
 export type PacksBlockPropsType = {
   packName: string
@@ -15,25 +21,57 @@ export type PacksBlockPropsType = {
   totalCardsCount: number
   cardsPageCount: number
   cardsPage: number
-  addCard: () => void
   searchCards: (value: string) => void
   onChangePageHandler: (page: number) => void
   onChangeShowItems: (pageCount: number) => void
+  addCard: (question: string, answer: string) => void
 }
 export const PacksBlock: React.FC<PacksBlockPropsType> = (props) => {
+  const [addCardOpen, setAddCardOpen] = useState(false)
+  const [editCardOpen, setEditCardOpen] = useState(false)
+  const [removeCardOpen, setRemoveCardOpen] = useState(false)
+
+  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
+
+  const openModalAddPack = () => {
+    setAddCardOpen(true)
+  }
+
+  const openModalEditPack = () => {
+    setEditCardOpen(true)
+  }
+
+  const openModalRemovePack = () => {
+    setRemoveCardOpen(true)
+  }
+
+
+  const onClickEditCard = (question: string, answer: string) => {
+    if(props.packId){
+      dispatch(updateCard(props.packId, question, answer))
+    }
+  }
 
   return (
     <div className='packs-block'>
+      <CardModalWithForm header='Add new card' submitForm={props.addCard} isOpen={addCardOpen}
+                         closeModalWindow={setAddCardOpen}/>
+      <CardModalWithForm header='Edit card' isOpen={editCardOpen} closeModalWindow={setEditCardOpen}
+                         submitForm={onClickEditCard}/>
+      <DeletePackModal header='Delete card' isOpen={removeCardOpen} closeModalWindow={setRemoveCardOpen}/>
       <div className='packs-header'>
         <TitlePackWithMenu packName={props.packName} packId={props.packId}/>
         {props.isMy
-          ? <SuperButton onClick={props.addCard}>Add new card</SuperButton>
+          ? <SuperButton onClick={openModalAddPack}>Add new card</SuperButton>
           : <SuperButton>
             <NavLink to={`/packs/learn/${props.packId}`} className={style.icon}>Learn pack</NavLink>
           </SuperButton>}
       </div>
       <SearchField searchFunction={props.searchCards}/>
-      <CardsTable packId={props.packId}/>
+      <CardsTable packId={props.packId}
+                  openEditModalWindow={openModalEditPack}
+                  openRemoveModalWindow={openModalRemovePack}
+      />
       <Paginator totalItemsCount={props.totalCardsCount}
                  pageSize={props.cardsPageCount}
                  currentPage={props.cardsPage}

@@ -72,7 +72,7 @@ export const PacksList = () => {
                                closeModalWindow={setAddPackOpen}/>
             <PackModalWithForm header='Edit pack' isOpen={editPackOpen} closeModalWindow={setEditPackOpen}
                                submitForm={changePack}/>
-            <DeletePackModal isOpen={removePackOpen} closeModalWindow={setRemovePackOpen}/>
+            <DeletePackModal header={'Delete pack'} isOpen={removePackOpen} closeModalWindow={setRemovePackOpen}/>
             <div className='packs-header'>
                 <h1>Packs list</h1>
                 <SuperButton disabled={isLoading} onClick={openModalAddPack}>Add new

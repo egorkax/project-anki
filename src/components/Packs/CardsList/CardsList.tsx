@@ -48,9 +48,9 @@ export const CardsList = () => {
     }
   }
 
-  const addCard = () => {
+  const addCard = (question: string, answer: string) => {
     if (packId) {
-      dispatch(createCard(packId))
+      dispatch(createCard(packId, question, answer))
     }
   }
 
@@ -77,12 +77,12 @@ export const CardsList = () => {
                       totalCardsCount={totalCardsCount}
                       cardsPageCount={cardsPageCount}
                       cardsPage={cardsPage}
-                      addCard={addCard}
                       searchCards={searchCards}
                       onChangePageHandler={onChangePageHandler}
-                      onChangeShowItems={onChangeShowItems}/>
+                      onChangeShowItems={onChangeShowItems}
+                      addCard={addCard}/>
 
-        : <EmptyCardsBlock isMy={isMy} addCard={addCard}/>
+        : <EmptyCardsBlock isMy={isMy}/>
       }
     </div>
   )

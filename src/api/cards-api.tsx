@@ -47,6 +47,7 @@ export type EditCardParamType = {
     _id: string
     question?: string
     comments?: string
+    answer?:string
 }
 
 

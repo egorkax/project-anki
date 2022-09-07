@@ -3,10 +3,10 @@ import style from "../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.
 import {EditSvgIcon} from "../../../assets/icons/EditSvgIcon";
 import {DeleteSvgIcon} from "../../../assets/icons/DeleteSvgIcon";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {removeCard, updateCard} from "../../../reducers/cards-reducer";
+import {setCurrentCardQuestionAndId} from "../../../reducers/cards-reducer";
 import {NavLink} from "react-router-dom";
 import {LearnSvgIcon} from "../../../assets/icons/LearnSvgIcon";
-import {setAppStatus} from "../../../reducers/app-reducer";
+import {setStatus} from "../../../reducers/auth-reducer";
 
 type CardsTableItemPropsType = {
   question: string
@@ -15,6 +15,8 @@ type CardsTableItemPropsType = {
   grade: number
   id: string
   cardsPack_id: string
+  openEditModalWindow: () => void
+  openRemoveModalWindow: () => void
 }
 
 export const CardsTableItem = (props: CardsTableItemPropsType) => {
@@ -26,24 +28,25 @@ export const CardsTableItem = (props: CardsTableItemPropsType) => {
     grade,
     id,
     cardsPack_id,
+    openEditModalWindow,
+    openRemoveModalWindow,
   } = props
 
   const dispatch = useAppDispatch()
   const userId = useAppSelector(state => state.profile._id)
   const packUserId = useAppSelector(state => state.cards.packUserId)
-  const appStatus = useAppSelector(state => state.app.appStatus)
 
 
   const date = lastUpdated.slice(0, 10)
 
-  const onClickDeleteCard = () => {
-    dispatch(setAppStatus('loading'))
-    dispatch(removeCard(cardsPack_id, id))
+  const onClickDeleteCardHandler = () => {
+    dispatch(setCurrentCardQuestionAndId(id, question))
+    openRemoveModalWindow()
   }
 
-  const onClickEditCard = () => {
-    dispatch(setAppStatus('loading'))
-    dispatch(updateCard(cardsPack_id, id))
+  const onClickEditCardHandler = () => {
+    dispatch(setCurrentCardQuestionAndId(id, question))
+    openEditModalWindow()
   }
   const isMy = userId === packUserId
 
@@ -57,14 +60,12 @@ export const CardsTableItem = (props: CardsTableItemPropsType) => {
         isMy
           ? <div className={style.actions}>
             <NavLink to={`/packs/learn/${cardsPack_id}`} className={style.icon}><LearnSvgIcon/></NavLink>
-            <button onClick={onClickEditCard}
-                    className={appStatus !== 'succeed' ? style.disable : style.icon}
-                    disabled={appStatus !== 'succeed'}>
+            <button onClick={onClickEditCardHandler}
+                    className={style.icon}>
               <EditSvgIcon/>
             </button>
-            <button onClick={onClickDeleteCard}
-                    className={appStatus !== 'succeed' ? style.disable : style.icon}
-                    disabled={appStatus !== 'succeed'}>
+            <button onClick={onClickDeleteCardHandler}
+                    className={style.icon}>
               <DeleteSvgIcon/>
             </button>
           </div>

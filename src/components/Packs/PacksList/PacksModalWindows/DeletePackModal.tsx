@@ -5,38 +5,50 @@ import SuperButton from "../../../../common/SuperButton/SuperButton";
 import {deletePack} from "../../../../reducers/packs-reducer";
 
 type DeletePackModalPropsType = {
-    isOpen: boolean
-    closeModalWindow: (isOpen: boolean) => void
+  isOpen: boolean
+  closeModalWindow: (isOpen: boolean) => void
+  header: string
 }
 
 export const DeletePackModal = (props: DeletePackModalPropsType) => {
 
-    const {
-        isOpen,
-        closeModalWindow,
-    } = props
+  const {
+    isOpen,
+    closeModalWindow,
+    header
+  } = props
 
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-    const packName = useAppSelector(state => state.packs.currentPackName)
+  const packName = useAppSelector(state => state.packs.currentPackName)
+  const cardQuestion = useAppSelector(state => state.cards.currentCardQuestion)
+  const isPackItem = header === 'Delete pack'
+  const isCardItem = header === 'Delete card'
 
-    const closeWindow = () => {
-        closeModalWindow(false)
-    }
 
-    const removePack = () => {
-        dispatch(deletePack())
-        closeWindow()
-    }
+  const closeWindow = () => {
+    closeModalWindow(false)
+  }
 
-    return (
-        <ModalWindow header='Delete pack' isOpen={isOpen} closeWindow={closeWindow}>
-            <p>Do you really want to remove <strong>{packName}</strong>?
-                All cards will be deleted.</p>
-            <div className='modal-buttons-wrapper'>
-                <SuperButton superClassName='whiteButton' onClick={closeWindow}>Cancel</SuperButton>
-                <SuperButton superClassName='deleteButton' onClick={removePack}>Delete</SuperButton>
-            </div>
-        </ModalWindow>
-    )
+  const removePack = () => {
+    dispatch(deletePack())
+    closeWindow()
+  }
+
+  return (
+    <ModalWindow header={header} isOpen={isOpen} closeWindow={closeWindow}>
+      <p>Do you really want to remove:&nbsp;
+        <strong>
+          {isPackItem && packName}
+          {isCardItem && cardQuestion}
+        </strong>?
+        {isPackItem && ' All cards will be deleted.'}
+        {isCardItem && ' Card will be deleted.'}
+        </p>
+      <div className='modal-buttons-wrapper'>
+        <SuperButton superClassName='whiteButton' onClick={closeWindow}>Cancel</SuperButton>
+        <SuperButton superClassName='deleteButton' onClick={removePack}>Delete</SuperButton>
+      </div>
+    </ModalWindow>
+  )
 }

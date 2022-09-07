@@ -157,7 +157,7 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
     try {
       const _id = getState().packs.currentPackId
       await packsApi.changePack({_id, name, private: privacy})
-      dispatch(fetchCards(_id))
+      await dispatch(fetchCards(_id))
       dispatch(fetchPacks())
       dispatch(setCurrentPackIdName('', ''))
     } catch (e) {
@@ -165,7 +165,7 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
       handleServerAppError(e as Error | AxiosError, dispatch)
     }
   }
-  export const clearRangeAndInput = (): AppThunk =>
+export const clearRangeAndInput = (): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(clearFilters({minCardsCount: -1, maxCardsCount: 110, filterPackName: ''}))
