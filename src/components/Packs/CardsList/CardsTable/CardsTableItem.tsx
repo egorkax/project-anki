@@ -1,12 +1,11 @@
 import React from "react";
-import style from "../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.css";
-import {EditSvgIcon} from "../../../assets/icons/EditSvgIcon";
-import {DeleteSvgIcon} from "../../../assets/icons/DeleteSvgIcon";
-import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {setCurrentCardQuestionAndId} from "../../../reducers/cards-reducer";
+import style from "../../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.css";
+import {EditSvgIcon} from "../../../../assets/icons/EditSvgIcon";
+import {DeleteSvgIcon} from "../../../../assets/icons/DeleteSvgIcon";
+import {useAppDispatch, useAppSelector} from "../../../../store/store";
+import {setCurrentCardQuestionAndId} from "../../../../reducers/cards-reducer";
 import {NavLink} from "react-router-dom";
-import {LearnSvgIcon} from "../../../assets/icons/LearnSvgIcon";
-import {setStatus} from "../../../reducers/auth-reducer";
+import {LearnSvgIcon} from "../../../../assets/icons/LearnSvgIcon";
 
 type CardsTableItemPropsType = {
   question: string

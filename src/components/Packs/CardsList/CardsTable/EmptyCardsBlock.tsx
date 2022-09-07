@@ -1,12 +1,12 @@
-import SuperButton from "../../../common/SuperButton/SuperButton";
+import SuperButton from "../../../../common/SuperButton/SuperButton";
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
-import {createCard} from "../../../reducers/cards-reducer";
+import {createCard} from "../../../../reducers/cards-reducer";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../../../store/store";
+import {AppRootStateType} from "../../../../store/store";
 import {AnyAction} from "redux";
-import {CardModalWithForm} from "./CardModalWithForm";
+import {CardModalWithForm} from "../CardsModalWindows/CardModalWithForm";
 
 export type EmptyCardsBlockPropsType = {
   isMy: boolean

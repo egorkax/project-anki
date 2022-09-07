@@ -1,9 +1,9 @@
 import React from "react";
-import {CardsTableHeader} from "./CardsTableHeader";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
-import {CardType} from "../../../api/cards-api";
+import {AppRootStateType} from "../../../../store/store";
+import {CardType} from "../../../../api/cards-api";
 import {CardsTableItem} from "./CardsTableItem";
+import {CardsTableHeader} from "./CardsTableHeader";
 
 type CardsTablePropsType = {
   packId: string | undefined

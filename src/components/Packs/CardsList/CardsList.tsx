@@ -13,8 +13,8 @@ import {
 } from "../../../reducers/cards-reducer";
 import {BackToPacksLink} from "../../../common/BackToPacksLink/BackToPacksLink";
 import '../PacksBlock.css'
-import {EmptyCardsBlock} from "./EmptyCardsBlock";
-import {PacksBlock} from "./PacksBlock";
+import {EmptyCardsBlock} from "./CardsTable/EmptyCardsBlock";
+import {CardsBlock} from "./CardsTable/CardsBlock";
 
 
 export const CardsList = () => {
@@ -71,7 +71,7 @@ export const CardsList = () => {
     <div className='packs-wrapper'>
       <BackToPacksLink/>
       {cardsCount !== 0
-        ? <PacksBlock packName={packName}
+        ? <CardsBlock packName={packName}
                       isMy={isMy}
                       packId={packId}
                       totalCardsCount={totalCardsCount}

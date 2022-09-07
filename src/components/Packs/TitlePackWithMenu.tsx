@@ -1,13 +1,13 @@
-import {useAppDispatch, useAppSelector} from "../../../store/store";
-import {setAppStatus} from "../../../reducers/app-reducer";
-import {deletePack, editPack, setCurrentPackIdName} from "../../../reducers/packs-reducer";
-import {MenuIcon} from "../../../assets/icons/MenuIcon";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {setAppStatus} from "../../reducers/app-reducer";
+import {deletePack, editPack, setCurrentPackIdName} from "../../reducers/packs-reducer";
+import {MenuIcon} from "../../assets/icons/MenuIcon";
 import {NavLink} from "react-router-dom";
-import {LearnSvgIcon} from "../../../assets/icons/LearnSvgIcon";
-import {EditSvgIcon} from "../../../assets/icons/EditSvgIcon";
-import {DeleteSvgIcon} from "../../../assets/icons/DeleteSvgIcon";
+import {LearnSvgIcon} from "../../assets/icons/LearnSvgIcon";
+import {EditSvgIcon} from "../../assets/icons/EditSvgIcon";
+import {DeleteSvgIcon} from "../../assets/icons/DeleteSvgIcon";
 import React, {useState} from "react";
-import {PackModalWithForm} from "../PacksList/PacksModalWindows/PackModalWithForm";
+import {PackModalWithForm} from "./PacksList/PacksModalWindows/PackModalWithForm";
 
 type TitlePackWithMenuType = {
   packName: string

@@ -2,15 +2,17 @@ import React from "react";
 import {ModalWindow} from "../../../../common/ModalWindow/ModalWindow";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import SuperButton from "../../../../common/SuperButton/SuperButton";
-import {deletePack} from "../../../../reducers/packs-reducer";
+import {removeCard} from "../../../../reducers/cards-reducer";
 
 type DeletePackModalPropsType = {
   isOpen: boolean
   closeModalWindow: (isOpen: boolean) => void
   header: string
+  packId:string|undefined
 }
 
-export const DeletePackModal = (props: DeletePackModalPropsType) => {
+export const DeleteCardModal = (props: DeletePackModalPropsType) => {
+
   const {
     isOpen,
     closeModalWindow,
@@ -19,14 +21,17 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
 
   const dispatch = useAppDispatch()
 
-  const packName = useAppSelector(state => state.packs.currentPackName)
+  const cardQuestion = useAppSelector(state => state.cards.currentCardQuestion)
+  const currentCardId = useAppSelector(state => state.cards.currentCardId)
 
   const closeWindow = () => {
     closeModalWindow(false)
   }
 
-  const removePack = () => {
-    dispatch(deletePack())
+  const deleteCard = () => {
+    if(props.packId) {
+      dispatch(removeCard(props.packId, currentCardId))
+    }
     closeWindow()
   }
 
@@ -34,13 +39,13 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
     <ModalWindow header={header} isOpen={isOpen} closeWindow={closeWindow}>
       <p>Do you really want to remove:&nbsp;
         <strong>
-          {packName}
+          {cardQuestion}
         </strong>?
-         All cards will be deleted.
+        Card will be deleted.
         </p>
       <div className='modal-buttons-wrapper'>
         <SuperButton superClassName='whiteButton' onClick={closeWindow}>Cancel</SuperButton>
-        <SuperButton superClassName='deleteButton' onClick={removePack}>Delete</SuperButton>
+        <SuperButton superClassName='deleteButton' onClick={deleteCard}>Delete</SuperButton>
       </div>
     </ModalWindow>
   )

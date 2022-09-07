@@ -1,6 +1,6 @@
 import React from "react";
-import {CardForm} from "../../../forms/CardForm";
-import {ModalWindow} from "../../../common/ModalWindow/ModalWindow";
+import {CardForm} from "../../../../forms/CardForm";
+import {ModalWindow} from "../../../../common/ModalWindow/ModalWindow";
 
 type PackModalWithFormPropsType = {
   header: string

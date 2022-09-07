@@ -1,18 +1,18 @@
 import React, {useState} from "react";
-import SuperButton from "../../../common/SuperButton/SuperButton";
+import SuperButton from "../../../../common/SuperButton/SuperButton";
 import {NavLink} from "react-router-dom";
-import style from "../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.css";
-import {SearchField} from "../../Search&Filter/SearchField/SearchField";
+import style from "../../PacksList/PacksTable/PacksTableItem/PacksTableItem.module.css";
+import {SearchField} from "../../../Search&Filter/SearchField/SearchField";
 import {CardsTable} from "./CardsTable";
-import {Paginator} from "../../../common/Paginator/Paginator";
-import {TitlePackWithMenu} from "./TitlePackWithMenu";
-import {DeletePackModal} from "../PacksList/PacksModalWindows/DeletePackModal";
+import {Paginator} from "../../../../common/Paginator/Paginator";
+import {TitlePackWithMenu} from "../../TitlePackWithMenu";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "../../../store/store";
+import {AppRootStateType} from "../../../../store/store";
 import {AnyAction} from "redux";
-import {updateCard} from "../../../reducers/cards-reducer";
-import {CardModalWithForm} from "./CardModalWithForm";
+import {updateCard} from "../../../../reducers/cards-reducer";
+import {CardModalWithForm} from "../CardsModalWindows/CardModalWithForm";
+import {DeleteCardModal} from "../CardsModalWindows/DeleteCardModal";
 
 export type PacksBlockPropsType = {
   packName: string
@@ -26,7 +26,7 @@ export type PacksBlockPropsType = {
   onChangeShowItems: (pageCount: number) => void
   addCard: (question: string, answer: string) => void
 }
-export const PacksBlock: React.FC<PacksBlockPropsType> = (props) => {
+export const CardsBlock: React.FC<PacksBlockPropsType> = (props) => {
   const [addCardOpen, setAddCardOpen] = useState(false)
   const [editCardOpen, setEditCardOpen] = useState(false)
   const [removeCardOpen, setRemoveCardOpen] = useState(false)
@@ -46,8 +46,8 @@ export const PacksBlock: React.FC<PacksBlockPropsType> = (props) => {
   }
 
 
-  const onClickEditCard = (question: string, answer: string) => {
-    if(props.packId){
+  const editCard = (question: string, answer: string) => {
+    if (props.packId) {
       dispatch(updateCard(props.packId, question, answer))
     }
   }
@@ -57,8 +57,11 @@ export const PacksBlock: React.FC<PacksBlockPropsType> = (props) => {
       <CardModalWithForm header='Add new card' submitForm={props.addCard} isOpen={addCardOpen}
                          closeModalWindow={setAddCardOpen}/>
       <CardModalWithForm header='Edit card' isOpen={editCardOpen} closeModalWindow={setEditCardOpen}
-                         submitForm={onClickEditCard}/>
-      <DeletePackModal header='Delete card' isOpen={removeCardOpen} closeModalWindow={setRemoveCardOpen}/>
+                         submitForm={editCard}/>
+      <DeleteCardModal header='Delete card'
+                       isOpen={removeCardOpen}
+                       packId={props.packId}
+                       closeModalWindow={setRemoveCardOpen}/>
       <div className='packs-header'>
         <TitlePackWithMenu packName={props.packName} packId={props.packId}/>
         {props.isMy
