@@ -9,30 +9,30 @@ import {AnyAction} from "redux";
 
 export const PacksTableHeader = () => {
 
-    const sort = useSelector<AppRootStateType, SORT_PACKS>(state => state.packs.sortPacks)
+  const sort = useSelector<AppRootStateType, SORT_PACKS>(state => state.packs.sortPacks)
 
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, AnyAction>>()
+  const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, AnyAction>>()
 
 
-    const changeFilter = () => {
-        if (sort === SORT_PACKS.FROM_HIGHER_TO_LOWER) {
-            dispatch(changePacksSort(SORT_PACKS.FROM_LOWER_TO_HIGHER))
-            dispatch(fetchPacks())
-        } else {
-            dispatch(changePacksSort(SORT_PACKS.FROM_HIGHER_TO_LOWER))
-            dispatch(fetchPacks())
-        }
+  const changeFilter = () => {
+    if (sort === SORT_PACKS.FROM_HIGHER_TO_LOWER) {
+      dispatch(changePacksSort(SORT_PACKS.FROM_LOWER_TO_HIGHER))
+      dispatch(fetchPacks())
+    } else {
+      dispatch(changePacksSort(SORT_PACKS.FROM_HIGHER_TO_LOWER))
+      dispatch(fetchPacks())
     }
+  }
 
-    return (
-        <thead className='table-header'>
-        <tr>
-            <td className='name'>Name</td>
-            <td className='cards-count'>Cards</td>
-            <CellWithFilter name='Last updated' sort={sort} changeFilter={changeFilter}/>
-            <td className='author-name'>Created by</td>
-            <td>Actions</td>
-        </tr>
-        </thead>
-    )
+  return (
+    <thead className='table-header'>
+    <tr>
+      <td className='name'>Name</td>
+      <td className='cards-count'>Cards</td>
+      <CellWithFilter name='Last updated' sort={sort} changeFilter={changeFilter}/>
+      <td className='author-name'>Created by</td>
+      <td>Actions</td>
+    </tr>
+    </thead>
+  )
 }

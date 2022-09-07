@@ -1,32 +1,42 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {useDebounce} from "../../../hooks/useDebounce";
 import style from './SearchField.module.css'
+import {useAppSelector} from "../../../store/store";
 
 type SearchFieldPropsType = {
-    searchFunction: (debouncedValue: string) => void
+  searchFunction: (debouncedValue: string) => void
 }
 
 
 export const SearchField = ({searchFunction, ...props}: SearchFieldPropsType) => {
 
-    const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState('')
 
-    const debouncedValue = useDebounce(inputValue, 500)
+  const filterPackName = useAppSelector(state => state.packs.filterPackName)
+  const debouncedValue = useDebounce(inputValue, 500)
 
-    const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.currentTarget.value)
+  useEffect(() => {
+    if (filterPackName === '') {
+      setInputValue('')
+    }
+  }, [filterPackName])
+
+  const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.currentTarget.value)
+  }
+
+  useEffect(() => {
+    if (debouncedValue) {
+      searchFunction(debouncedValue as string)
     }
 
-    useEffect(() => {
-        if(debouncedValue) {
-            searchFunction(debouncedValue as string)
-        }
-    }, [debouncedValue])
+  }, [debouncedValue])
 
-    return (
-        <div className={style.wrapper}>
-            <label className='filterLabel' htmlFor='searchField'>Search</label>
-            <input name='searchField' id='searchField' placeholder='Provide your text' type='text' value={inputValue} onChange={onChangeValue}/>
-        </div>
-    )
+  return (
+    <div className={style.wrapper}>
+      <label className='filterLabel' htmlFor='searchField'>Search</label>
+      <input name='searchField' id='searchField' placeholder='Provide your text' type='text' value={inputValue}
+             onChange={onChangeValue}/>
+    </div>
+  )
 }

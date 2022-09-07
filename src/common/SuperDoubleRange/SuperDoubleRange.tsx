@@ -25,6 +25,9 @@ const SuperDoubleRangeHidden: React.FC<SuperDoubleRangePropsType> = ({min, max, 
 
   useEffect(() => {
     setMaxVal(max)
+    if(min===-1){
+      min=0
+    }
     setMinVal(min)
   }, [min,max])
 
