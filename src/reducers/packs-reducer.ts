@@ -51,6 +51,7 @@ const initialState = {
 
 export const packsReducer = (state: InitialStateType = initialState, action: PacksActionType): InitialStateType => {
   switch (action.type) {
+    case 'CLEAR_FILTERS':
     case "SET_PACKS":
     case "CHANGE_PACKS_SORT":
     case "CHANGE_MIN_MAX_CARDS_COUNT":
@@ -59,12 +60,6 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
     case 'SET_CURRENT_PACK_ID_NAME': {
       return {...state, ...action.payload}
     }
-    case 'CLEAR_FILTERS':
-      debugger
-      return {
-        ...state,
-        ...action.payload
-      }
     default:
       return state
   }
