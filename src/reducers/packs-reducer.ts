@@ -174,6 +174,7 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(clearFilters({minCardsCount: -1, maxCardsCount: 110, filterPackName: ''}))
+      dispatch(fetchPacks())
     } catch (e) {
       dispatch(setAppStatus('failed'))
       handleServerAppError(e as Error | AxiosError, dispatch)
