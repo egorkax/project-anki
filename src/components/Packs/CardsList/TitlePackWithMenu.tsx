@@ -17,7 +17,10 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
   const dispatch = useAppDispatch()
   const [editPackOpen, setEditPackOpen] = useState(false)
 
-  const isMy = useAppSelector(state => state.packs.isMy)
+  const userPackId = useAppSelector(state => state.cards.packUserId)
+  const userId = useAppSelector(state => state.profile._id)
+
+  const isMy = userPackId === userId
 
   const editPackHandler = (name: string, isPrivatePack: boolean) => {
     if (props.packId) {
@@ -32,7 +35,6 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
       dispatch(deletePack())
     }
   }
-
   return (
     <>
       <PackModalWithForm header='Edit pack'
