@@ -54,7 +54,7 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
 
     return (
         <tr>
-            <td className='name'><NavLink className='pack-link' to={packId}>{name}</NavLink></td>
+            <td className='name'><NavLink className='pack-link' to={`/packs/${props.packId}`}>{name}</NavLink></td>
             <td>{cardsCount}</td>
             <td>{date}</td>
             <td>{createdBy}</td>
