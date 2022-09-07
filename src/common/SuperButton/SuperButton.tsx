@@ -30,7 +30,8 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
             className={finalClassName}
             style={{...style}}
             {...restProps} // отдаём кнопке остальные пропсы если они есть (children там внутри)
-        >{isLoading ? <><img alt={'loadingIcon'} className={s.loadingIcon} src={loader}/><span>{children    }</span></> : <span>{children}</span>}</button>
+        >{isLoading ? <><img alt={'loadingIcon'} className={s.loadingIcon} src={loader}/><span>{children}</span></> :
+            <span>{children}</span>}</button>
     )
 }
 

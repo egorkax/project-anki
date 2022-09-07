@@ -1,8 +1,8 @@
 import React from "react";
-import {CellWithFilter} from "../../../common/CellWithFilter/CellWithFilter";
+import {CellWithFilter} from "../../../../common/CellWithFilter/CellWithFilter";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../store/store";
-import {changeCardsSort, fetchCards, SORT_CARDS} from "../../../reducers/cards-reducer";
+import {AppRootStateType} from "../../../../store/store";
+import {changeCardsSort, fetchCards, SORT_CARDS} from "../../../../reducers/cards-reducer";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 
@@ -10,7 +10,7 @@ type CardsTableHeaderPropsType = {
     packId: string | undefined
 }
 
-export const CardsTableHeader = ({packId, ...props}: CardsTableHeaderPropsType) => {
+export const CardsTableHeader = ({packId}: CardsTableHeaderPropsType) => {
 
     const sort = useSelector<AppRootStateType, SORT_CARDS>(state => state.cards.sortCards)
 

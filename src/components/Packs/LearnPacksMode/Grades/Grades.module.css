@@ -1,0 +1,13 @@
+.blockGrade{
+    padding-left: 33px;
+}
+.gradeItem{
+    padding-top: 12px;
+}
+.gradeItemText{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    padding-left: 12px;
+}

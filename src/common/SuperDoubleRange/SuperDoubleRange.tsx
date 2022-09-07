@@ -1,11 +1,12 @@
 import React, {
-  useCallback,
-  useEffect,
-  useState,
-  useRef,
+  ChangeEvent,
   DetailedHTMLProps,
   InputHTMLAttributes,
-  LegacyRef, ChangeEvent, useMemo
+  LegacyRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
 } from "react";
 import style from './SuperDoubleRange.module.css'
 
@@ -18,10 +19,22 @@ type SuperDoubleRangePropsType = DefaultInputPropsType & {
 }
 
 const SuperDoubleRangeHidden: React.FC<SuperDoubleRangePropsType> = ({min, max, onChangeRange}) => {
+
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
-  const minValRef = useRef(min);
-  const maxValRef = useRef(max);
+
+  useEffect(() => {
+    setMaxVal(max)
+    if(min===-1){
+      min=0
+    }
+    setMinVal(min)
+  }, [min,max])
+
+  let minValRef = useRef(minVal)
+  let maxValRef = useRef(maxVal);
+
+
   const range: LegacyRef<HTMLDivElement> = useRef(null);
 
   const getPercent = useCallback(
@@ -31,27 +44,26 @@ const SuperDoubleRangeHidden: React.FC<SuperDoubleRangePropsType> = ({min, max, 
 
   useEffect(() => {
     const minPercent = getPercent(minVal);
-    const maxPercent = getPercent(maxValRef.current);
+    const maxPercent = getPercent(maxVal);
 
     if (range.current) {
       range.current.style.left = `${minPercent}%`;
       range.current.style.width = `${maxPercent - minPercent}%`;
     }
-  }, [minVal, getPercent]);
+  }, [minVal]);
 
   useEffect(() => {
-    const minPercent = getPercent(minValRef.current);
+    const minPercent = getPercent(minVal);
     const maxPercent = getPercent(maxVal);
 
     if (range.current) {
       range.current.style.width = `${maxPercent - minPercent}%`;
     }
-  }, [maxVal, getPercent]);
+  }, [maxVal]);
 
   useEffect(() => {
     onChangeRange(minVal, maxVal);
-  }, [minVal, maxVal, onChangeRange]);
-
+  }, );
 
 
   return (
@@ -68,7 +80,7 @@ const SuperDoubleRangeHidden: React.FC<SuperDoubleRangePropsType> = ({min, max, 
             minValRef.current = value;
           }}
           className={style.thumb + ' ' + style.thumbLeft}
-          style={{zIndex: (minVal > max - 100 ? "5" : undefined)}}
+          style={{zIndex: (minVal > maxVal - 100 ? "5" : undefined)}}
         />
         <input
           type="range"
