@@ -1,4 +1,4 @@
-import {useAppDispatch} from "../../../store/store";
+import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {setAppStatus} from "../../../reducers/app-reducer";
 import {deletePack, editPack, setCurrentPackIdName} from "../../../reducers/packs-reducer";
 import {MenuIcon} from "../../../assets/icons/MenuIcon";
@@ -16,6 +16,8 @@ type TitlePackWithMenuType = {
 export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
   const dispatch = useAppDispatch()
   const [editPackOpen, setEditPackOpen] = useState(false)
+
+  const isMy = useAppSelector(state => state.packs.isMy)
 
   const editPackHandler = (name: string, isPrivatePack: boolean) => {
     if (props.packId) {
@@ -39,11 +41,20 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
                          closeModalWindow={setEditPackOpen}/>
       <div className='dropdown'>
         <h1>{props.packName} <MenuIcon/></h1>
-        <div className='dropdownContent'>
-          <NavLink to={`/packs/learn/${props.packId}`}><LearnSvgIcon/> Learn</NavLink>
-          <a onClick={() => setEditPackOpen(true)}><EditSvgIcon/> Edit</a>
-          <NavLink to={`/packs/`} onClick={removePackHandler}><DeleteSvgIcon/> Delete</NavLink>
-        </div>
+
+        {isMy
+          ?
+          <div className='dropdownContent'>
+            <NavLink to={`/packs/learn/${props.packId}`}><LearnSvgIcon/> Learn</NavLink>
+            <a onClick={() => setEditPackOpen(true)}><EditSvgIcon/> Edit</a>
+            <NavLink to={`/packs/`} onClick={removePackHandler}><DeleteSvgIcon/> Delete</NavLink>
+          </div>
+          :
+          <div className='dropdownContent'>
+            <NavLink to={`/packs/learn/${props.packId}`}><LearnSvgIcon/> Learn</NavLink>
+          </div>}
+
+
       </div>
     </>
   )
