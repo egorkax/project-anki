@@ -94,6 +94,13 @@ table td:first-child {
     justify-content: space-between;
     margin-top: 35px;
 }
+.select{
+    width: 100%;
+    height: 36px;
+    border: 1px solid #CFCFCF;
+    border-radius: 3px;
+    background-color: transparent;
+}
 .dropdown {
     position: relative;
 }

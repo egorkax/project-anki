@@ -1,13 +1,13 @@
-import {useAppDispatch, useAppSelector} from "../../store/store";
-import {setAppStatus} from "../../reducers/app-reducer";
-import {deletePack, editPack, setCurrentPackIdName} from "../../reducers/packs-reducer";
-import {MenuIcon} from "../../assets/icons/MenuIcon";
-import {NavLink} from "react-router-dom";
-import {LearnSvgIcon} from "../../assets/icons/LearnSvgIcon";
-import {EditSvgIcon} from "../../assets/icons/EditSvgIcon";
-import {DeleteSvgIcon} from "../../assets/icons/DeleteSvgIcon";
+import {useAppDispatch, useAppSelector} from "../../../../store/store";
+import {editPack, setCurrentPackIdName} from "../../../../reducers/packs-reducer";
+import {MenuIcon} from "../../../../assets/icons/MenuIcon";
+import {Navigate, NavLink} from "react-router-dom";
+import {LearnSvgIcon} from "../../../../assets/icons/LearnSvgIcon";
+import {EditSvgIcon} from "../../../../assets/icons/EditSvgIcon";
+import {DeleteSvgIcon} from "../../../../assets/icons/DeleteSvgIcon";
 import React, {useState} from "react";
-import {PackModalWithForm} from "./PacksList/PacksModalWindows/PackModalWithForm";
+import {PackModalWithForm} from "../PacksModalWindows/PackModalWithForm";
+import {DeletePackModal} from "../PacksModalWindows/DeletePackModal";
 
 type TitlePackWithMenuType = {
   packName: string
@@ -16,12 +16,17 @@ type TitlePackWithMenuType = {
 export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
   const dispatch = useAppDispatch()
   const [editPackOpen, setEditPackOpen] = useState(false)
+  const [removePackOpen, setRemovePackOpen] = useState(false)
 
   const userPackId = useAppSelector(state => state.cards.packUserId)
   const userId = useAppSelector(state => state.profile._id)
 
-  const isMy = userPackId === userId
-
+  const openModalRemovePack = () => {
+    setRemovePackOpen(true)
+    if (props.packId) {
+      dispatch(setCurrentPackIdName(props.packId, props.packName))
+    }
+  }
   const editPackHandler = (name: string, isPrivatePack: boolean) => {
     if (props.packId) {
       dispatch(setCurrentPackIdName(props.packId, props.packName))
@@ -29,34 +34,28 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
     }
   }
 
-  const removePackHandler = () => {
-    dispatch(setAppStatus('loading'))
-    if (props.packId) {
-      dispatch(deletePack())
-    }
-  }
   return (
     <>
       <PackModalWithForm header='Edit pack'
                          isOpen={editPackOpen}
                          submitForm={editPackHandler}
                          closeModalWindow={setEditPackOpen}/>
+      <DeletePackModal header={'Delete pack'}
+                       isOpen={removePackOpen}
+                       closeModalWindow={setRemovePackOpen}/>
       <div className='dropdown'>
         <h1>{props.packName} <MenuIcon/></h1>
-
-        {isMy
+        {userPackId === userId
           ?
           <div className='dropdownContent'>
             <NavLink to={`/packs/learn/${props.packId}`}><LearnSvgIcon/> Learn</NavLink>
             <a onClick={() => setEditPackOpen(true)}><EditSvgIcon/> Edit</a>
-            <NavLink to={`/packs/`} onClick={removePackHandler}><DeleteSvgIcon/> Delete</NavLink>
+            <a onClick={openModalRemovePack}><DeleteSvgIcon/> Delete</a>
           </div>
           :
           <div className='dropdownContent'>
             <NavLink to={`/packs/learn/${props.packId}`}><LearnSvgIcon/> Learn</NavLink>
           </div>}
-
-
       </div>
     </>
   )
