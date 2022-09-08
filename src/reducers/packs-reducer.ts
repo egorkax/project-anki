@@ -158,7 +158,7 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
     try {
       const _id = getState().packs.currentPackId
       await packsApi.changePack({_id, name, private: privacy})
-      dispatch(fetchPacks())
+      await dispatch(fetchPacks())
       dispatch(fetchCards(_id))
     } catch (e) {
       dispatch(setAppStatus('failed'))
