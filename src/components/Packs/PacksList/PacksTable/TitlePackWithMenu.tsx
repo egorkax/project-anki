@@ -8,7 +8,6 @@ import {DeleteSvgIcon} from "../../../../assets/icons/DeleteSvgIcon";
 import React, {useState} from "react";
 import {PackModalWithForm} from "../PacksModalWindows/PackModalWithForm";
 import {DeletePackModal} from "../PacksModalWindows/DeletePackModal";
-import {fetchCards} from "../../../../reducers/cards-reducer";
 
 type TitlePackWithMenuType = {
   packName: string
@@ -24,7 +23,6 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
 
   const userPackId = useAppSelector(state => state.cards.packUserId)
   const profileId = useAppSelector(state => state.profile._id)
-  const currentPackName = useAppSelector(state => state.packs.currentPackName)
 
   const openModalEditPack = () => {
     setEditPackOpen(true)
@@ -32,8 +30,8 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
 
   const openModalRemovePack = () => {
     setRemovePackOpen(true)
-    if (packId) {
-      dispatch(setCurrentPackIdName(packId, props.packName))
+    if (props.packId) {
+      dispatch(setCurrentPackIdName(props.packId, props.packName))
     }
   }
   const openEditModal = () => {
@@ -43,7 +41,10 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
     }
   }
   const changePack = (name: string, isPrivatePack: boolean) => {
-    dispatch(editPack(name, isPrivatePack))
+    if (packId) {
+      dispatch(editPack(name, isPrivatePack))
+      dispatch(setCurrentPackIdName(packId, props.packName))
+    }
   }
 
   return (
@@ -56,7 +57,7 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
                        isOpen={removePackOpen}
                        closeModalWindow={setRemovePackOpen}/>
       <div className='dropdown'>
-        <h1>{currentPackName===''?props.packName:currentPackName} <MenuIcon/></h1>
+        <h1>{props.packName} <MenuIcon/></h1>
         {userPackId === profileId
           ?
           <div className='dropdownContent'>
