@@ -30,14 +30,16 @@ export const CardsList = () => {
   const cardsPage = useAppSelector(state => state.cards.page)
   const userPackId = useAppSelector(state => state.cards.packUserId)
   const userId = useAppSelector(state => state.profile._id)
-
   const isMy = userPackId === userId
+
+
 
   useEffect(() => {
     if (packId && isAuth) {
       dispatch(fetchCards(packId))
     }
   })
+
 
   if (!isAuth) return <Navigate to={'/login'}/>
 
