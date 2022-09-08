@@ -30,8 +30,8 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
 
   const openModalRemovePack = () => {
     setRemovePackOpen(true)
-    if (props.packId) {
-      dispatch(setCurrentPackIdName(props.packId, props.packName))
+    if (packId) {
+      dispatch(setCurrentPackIdName(packId, props.packName))
     }
   }
   const openEditModal = () => {
