@@ -134,7 +134,9 @@ export const deletePack = (): AppThunk =>
     try {
       const packId = getState().packs.currentPackId
       await packsApi.deletePack(packId)
+      dispatch(changeIsMy(true))
       dispatch(fetchPacks())
+      dispatch(setCurrentPackIdName('', ''))
     } catch (e) {
       dispatch(setAppStatus('failed'))
       handleServerAppError(e as Error | AxiosError, dispatch)
@@ -157,9 +159,9 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
     try {
       const _id = getState().packs.currentPackId
       await packsApi.changePack({_id, name, private: privacy})
-      await dispatch(fetchCards(_id))
+      dispatch(changeIsMy(true))
+      dispatch(fetchCards(_id))
       dispatch(fetchPacks())
-      dispatch(setCurrentPackIdName('', ''))
     } catch (e) {
       dispatch(setAppStatus('failed'))
       handleServerAppError(e as Error | AxiosError, dispatch)

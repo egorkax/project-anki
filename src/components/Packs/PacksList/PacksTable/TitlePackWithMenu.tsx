@@ -34,6 +34,7 @@ export const TitlePackWithMenu = (props: TitlePackWithMenuType) => {
     }
   }
 
+
   return (
     <>
       <PackModalWithForm header='Edit pack'
