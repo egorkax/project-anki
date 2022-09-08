@@ -182,14 +182,16 @@ export const updateCard = (cardsPack_id: string, question: string, answer: strin
     }
   }
 
-export const updateGrade = (params: UpdatedGradeDataType, packId: string): AppThunk =>
+export const updateGrade = (packId:string,card_id: string, grade: number): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(setAppStatus('loading'))
-
+      const params: UpdatedGradeDataType = {
+        grade: grade,
+        card_id: card_id
+      }
       await cardsApi.updateGrade(params)
       dispatch(fetchCards(packId))
-      dispatch(setAppStatus('succeed'))
     } catch (e) {
       dispatch(setAppStatus('failed'))
       const err = e as Error | AxiosError

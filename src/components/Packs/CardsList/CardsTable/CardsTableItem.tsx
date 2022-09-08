@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import {setCurrentCardQuestionAndId} from "../../../../reducers/cards-reducer";
 import {NavLink} from "react-router-dom";
 import {LearnSvgIcon} from "../../../../assets/icons/LearnSvgIcon";
+import {Rating} from "../../../../common/Rating/Rating";
 
 type CardsTableItemPropsType = {
   question: string
@@ -54,7 +55,7 @@ export const CardsTableItem = (props: CardsTableItemPropsType) => {
       <td>{question}</td>
       <td>{answer}</td>
       <td>{date}</td>
-      <td>{grade}</td>
+      <td><Rating grade={grade} cardsPack_id={cardsPack_id} card_id={id}/></td>
       <td>{
         isMy
           ? <div className={style.actions}>

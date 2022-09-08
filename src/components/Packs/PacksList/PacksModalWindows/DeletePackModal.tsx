@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {ModalWindow} from "../../../../common/ModalWindow/ModalWindow";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import SuperButton from "../../../../common/SuperButton/SuperButton";
 import {deletePack} from "../../../../reducers/packs-reducer";
-import {NavLink} from "react-router-dom";
 
 type DeletePackModalPropsType = {
   isOpen: boolean
