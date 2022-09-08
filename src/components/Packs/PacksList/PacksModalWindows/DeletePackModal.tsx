@@ -42,7 +42,7 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
       <div className='modal-buttons-wrapper'>
         <SuperButton superClassName='whiteButton' onClick={closeWindow}>Cancel</SuperButton>
         <SuperButton superClassName='deleteButton' onClick={removePack}>
-          <NavLink to={'/packs'}>Delete</NavLink>
+          Delete
         </SuperButton>
       </div>
     </ModalWindow>
