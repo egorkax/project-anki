@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {ModalWindow} from "../../../../common/ModalWindow/ModalWindow";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import SuperButton from "../../../../common/SuperButton/SuperButton";
@@ -41,9 +41,9 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
         </p>
       <div className='modal-buttons-wrapper'>
         <SuperButton superClassName='whiteButton' onClick={closeWindow}>Cancel</SuperButton>
-        <SuperButton superClassName='deleteButton' onClick={removePack}>
-          Delete
-        </SuperButton>
+        <NavLink to={'/packs'}>
+          <SuperButton superClassName='deleteButton' onClick={removePack}>Delete</SuperButton>
+        </NavLink>
       </div>
     </ModalWindow>
   )
