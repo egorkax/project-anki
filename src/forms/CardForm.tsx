@@ -25,7 +25,7 @@ export const CardForm = ({closeWindow, submitForm, ...props}: PackFormPropsType)
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <select name="typeContent" id="">
+      <select name="typeContent" id="" className='select'>
         <option value="Text">Text</option>
         <option value="Text">Text</option>
       </select>

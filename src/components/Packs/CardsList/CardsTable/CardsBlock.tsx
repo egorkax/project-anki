@@ -5,7 +5,7 @@ import style from "../../PacksList/PacksTable/PacksTableItem/PacksTableItem.modu
 import {SearchField} from "../../../Search&Filter/SearchField/SearchField";
 import {CardsTable} from "./CardsTable";
 import {Paginator} from "../../../../common/Paginator/Paginator";
-import {TitlePackWithMenu} from "../../TitlePackWithMenu";
+import {TitlePackWithMenu} from "../../PacksList/PacksTable/TitlePackWithMenu";
 import {useDispatch} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "../../../../store/store";
@@ -63,7 +63,9 @@ export const CardsBlock: React.FC<PacksBlockPropsType> = (props) => {
                        packId={props.packId}
                        closeModalWindow={setRemoveCardOpen}/>
       <div className='packs-header'>
-        <TitlePackWithMenu packName={props.packName} packId={props.packId}/>
+        <TitlePackWithMenu packName={props.packName}
+                           packId={props.packId}
+                           />
         {props.isMy
           ? <SuperButton onClick={openModalAddPack}>Add new card</SuperButton>
           : <SuperButton>
