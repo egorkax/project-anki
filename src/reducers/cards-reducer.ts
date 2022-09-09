@@ -14,6 +14,7 @@ import {AxiosError} from "axios";
 export enum SORT_CARDS {
   FROM_HIGHER_TO_LOWER = '0grade',
   FROM_LOWER_TO_HIGHER = '1grade',
+  NOT_SORT = '',
 }
 
 const initialState = {
@@ -53,7 +54,7 @@ const initialState = {
   token: '',
   tokenDeathTime: 0,
   isDownFilter: false,
-  sortCards: SORT_CARDS.FROM_HIGHER_TO_LOWER,
+  sortCards: SORT_CARDS.NOT_SORT,
   filterCardQuestion: '',
   currentCardId: '',
   currentCardQuestion: '',
@@ -88,7 +89,7 @@ export const fetchCards = (packId: string): AppThunk =>
       dispatch(setAppStatus('loading'))
       const params: CardsParamsType = {
         cardsPack_id: packId,
-        sortCards: getState().cards.sortCards,
+        // sortCards: getState().cards.sortCards,
         cardQuestion: getState().cards.filterCardQuestion,
         pageCount: getState().cards.pageCount,
         page: getState().cards.page
@@ -182,7 +183,7 @@ export const updateCard = (cardsPack_id: string, question: string, answer: strin
     }
   }
 
-export const updateGrade = (packId:string,card_id: string, grade: number): AppThunk =>
+export const updateGrade = (packId: string, card_id: string, grade: number): AppThunk =>
   async (dispatch) => {
     try {
       dispatch(setAppStatus('loading'))
