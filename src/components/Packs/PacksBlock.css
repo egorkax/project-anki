@@ -24,7 +24,7 @@ table {
 }
 
 table td {
-    padding: 15px 0;
+    padding: 15px 5px;
 }
 
 table td:first-child {

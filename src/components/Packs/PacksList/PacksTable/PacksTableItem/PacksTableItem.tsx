@@ -19,12 +19,6 @@ type PacksTableItemPropsType = {
 }
 
 export const PacksTableItem = (props: PacksTableItemPropsType) => {
-
-
-    const profileId = useAppSelector(state => state.profile._id)
-
-    const dispatch = useAppDispatch()
-
     const {
         name,
         cardsCount,
@@ -35,17 +29,15 @@ export const PacksTableItem = (props: PacksTableItemPropsType) => {
         openEditModalWindow,
         openRemoveModalWindow,
     } = props
-
+    const dispatch = useAppDispatch()
+    const profileId = useAppSelector(state => state.profile._id)
     const date = lastUpdated.slice(0, 10)
-
     const isMy = profileId === userId
-
 
     const openEditModal = () => {
         openEditModalWindow()
         dispatch(setCurrentPackIdName(packId, name))
     }
-
 
     const openRemoveModal = () => {
         openRemoveModalWindow()

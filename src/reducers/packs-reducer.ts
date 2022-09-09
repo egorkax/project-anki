@@ -9,6 +9,7 @@ import {fetchCards} from "./cards-reducer";
 export enum SORT_PACKS {
   FROM_HIGHER_TO_LOWER = '0updated',
   FROM_LOWER_TO_HIGHER = '1updated',
+  NOT_SORT = '',
 }
 
 const initialState = {
@@ -39,7 +40,7 @@ const initialState = {
   pageCount: 5,
   token: '',
   tokenDeathTime: 0,
-  sortPacks: SORT_PACKS.FROM_HIGHER_TO_LOWER,
+  sortPacks: SORT_PACKS.NOT_SORT,
   filterMinCardsCount: 0,
   filterMaxCardsCount: 110,
   filterPackName: '',

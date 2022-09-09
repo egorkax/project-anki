@@ -74,19 +74,19 @@ export type CardType = {
 
 export type GetCardsResponseType = {
     cards: CardType[]
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    packCreated: string
-    packDeckCover: null
-    packName: string
-    packPrivate: boolean
-    packUpdated: string
-    packUserId: string
-    page: number
-    pageCount: number
-    token: string
-    tokenDeathTime: number
+    cardsTotalCount?: number
+    maxGrade?: number
+    minGrade?: number
+    packCreated?: string
+    packDeckCover?: null
+    packName?: string
+    packPrivate?: boolean
+    packUpdated?: string
+    packUserId?: string
+    page?: number
+    pageCount?: number
+    token?: string
+    tokenDeathTime?: number
 }
 
 // update grade

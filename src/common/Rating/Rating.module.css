@@ -1,6 +1,7 @@
 .starsWrap{
     display: flex;
     justify-content: start;
+    width: 100px;
 }
 .star{
     width: 16px;

@@ -4,11 +4,9 @@ import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {changeIsMy, fetchPacks} from "../../../reducers/packs-reducer";
 
 export const WhosePacksFilter = () => {
-
-  const isMy = useAppSelector(state => state.packs.isMy)
-
   const dispatch = useAppDispatch()
 
+  const isMy = useAppSelector(state => state.packs.isMy)
   const myButtonClassName = `${style.button} ${style.myButton} ${isMy ? style.active : ''}`
   const allButtonClassName = `${style.button} ${style.allButton} ${isMy ? '' : style.active}`
 

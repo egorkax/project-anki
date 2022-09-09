@@ -45,7 +45,6 @@ export const CardsBlock: React.FC<PacksBlockPropsType> = (props) => {
     setRemoveCardOpen(true)
   }
 
-
   const editCard = (question: string, answer: string) => {
     if (props.packId) {
       dispatch(updateCard(props.packId, question, answer))

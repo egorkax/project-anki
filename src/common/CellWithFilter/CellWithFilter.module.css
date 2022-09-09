@@ -1,7 +1,13 @@
 .wrapper {
+    width: 100px;
+    display: flex;
     cursor: pointer;
 }
 
 .fromHigherToLower {
     transform: rotate(180deg);
 }
+.fromLowerToHigher {
+    transform: rotate(0deg);
+}
+

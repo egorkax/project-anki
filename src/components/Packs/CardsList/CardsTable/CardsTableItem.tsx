@@ -20,7 +20,6 @@ type CardsTableItemPropsType = {
 }
 
 export const CardsTableItem = (props: CardsTableItemPropsType) => {
-
   const {
     question,
     answer,
@@ -33,11 +32,10 @@ export const CardsTableItem = (props: CardsTableItemPropsType) => {
   } = props
 
   const dispatch = useAppDispatch()
+  const date = lastUpdated.slice(0, 10)
   const userId = useAppSelector(state => state.profile._id)
   const packUserId = useAppSelector(state => state.cards.packUserId)
-
-
-  const date = lastUpdated.slice(0, 10)
+  const isMy = userId === packUserId
 
   const onClickDeleteCardHandler = () => {
     dispatch(setCurrentCardQuestionAndId(id, question))
@@ -48,7 +46,6 @@ export const CardsTableItem = (props: CardsTableItemPropsType) => {
     dispatch(setCurrentCardQuestionAndId(id, question))
     openEditModalWindow()
   }
-  const isMy = userId === packUserId
 
   return (
     <tr>

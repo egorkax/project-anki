@@ -16,9 +16,7 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
     closeModalWindow,
     header
   } = props
-
   const dispatch = useAppDispatch()
-
   const packName = useAppSelector(state => state.packs.currentPackName)
 
   const closeWindow = () => {

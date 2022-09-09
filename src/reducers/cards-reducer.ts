@@ -14,7 +14,6 @@ import {AxiosError} from "axios";
 export enum SORT_CARDS {
   FROM_HIGHER_TO_LOWER = '0grade',
   FROM_LOWER_TO_HIGHER = '1grade',
-  NOT_SORT = '',
 }
 
 const initialState = {
@@ -54,7 +53,7 @@ const initialState = {
   token: '',
   tokenDeathTime: 0,
   isDownFilter: false,
-  sortCards: SORT_CARDS.NOT_SORT,
+  sortCards: SORT_CARDS.FROM_HIGHER_TO_LOWER,
   filterCardQuestion: '',
   currentCardId: '',
   currentCardQuestion: '',
@@ -86,10 +85,9 @@ export const setCurrentCardQuestionAndId = (currentCardId: string, currentCardQu
 export const fetchCards = (packId: string): AppThunk =>
   async (dispatch, getState: () => AppRootStateType) => {
     try {
-      dispatch(setAppStatus('loading'))
       const params: CardsParamsType = {
         cardsPack_id: packId,
-        // sortCards: getState().cards.sortCards,
+        sortCards: getState().cards.sortCards,
         cardQuestion: getState().cards.filterCardQuestion,
         pageCount: getState().cards.pageCount,
         page: getState().cards.page
@@ -102,6 +100,7 @@ export const fetchCards = (packId: string): AppThunk =>
       handleServerAppError(e as Error | AxiosError, dispatch)
     }
   }
+
 
 export const showCardsPerPage = (pageCount: number, packId: string): AppThunk =>
   async (dispatch, getState: () => AppRootStateType) => {
@@ -127,6 +126,7 @@ export const currentCardsPage = (page: number, packId: string): AppThunk =>
       dispatch(setAppStatus('loading'))
       const params: CardsParamsType = {
         cardsPack_id: packId,
+        sortCards: getState().cards.sortCards,
         pageCount: getState().cards.pageCount,
         page: page
       }
@@ -142,6 +142,7 @@ export const currentCardsPage = (page: number, packId: string): AppThunk =>
 export const createCard = (packId: string, question: string, answer: string): AppThunk =>
   async (dispatch) => {
     try {
+      dispatch(setAppStatus('loading'))
       const params: AddCardParamType = {
         cardsPack_id: packId,
         question: question,
@@ -158,6 +159,7 @@ export const createCard = (packId: string, question: string, answer: string): Ap
 export const removeCard = (cardsPack_id: string, id: string): AppThunk =>
   async (dispatch) => {
     try {
+      dispatch(setAppStatus('loading'))
       await cardsApi.deleteCard(id)
       dispatch(fetchCards(cardsPack_id))
     } catch (e) {
@@ -169,6 +171,7 @@ export const removeCard = (cardsPack_id: string, id: string): AppThunk =>
 export const updateCard = (cardsPack_id: string, question: string, answer: string): AppThunk =>
   async (dispatch, getState: () => AppRootStateType) => {
     try {
+      dispatch(setAppStatus('loading'))
       const params: EditCardParamType = {
         _id: getState().cards.currentCardId,
         question: question,
@@ -184,15 +187,20 @@ export const updateCard = (cardsPack_id: string, question: string, answer: strin
   }
 
 export const updateGrade = (packId: string, card_id: string, grade: number): AppThunk =>
-  async (dispatch) => {
+  async (dispatch, getState: () => AppRootStateType) => {
     try {
       dispatch(setAppStatus('loading'))
       const params: UpdatedGradeDataType = {
         grade: grade,
         card_id: card_id
       }
-      await cardsApi.updateGrade(params)
-      dispatch(fetchCards(packId))
+      const response = await cardsApi.updateGrade(params)
+      const updatedCardId = response.data.updatedGrade.card_id
+      const updatedCardGrade = response.data.updatedGrade.grade
+      const cards = getState().cards.cards
+      const updatedCards = cards.map((el) => el._id === updatedCardId ? {...el, grade: updatedCardGrade} : el)
+      dispatch(setCards({cards: updatedCards}))
+      dispatch(setAppStatus('succeed'))
     } catch (e) {
       dispatch(setAppStatus('failed'))
       const err = e as Error | AxiosError

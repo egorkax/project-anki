@@ -5,11 +5,12 @@ import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType, useAppSelector} from "../../../store/store";
 import {AnyAction} from "redux";
 import {
+  changeCardsSort,
   changeFilterCardQuestion,
   createCard,
   currentCardsPage,
   fetchCards,
-  showCardsPerPage
+  showCardsPerPage, SORT_CARDS
 } from "../../../reducers/cards-reducer";
 import {BackToPacksLink} from "../../../common/BackToPacksLink/BackToPacksLink";
 import '../PacksBlock.css'
@@ -32,13 +33,11 @@ export const CardsList = () => {
   const userId = useAppSelector(state => state.profile._id)
   const isMy = userPackId === userId
 
-
-
   useEffect(() => {
     if (packId && isAuth) {
       dispatch(fetchCards(packId))
     }
-  })
+  },[isAuth])
 
 
   if (!isAuth) return <Navigate to={'/login'}/>

@@ -10,14 +10,12 @@ type PackModalWithFormPropsType = {
 }
 
 export const CardModalWithForm = (props: PackModalWithFormPropsType) => {
-
   const {
     closeModalWindow,
     isOpen,
     submitForm,
     header,
   } = props
-
 
   const closeWindow = () => {
     closeModalWindow(false)
