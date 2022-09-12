@@ -19,13 +19,16 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
   } = props
   const dispatch = useAppDispatch()
   const packName = useAppSelector(state => state.packs.currentPackName)
+  const isAuth = useAppSelector(state => state.auth.isAuth)
 
   const closeWindow = () => {
     closeModalWindow(false)
   }
 
   const removePack = () => {
-    dispatch(deletePack())
+    if(isAuth){
+      dispatch(deletePack())
+    }
     closeWindow()
   }
 
