@@ -2,7 +2,7 @@ import React from "react";
 import {ModalWindow} from "../../../../common/ModalWindow/ModalWindow";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import SuperButton from "../../../../common/SuperButton/SuperButton";
-import {deletePack} from "../../../../reducers/packs-reducer";
+import {deletePack, fetchPacks} from "../../../../reducers/packs-reducer";
 import {NavLink} from "react-router-dom";
 
 type DeletePackModalPropsType = {
@@ -19,16 +19,14 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
   } = props
   const dispatch = useAppDispatch()
   const packName = useAppSelector(state => state.packs.currentPackName)
-  const isAuth = useAppSelector(state => state.auth.isAuth)
 
   const closeWindow = () => {
     closeModalWindow(false)
   }
 
   const removePack = () => {
-    if(isAuth){
-      dispatch(deletePack())
-    }
+    dispatch(deletePack())
+    dispatch(fetchPacks())
     closeWindow()
   }
 
@@ -38,8 +36,8 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
         <strong>
           {packName}
         </strong>?
-         All cards will be deleted.
-        </p>
+        All cards will be deleted.
+      </p>
       <div className='modal-buttons-wrapper'>
         <SuperButton superClassName='whiteButton' onClick={closeWindow}>Cancel</SuperButton>
         <NavLink to={'/packs'}>
