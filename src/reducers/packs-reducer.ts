@@ -163,6 +163,8 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
       await packsApi.changePack({_id, name, private: privacy})
       await dispatch(fetchPacks())
       dispatch(fetchCards(_id))
+      dispatch(setCurrentPackIdName('', ''))
+
     } catch (e) {
       dispatch(setAppStatus('failed'))
       handleServerAppError(e as Error | AxiosError, dispatch)
