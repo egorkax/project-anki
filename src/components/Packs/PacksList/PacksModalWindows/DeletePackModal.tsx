@@ -25,9 +25,11 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
   }
 
   const removePack = () => {
-    dispatch(deletePack())
-    // closeWindow()
-    closeModalWindow(false)
+    setTimeout(()=>{
+      dispatch(deletePack())
+    },2000)
+    closeWindow()
+    // closeModalWindow(false)
   }
 
   return (
