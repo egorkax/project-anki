@@ -148,8 +148,6 @@ export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
     try {
       await packsApi.addPack({name, private: isPrivate})
       dispatch(fetchPacks())
-      dispatch(setCurrentPackIdName('', ''))
-
     } catch (e) {
       dispatch(setAppStatus('failed'))
       handleServerAppError(e as Error | AxiosError, dispatch)
@@ -163,8 +161,6 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
       await packsApi.changePack({_id, name, private: privacy})
       await dispatch(fetchPacks())
       dispatch(fetchCards(_id))
-      dispatch(setCurrentPackIdName('', ''))
-
     } catch (e) {
       dispatch(setAppStatus('failed'))
       handleServerAppError(e as Error | AxiosError, dispatch)
