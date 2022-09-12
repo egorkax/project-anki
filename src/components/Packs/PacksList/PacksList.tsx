@@ -31,6 +31,8 @@ export const PacksList = () => {
 
 
   useEffect(() => {
+    console.log(isAuth)
+
     if (!isAuth) {
       return
     }
