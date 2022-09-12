@@ -148,6 +148,8 @@ export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
     try {
       await packsApi.addPack({name, private: isPrivate})
       dispatch(fetchPacks())
+      dispatch(setCurrentPackIdName('', ''))
+
     } catch (e) {
       dispatch(setAppStatus('failed'))
       handleServerAppError(e as Error | AxiosError, dispatch)
