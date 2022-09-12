@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/project-anki/static/css/main.009fdac8.css",
-    "main.js": "/project-anki/static/js/main.df5bdad0.js",
+    "main.js": "/project-anki/static/js/main.a100f96c.js",
     "static/js/787.28cb0dcd.chunk.js": "/project-anki/static/js/787.28cb0dcd.chunk.js",
     "static/media/avatar.png": "/project-anki/static/media/avatar.4c6981b3aa26e18ed4ec.png",
     "static/media/logo.svg": "/project-anki/static/media/logo.6035a8f0df6a3ccf0900230854a8abfd.svg",
@@ -13,11 +13,11 @@
     "static/media/arrow.svg": "/project-anki/static/media/arrow.19c7bd8ee7d32ca8451f1de3f6803354.svg",
     "static/media/Polygon 2.svg": "/project-anki/static/media/Polygon 2.fea3ba07db5a1e87b16c9acd04731f72.svg",
     "main.009fdac8.css.map": "/project-anki/static/css/main.009fdac8.css.map",
-    "main.df5bdad0.js.map": "/project-anki/static/js/main.df5bdad0.js.map",
+    "main.a100f96c.js.map": "/project-anki/static/js/main.a100f96c.js.map",
     "787.28cb0dcd.chunk.js.map": "/project-anki/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.009fdac8.css",
-    "static/js/main.df5bdad0.js"
+    "static/js/main.a100f96c.js"
   ]
 }
