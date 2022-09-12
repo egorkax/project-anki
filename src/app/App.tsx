@@ -7,7 +7,6 @@ import {Preloader} from '../common/Loaders/Preloader/Preloader';
 import {AppPagesRoutes} from './AppPagesRoutes';
 import {useAppDispatch, useAppSelector} from '../store/store';
 import {Header} from "../components/Header/Header";
-import {ModalWindow} from "../common/ModalWindow/ModalWindow";
 import {Alert} from "../common/Alert/Alert";
 
 
@@ -19,7 +18,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(initializeApp())
-    }, [])
+    }, [dispatch])
 
     if (!isInitialized) return <Preloader/>
 

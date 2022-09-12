@@ -12,29 +12,24 @@ import {Learn} from "../components/Packs/LearnPacksMode/Learn";
 
 
 export const AppPagesRoutes = () => {
-    let {token} = useParams();
-    return (
-        <>
-            <Routes>
-
-                {/*в начале мы попадаем на страницу '/' и переходим сразу на страницу Login*/}
-                <Route path={'/'} element={<Navigate to={'/login'}/>}/>
-
-                <Route path={'/login'} element={<SignIn/>}/>
-                <Route path={'/registration'} element={<SignUp/>}/>
-                <Route path={'/password-recovery'} element={<RecoveryPassword/>}/>
-                <Route path={'/new-password/:token'} element={<NewPassword/>}/>
-                <Route path={'/profile'} element={<Profile/>}/>
-                <Route path={'/packs'} element={<PacksList/>}/>
-                <Route path={'/packs/:packId'} element={<CardsList/>}/>
-                <Route path={'/packs/learn/:packId'} element={<Learn/>}/>
-
-
-                {/*он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
-                <Route path={'/*'} element={<Error404/>}/>
-
-            </Routes>
-        </>
-    )
+  let {token} = useParams();
+  return (
+    <>
+      <Routes>
+        {/*в начале мы попадаем на страницу '/' и переходим сразу на страницу Login*/}
+        <Route path={'/'} element={<Navigate to={'/login'}/>}/>
+        <Route path={'/login'} element={<SignIn/>}/>
+        <Route path={'/registration'} element={<SignUp/>}/>
+        <Route path={'/password-recovery'} element={<RecoveryPassword/>}/>
+        <Route path={'/new-password/:token'} element={<NewPassword/>}/>
+        <Route path={'/profile'} element={<Profile/>}/>
+        <Route path={'/packs'} element={<PacksList/>}/>
+        <Route path={'/packs/:packId'} element={<CardsList/>}/>
+        <Route path={'/packs/learn/:packId'} element={<Learn/>}/>
+        {/*он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
+        <Route path={'/*'} element={<Error404/>}/>
+      </Routes>
+    </>
+  )
 }
 
