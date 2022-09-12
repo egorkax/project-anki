@@ -2,7 +2,7 @@ import React from "react";
 import {ModalWindow} from "../../../../common/ModalWindow/ModalWindow";
 import {useAppDispatch, useAppSelector} from "../../../../store/store";
 import SuperButton from "../../../../common/SuperButton/SuperButton";
-import {deletePack, fetchPacks} from "../../../../reducers/packs-reducer";
+import {deletePack} from "../../../../reducers/packs-reducer";
 import {NavLink} from "react-router-dom";
 
 type DeletePackModalPropsType = {
@@ -26,7 +26,6 @@ export const DeletePackModal = (props: DeletePackModalPropsType) => {
 
   const removePack = () => {
     dispatch(deletePack())
-    dispatch(fetchPacks())
     closeWindow()
   }
 
