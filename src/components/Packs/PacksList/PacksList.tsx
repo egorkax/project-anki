@@ -35,7 +35,7 @@ export const PacksList = () => {
       return
     }
     dispatch(fetchPacks())
-  }, [])
+  }, [isAuth])
 
   const openModalAddPack = () => {
     setAddPackOpen(true)
