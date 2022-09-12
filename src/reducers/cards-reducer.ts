@@ -6,7 +6,7 @@ import {
   GetCardsResponseType,
   UpdatedGradeDataType
 } from "../api/cards-api";
-import {AppRootStateType, AppThunk} from "../store/store";
+import {AppThunk} from "../store/store";
 import {setAppStatus} from "./app-reducer";
 import {handleServerAppError} from "../utils/error-utils";
 import {AxiosError} from "axios";
@@ -83,7 +83,7 @@ export const setCurrentCardQuestionAndId = (currentCardId: string, currentCardQu
 
 //thunks
 export const fetchCards = (packId: string): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       const params: CardsParamsType = {
         cardsPack_id: packId,
@@ -103,7 +103,7 @@ export const fetchCards = (packId: string): AppThunk =>
 
 
 export const showCardsPerPage = (pageCount: number, packId: string): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       dispatch(setAppStatus('loading'))
       const params: CardsParamsType = {
@@ -121,7 +121,7 @@ export const showCardsPerPage = (pageCount: number, packId: string): AppThunk =>
     }
   }
 export const currentCardsPage = (page: number, packId: string): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       dispatch(setAppStatus('loading'))
       const params: CardsParamsType = {
@@ -169,7 +169,7 @@ export const removeCard = (cardsPack_id: string, id: string): AppThunk =>
     }
   }
 export const updateCard = (cardsPack_id: string, question: string, answer: string): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       dispatch(setAppStatus('loading'))
       const params: EditCardParamType = {
@@ -187,7 +187,7 @@ export const updateCard = (cardsPack_id: string, question: string, answer: strin
   }
 
 export const updateGrade = (packId: string, card_id: string, grade: number): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       dispatch(setAppStatus('loading'))
       const params: UpdatedGradeDataType = {

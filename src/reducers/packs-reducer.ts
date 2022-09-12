@@ -1,5 +1,5 @@
 import {GetPacksResponseType, packsApi} from "../api/packs-api";
-import {AppRootStateType, AppThunk} from "../store/store";
+import {AppThunk} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
 import {AxiosError} from "axios";
 import {setAppStatus} from "./app-reducer";
@@ -84,7 +84,7 @@ export const setCurrentPackIdName = (currentPackId: string, currentPackName: str
 
 //thunks
 export const fetchPacks = (): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       dispatch(setAppStatus('loading'))
       const isMy = getState().packs.isMy
@@ -108,7 +108,7 @@ export const fetchPacks = (): AppThunk =>
   }
 
 export const showItemsPerPage = (pageCount: number): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       dispatch(setAppStatus('loading'))
       const isMy = getState().packs.isMy
@@ -131,7 +131,7 @@ export const showItemsPerPage = (pageCount: number): AppThunk =>
   }
 
 export const deletePack = (): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       const packId = getState().packs.currentPackId
       await packsApi.deletePack(packId)
@@ -155,7 +155,7 @@ export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
   }
 
 export const editPack = (name?: string, privacy?: boolean): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       const _id = getState().packs.currentPackId
       await packsApi.changePack({_id, name, private: privacy})
@@ -178,7 +178,7 @@ export const clearRangeAndInput = (): AppThunk =>
   }
 
 export const currentPage = (page: number): AppThunk =>
-  async (dispatch, getState: () => AppRootStateType) => {
+  async (dispatch, getState) => {
     try {
       dispatch(setAppStatus('loading'))
       const isMy = getState().packs.isMy

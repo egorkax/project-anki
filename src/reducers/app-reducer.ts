@@ -1,9 +1,8 @@
-import {Dispatch} from "redux";
 import axios, {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {changeIsAuth, StatusTypes} from "./auth-reducer";
 import {setUserData} from "./profile-reducer";
-import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
+import {AppThunk, DispatchType} from "../store/store";
 
 const initialState = {
   isInitialized: false,
@@ -29,7 +28,7 @@ export const setAppError = (appError: string) => ({type: "SET_APP_ERROR", payloa
 export const setAppStatus = (appStatus: StatusTypes) => ({type: "SET_APP_STATUS", payload: {appStatus}} as const)
 
 //thunks
-export const initializeApp = (): AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
+export const initializeApp = (): AppThunk => async (dispatch: DispatchType) => {
   try {
     const response = await authAPI.authMe()
     dispatch(setIsInitialized())

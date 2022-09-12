@@ -1,6 +1,6 @@
 import {profileAPI} from "../api/profile-api";
 import {AxiosError} from "axios";
-import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
+import {AppThunk, DispatchType} from "../store/store";
 import {setStatus} from "./auth-reducer";
 import {handleServerAppError} from "../utils/error-utils";
 
@@ -39,7 +39,7 @@ export const setUserData = (userData: UserType) => ({type: 'SET_USER_DATA', user
 export const deleteUserData = () => ({type: 'DELETE_USER_DATA'} as const)
 
 //thunks
-export const changeUserNameTC = (name: string): AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
+export const changeUserNameTC = (name: string): AppThunk => async (dispatch: DispatchType) => {
   try {
     await profileAPI.changeUserName({name, avatar: ''})
     dispatch(setNewUserNameAC(name))

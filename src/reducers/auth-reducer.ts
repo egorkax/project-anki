@@ -1,7 +1,7 @@
 import {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 import {deleteUserData, setUserData} from "./profile-reducer";
-import {AppRootStateType, AppThunk, DispatchType} from "../store/store";
+import {AppThunk} from "../store/store";
 import {handleServerAppError} from "../utils/error-utils";
 import {setAppStatus} from "./app-reducer";
 
@@ -75,7 +75,7 @@ export const recoveryPassword = (email: string): AppThunk => async function (dis
   }
 }
 
-export const updatePassword = (password: string, token: string | undefined): AppThunk => async function (dispatch) {
+export const updatePassword = (password: string, token: string | undefined): AppThunk => async (dispatch) => {
   try {
     dispatch(setAppStatus('loading'))
     let payload = {password: password, resetPasswordToken: token}
@@ -88,7 +88,7 @@ export const updatePassword = (password: string, token: string | undefined): App
   }
 }
 
-export const signUp = (signUpData: SignUpDataType):AppThunk => async (dispatch) => {
+export const signUp = (signUpData: SignUpDataType): AppThunk => async (dispatch) => {
   try {
     dispatch(setAppStatus('loading'))
     const response = await authAPI.signUp(signUpData)
@@ -101,7 +101,7 @@ export const signUp = (signUpData: SignUpDataType):AppThunk => async (dispatch) 
   }
 }
 
-export const signIn = (email: string, password: string, rememberMe: boolean) => async function (dispatch: any) {
+export const signIn = (email: string, password: string, rememberMe: boolean): AppThunk => async (dispatch) => {
   try {
     dispatch(setStatus('loading'))
     const payload = {email, password, rememberMe}
@@ -115,7 +115,7 @@ export const signIn = (email: string, password: string, rememberMe: boolean) => 
   }
 }
 
-export const signOut = (): AppThunk => async (dispatch: DispatchType, getState: () => AppRootStateType) => {
+export const signOut = (): AppThunk => async (dispatch) => {
   try {
     dispatch(setStatus('loading'))
     await authAPI.signOut()
