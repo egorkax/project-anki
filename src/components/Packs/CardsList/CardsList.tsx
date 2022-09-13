@@ -35,7 +35,9 @@ export const CardsList = () => {
 
   useEffect(() => {
     if (packId && isAuth) {
-      dispatch(fetchCards(packId))
+      setTimeout(()=>{
+        dispatch(fetchCards(packId))
+      },1000)
     }
   },[isAuth])
 
