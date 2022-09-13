@@ -29,6 +29,7 @@
     margin-top: 30px;
 }
 
+
 .avatar {
     width: 96px;
     height: 96px;
@@ -49,7 +50,7 @@
 
 .blockEmail {
     margin-top: 14px;
-    cursor:default;
+    cursor: default;
 }
 
 .email {
@@ -64,7 +65,7 @@
     margin-top: 20px;
 }
 
-.button{
+.button {
     width: 127px;
     height: 36px;
     background: #FCFCFC;
@@ -77,6 +78,44 @@
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
+}
+
+/*//upload*/
+.uploadWrap {
+    position: relative;
+}
+.upload{
+    position: absolute;
+    top: -30px;
+    left: 60px;
+}
+
+.uploadWrap input[type=file] {
+    outline: 0;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none
+}
+.icon{
+    width: 28px;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}
+.uploadWrap .uploadLabel {
+    width: 32px;
+    height: 32px;
+    background-color: gray;
+    border: 2px solid whitesmoke;
+    border-radius: 50%;
+    display: block;
+    padding: 1.2em;
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center;
+}
+.uploadLabel:hover  {
+    background-color: rgba(0,0,0,0.8);
 }
 
 

@@ -5,6 +5,9 @@ export const profileAPI = {
     changeUserName(data: ChangeUserNameType) {
         return instance.put<ChangeUserResponseType>('auth/me', data);
     },
+    changeAvatar(data: ChangeUserNameType){
+        return instance.put<ChangeUserResponseType>('auth/me', data)
+    }
 }
 
 //types

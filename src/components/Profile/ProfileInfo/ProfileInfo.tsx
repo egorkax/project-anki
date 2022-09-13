@@ -10,11 +10,14 @@ import {UserType} from "../../../reducers/profile-reducer";
 import {signOut} from "../../../reducers/auth-reducer";
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
+import {UploadAvatar} from "./UploadAvatar";
+import defaultAvatar from '../../../assets/images/avatar.png'
 
 export const ProfileInfo = () => {
     const user = useSelector<AppRootStateType,UserType>(state => state.profile);
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, void, AnyAction>>()
     const authStatus = useSelector<AppRootStateType, string>(state => state.auth.status)
+    const ava = useSelector<AppRootStateType, string>(state => state.profile.avatar)
 
     const isLoading = authStatus === 'loading'
     const logOutHandler = () => {
@@ -25,7 +28,8 @@ export const ProfileInfo = () => {
     <div className={s.profileInfo}>
       <h2 className={s.title}>Personal Information</h2>
       <div className={s.blockAvatar}>
-        <img className={s.avatar} src={ava} alt={'ava'}/>
+        <img className={s.avatar} src={ava?ava:defaultAvatar} alt={'ava'}/>
+        <UploadAvatar/>
       </div>
       <div className={s.blockName}>
         <EditableSpan/>

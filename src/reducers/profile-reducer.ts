@@ -1,8 +1,9 @@
 import {profileAPI} from "../api/profile-api";
 import {AxiosError} from "axios";
-import {AppThunk, DispatchType} from "../store/store";
+import {AppThunk} from "../store/store";
 import {setStatus} from "./auth-reducer";
 import {handleServerAppError} from "../utils/error-utils";
+
 
 const initialState: UserType = {
   _id: '',
@@ -26,6 +27,8 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
       return {...state, ...action.userData}
     case 'SET_USER_NAME':
       return {...state, name: action.name}
+    case 'SET_AVATAR':
+      return {...state, avatar: action.avatar}
     case 'DELETE_USER_DATA':
       return {...initialState}
     default:
@@ -35,14 +38,27 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
 
 // actions
 export const setNewUserNameAC = (name: string) => ({type: 'SET_USER_NAME', name} as const)
+export const setNewAvatarAC = (avatar: string) => ({type: 'SET_AVATAR', avatar} as const)
 export const setUserData = (userData: UserType) => ({type: 'SET_USER_DATA', userData} as const)
 export const deleteUserData = () => ({type: 'DELETE_USER_DATA'} as const)
 
 //thunks
-export const changeUserNameTC = (name: string): AppThunk => async (dispatch: DispatchType) => {
+export const changeUserNameTC = (name: string): AppThunk => async (dispatch, getState) => {
   try {
-    await profileAPI.changeUserName({name, avatar: ''})
+    const avatar = getState().profile.avatar
+    await profileAPI.changeUserName({name, avatar})
     dispatch(setNewUserNameAC(name))
+  } catch (e) {
+    dispatch(setStatus('failed'))
+    const err = e as Error | AxiosError
+    handleServerAppError(err, dispatch)
+  }
+}
+export const uploadAvatar = (avatar: string): AppThunk => async (dispatch, getState) => {
+  try {
+    const name = getState().profile.name
+    const response = await profileAPI.changeAvatar({name, avatar})
+    dispatch(setUserData(response.data.updatedUser))
   } catch (e) {
     dispatch(setStatus('failed'))
     const err = e as Error | AxiosError
@@ -56,6 +72,7 @@ export type ProfileActionsType =
   | ReturnType<typeof setNewUserNameAC>
   | ReturnType<typeof deleteUserData>
   | ReturnType<typeof setUserData>
+  | ReturnType<typeof setNewAvatarAC>
 
 
 export type UserType = {
@@ -71,5 +88,5 @@ export type UserType = {
   __v: number;
   token: string;
   tokenDeathTime: number;
-  avatar?: string;
+  avatar: string;
 }
