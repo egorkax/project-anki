@@ -6,14 +6,16 @@ import {AppActionsType, appReducer} from "../reducers/app-reducer";
 import {AuthActionType, authReducer} from "../reducers/auth-reducer";
 import {CardsActionType, cardsReducer} from "../reducers/cards-reducer";
 import {PacksActionType, packsReducer} from "../reducers/packs-reducer";
+import {usersReducer} from "../reducers/users-reducer";
 
 
 const rootReducer = combineReducers({
-    profile: profileReducer,
-    app: appReducer,
-    auth: authReducer,
-    cards: cardsReducer,
-    packs: packsReducer,
+  profile: profileReducer,
+  app: appReducer,
+  auth: authReducer,
+  cards: cardsReducer,
+  packs: packsReducer,
+  users: usersReducer
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 //types

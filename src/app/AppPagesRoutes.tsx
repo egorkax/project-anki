@@ -9,6 +9,7 @@ import {Profile} from "../components/Profile/Profile";
 import {PacksList} from '../components/Packs/PacksList/PacksList';
 import {CardsList} from "../components/Packs/CardsList/CardsList";
 import {Learn} from "../components/Packs/LearnPacksMode/Learn";
+import {Users} from "../components/Users/Users";
 
 
 export const AppPagesRoutes = () => {
@@ -23,6 +24,7 @@ export const AppPagesRoutes = () => {
         <Route path={'/password-recovery'} element={<RecoveryPassword/>}/>
         <Route path={'/new-password/:token'} element={<NewPassword/>}/>
         <Route path={'/profile'} element={<Profile/>}/>
+        <Route path={'/users'} element={<Users/>}/>
         <Route path={'/packs'} element={<PacksList/>}/>
         <Route path={'/packs/:packId'} element={<CardsList/>}/>
         <Route path={'/packs/learn/:packId'} element={<Learn/>}/>

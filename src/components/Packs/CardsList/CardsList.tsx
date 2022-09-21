@@ -5,12 +5,11 @@ import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType, useAppSelector} from "../../../store/store";
 import {AnyAction} from "redux";
 import {
-  changeCardsSort,
   changeFilterCardQuestion,
   createCard,
   currentCardsPage,
   fetchCards,
-  showCardsPerPage, SORT_CARDS
+  showCardsPerPage
 } from "../../../reducers/cards-reducer";
 import {BackToPacksLink} from "../../../common/BackToPacksLink/BackToPacksLink";
 import '../PacksBlock.css'

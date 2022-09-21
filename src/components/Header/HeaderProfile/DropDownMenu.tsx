@@ -18,6 +18,7 @@ export const DropDownMenu = () => {
       <HeaderProfile/>
       <div className={s.dropdownContent}>
         <NavLink to={'/profile'}><UserSvgIcon/> Profile</NavLink>
+        <NavLink to={'/users'}><UserSvgIcon/> Users</NavLink>
         <a onClick={logOutHandler}><img src={logOutIcon} alt={'icon'}/> Log out</a>
       </div>
     </div>
