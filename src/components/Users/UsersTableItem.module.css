@@ -1,0 +1,18 @@
+.actions {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+.disable{
+    width: 16px;
+    border: none;
+    background: transparent;
+    opacity: 0.6;
+}
