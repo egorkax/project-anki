@@ -36,4 +36,5 @@ export type UserType = {
   publicCardPacksCount: number;
   created: string;
   updated: string;
+  avatar?: string;
 }

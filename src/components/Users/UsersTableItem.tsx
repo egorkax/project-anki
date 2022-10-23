@@ -1,6 +1,9 @@
 import React from "react";
+import s from "../Users/UsersTableItem.module.css";
+import defaultAvatar from "../../assets/images/avatar.png";
 
 type PacksTableItemPropsType = {
+  avatar: string
   name: string
   cardsCount: number
   lastUpdated: string
@@ -10,6 +13,7 @@ type PacksTableItemPropsType = {
 
 export const UsersTableItem = (props: PacksTableItemPropsType) => {
   const {
+    avatar,
     name,
     cardsCount,
     lastUpdated,
@@ -20,7 +24,10 @@ export const UsersTableItem = (props: PacksTableItemPropsType) => {
 
   return (
     <tr>
-      <td className='name'>{name}</td>
+      <td className='name'>
+        <img className={s.ava} width={'50px'} height={'50px'} src={avatar ? avatar : defaultAvatar} alt={'ava'}/>
+        {name}
+      </td>
       <td>{cardsCount}</td>
       <td>{date}</td>
       <td>{createdBy}</td>

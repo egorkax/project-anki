@@ -15,6 +15,7 @@ const initialState = {
       publicCardPacksCount: 0,
       created: '',
       updated: '',
+      avatar: '+',
     }
   ],
   page: 1,
@@ -29,7 +30,7 @@ const initialState = {
 export const usersReducer = (state: InitialStateType = initialState, action: UsersActionType): InitialStateType => {
   switch (action.type) {
     case 'SET-USERS':
-      return {...state, ...action.payload}
+      return <InitialStateType>{...state, ...action.payload}
     default:
       return state
   }

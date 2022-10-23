@@ -40,7 +40,8 @@ export const Users = () => {
 
           <UsersTableHeader/>
           {users.map(user =>
-            <UsersTableItem name={user.name}
+            <UsersTableItem avatar={user.avatar}
+                            name={user.name}
                             cardsCount={user.publicCardPacksCount}
                             lastUpdated={user.updated}
                             createdBy={user.created}
