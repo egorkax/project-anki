@@ -11,3 +11,6 @@
     text-decoration: none;
     color: black;
 }
+.userItem:hover{
+    background-color: #EFEFEF;
+}

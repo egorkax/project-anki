@@ -23,7 +23,7 @@ export const UsersTableItem = (props: PacksTableItemPropsType) => {
   const date = lastUpdated.slice(0, 10)
 
   return (
-    <tr>
+    <tr className={s.userItem}>
       <td className='name'>
         <NavLink to={'/profile'} className={s.navlink}>
           <img className={s.ava} width={'50px'} height={'50px'} src={avatar ? avatar : defaultAvatar} alt={'ava'}/>
