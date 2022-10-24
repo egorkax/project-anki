@@ -37,7 +37,6 @@ export const Users = () => {
       <div className='table-wrapper packs-wrapper'>
         <BackToPacksLink/>
         <table className='packs-block '>
-
           <UsersTableHeader/>
           {users.map(user =>
             <UsersTableItem avatar={user.avatar}
