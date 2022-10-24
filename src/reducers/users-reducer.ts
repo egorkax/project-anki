@@ -15,7 +15,7 @@ const initialState = {
       publicCardPacksCount: 0,
       created: '',
       updated: '',
-      avatar: '+',
+      avatar: '',
     }
   ],
   page: 1,

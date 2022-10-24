@@ -1,6 +1,6 @@
 import React from "react";
 import s from "../Users/UsersTableItem.module.css";
-import defaultAvatar from "../../assets/images/avatar.png";
+import defaultAvatar from "../../assets/icons/photo.png";
 
 type PacksTableItemPropsType = {
   avatar: string
