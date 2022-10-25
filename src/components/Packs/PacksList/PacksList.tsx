@@ -45,9 +45,9 @@ export const PacksList = () => {
     setEditPackOpen(true)
   }
 
-    const openModalRemovePack = () => {
-        setRemovePackOpen(true)
-    }
+  const openModalRemovePack = () => {
+    setRemovePackOpen(true)
+  }
 
     const changePack = (name: string, isPrivatePack: boolean) => {
         dispatch(editPack(name, isPrivatePack))

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {currentUserPage, fetchUsers, showUsersPerPage} from "../../reducers/users-reducer";
-import {Navigate} from "react-router-dom";
 import {Paginator} from "../../common/Paginator/Paginator";
 import {UsersTableItem} from "./UsersTableItem";
 import {UsersTableHeader} from "./UsersTableHeader";
@@ -13,15 +12,12 @@ export const Users = () => {
   const page = useAppSelector(state => state.users.page)
   const pageCount = useAppSelector(state => state.users.pageCount)
   const usersTotalCount = useAppSelector(state => state.users.usersTotalCount)
-  const isAuth = useAppSelector(state => state.auth.isAuth)
 
 
   useEffect(() => {
-    if (!isAuth) {
-      return
-    }
     dispatch(fetchUsers())
-  }, [isAuth])
+  }, [])
+
 
   const onChangeShowItems = (pageCount: number) => {
     dispatch(showUsersPerPage(pageCount))
@@ -30,7 +26,6 @@ export const Users = () => {
     dispatch(currentUserPage(page))
   }
 
-  if (!isAuth) return <Navigate to={'/login'}/>
   return (
     <div>
       <div className='table-wrapper packs-wrapper'>
@@ -44,7 +39,6 @@ export const Users = () => {
                             lastUpdated={user.updated}
                             createdBy={user.created}
                             userId={user._id}
-
             />
           )}
           <Paginator totalItemsCount={usersTotalCount}
