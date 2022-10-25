@@ -1,7 +1,6 @@
 import React from "react";
 import s from "../Users/UsersTableItem.module.css";
 import defaultAvatar from "../../assets/icons/photo.png";
-import {NavLink} from "react-router-dom";
 
 type PacksTableItemPropsType = {
   avatar: string
@@ -25,10 +24,11 @@ export const UsersTableItem = (props: PacksTableItemPropsType) => {
   return (
     <tr className={s.userItem}>
       <td className='name'>
-        <NavLink to={'/profile'} className={s.navlink}>
+        <p className={s.nameWithAva}>
           <img className={s.ava} width={'50px'} height={'50px'} src={avatar ? avatar : defaultAvatar} alt={'ava'}/>
           {name}
-        </NavLink>
+        </p>
+
       </td>
       <td>{cardsCount}</td>
       <td>{date}</td>

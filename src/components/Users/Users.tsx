@@ -13,7 +13,6 @@ export const Users = () => {
   const page = useAppSelector(state => state.users.page)
   const pageCount = useAppSelector(state => state.users.pageCount)
   const usersTotalCount = useAppSelector(state => state.users.usersTotalCount)
-
   const isAuth = useAppSelector(state => state.auth.isAuth)
 
 
@@ -46,7 +45,8 @@ export const Users = () => {
                             createdBy={user.created}
                             userId={user._id}
 
-            />)}
+            />
+          )}
           <Paginator totalItemsCount={usersTotalCount}
                      pageSize={pageCount}
                      currentPage={page}
