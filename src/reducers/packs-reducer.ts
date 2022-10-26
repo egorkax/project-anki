@@ -28,7 +28,7 @@ const initialState = {
       name: '',
       more_id: '',
       grade: 0,
-      deckCover: null,
+      deckCover: '',
       created: '',
       cardsCount: 0,
     },

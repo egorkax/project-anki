@@ -33,6 +33,7 @@ export const PacksTable = (props: PacksTablePropsType) => {
                           createdBy={pack.user_name}
                           userId={pack.user_id}
                           packId={pack._id}
+                          deckCover={pack.deckCover}
                           openEditModalWindow={openEditModalWindow}
                           openRemoveModalWindow={openRemoveModalWindow}
           />)}

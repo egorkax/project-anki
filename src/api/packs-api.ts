@@ -55,7 +55,7 @@ export type PackType = {
     name: string
     more_id: string
     grade: number
-    deckCover: null
+    deckCover: string
     created: string
     cardsCount: number
 }
