@@ -16,3 +16,12 @@
     background: transparent;
     opacity: 0.6;
 }
+.packNameWithCover{
+    display: flex;
+    align-items: center;
+}
+.packNameWithCover img{
+    background-color: #cecece;
+    padding: 2px;
+    margin-right: 20px;
+}

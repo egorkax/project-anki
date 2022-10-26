@@ -47,6 +47,7 @@ const initialState = {
   isMy: false,
   currentPackId: '',
   currentPackName: '',
+  currentPackCover: ''
 }
 
 
@@ -54,6 +55,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
   switch (action.type) {
     case 'CLEAR_FILTERS':
     case "SET_PACKS":
+    case "SET_PACK_COVER":
     case "CHANGE_PACKS_SORT":
     case "CHANGE_MIN_MAX_CARDS_COUNT":
     case "FILTER_PACK_NAME":
@@ -69,6 +71,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
 //actions
 const setPacks = (packs: GetPacksResponseType) =>
   ({type: 'SET_PACKS', payload: {...packs}} as const)
+export const setCurrentPackCover = (currentPackCover: string) =>
+  ({type: 'SET_PACK_COVER', payload: {currentPackCover}} as const)
 export const changePacksSort = (sortPacks: SORT_PACKS) =>
   ({type: 'CHANGE_PACKS_SORT', payload: {sortPacks}} as const)
 export const changeMinMaxCardsCount = (minMaxCardsCount: { filterMinCardsCount: number, filterMaxCardsCount: number }) =>
@@ -144,9 +148,10 @@ export const deletePack = (): AppThunk =>
   }
 
 export const addNewPack = (name: string, isPrivate: boolean): AppThunk =>
-  async (dispatch) => {
+  async (dispatch, getState) => {
     try {
-      await packsApi.addPack({name, private: isPrivate})
+      const deckCover = getState().packs.currentPackCover
+      await packsApi.addPack({name, deckCover, private: isPrivate})
       dispatch(fetchPacks())
     } catch (e) {
       dispatch(setAppStatus('failed'))
@@ -158,7 +163,8 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
   async (dispatch, getState) => {
     try {
       const _id = getState().packs.currentPackId
-      await packsApi.changePack({_id, name, private: privacy})
+      const deckCover = getState().packs.currentPackCover
+      await packsApi.changePack({_id, name, deckCover, private: privacy})
       await dispatch(fetchPacks())
       dispatch(fetchCards(_id))
     } catch (e) {
@@ -166,6 +172,7 @@ export const editPack = (name?: string, privacy?: boolean): AppThunk =>
       handleServerAppError(e as Error | AxiosError, dispatch)
     }
   }
+
 export const clearRangeAndInput = (): AppThunk =>
   async (dispatch) => {
     try {
@@ -212,3 +219,4 @@ export type PacksActionType =
   | ReturnType<typeof changeIsMy>
   | ReturnType<typeof clearFilters>
   | ReturnType<typeof setCurrentPackIdName>
+  | ReturnType<typeof setCurrentPackCover>
